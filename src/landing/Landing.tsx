@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowRight, Blocks, LayoutDashboard, Mic, ShieldCheck, Volume2 } from 'lucide-react';
+import { ArrowRight, Blocks, Camera, LayoutDashboard, Mic, ShieldCheck, Volume2 } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { WordBar, ShapeLegend } from '../components/WordBar';
 import { Sparky, type SparkyMood } from '../components/Sparky';
@@ -11,13 +11,15 @@ import { MiniClass } from '../educators/MiniClass';
 import { buildWord, WORD_BANK, type Word } from '../shared/words';
 import { PROBLEMS } from '../shared/math';
 import { speak } from '../shared/speech';
-import { href } from '../shared/routes';
+import { IS_ARTIFACT, href } from '../shared/routes';
 import type { Step } from '../shared/progress';
 import '../app/app.css';
 import './landing.css';
 
 const APP = href('app', 'home');
 const EDU = href('educators', 'home');
+/** Opens the learner app with the Sparky Helps panel ready to turn on. */
+const HELPS = IS_ARTIFACT ? '#/app/helps' : `${APP}#helps`;
 
 function heroSize(word: Word): string {
   const n = word.word.length * 0.72 + 1.2;
@@ -392,8 +394,14 @@ function SparkySection() {
           <h2 id="sparky-title">Tries earn coins. Mistakes never cost any.</h2>
           <p>
             Sparky is a friendly dragon who cheers for effort. Children earn coins for building words, trying out loud and checking in, then spend them on
-            curry puffs, kites and crowns. Nothing is ever taken away. With Sparky Helps turned on, Sparky also notices when a child looks upset and offers a breathing game or an easier word.
+            curry puffs, kites and crowns. Nothing is ever taken away. With Sparky Helps turned on, Sparky watches the camera live, inside the browser, and offers a breathing game or an easier word when a child looks upset.
           </p>
+          <a className="rod rod--leaf rod--sm sparky-try" href={HELPS}>
+            <span className="rod-label">Try Sparky Helps live</span>
+            <span className="rod-unit">
+              <Camera size={16} aria-hidden="true" />
+            </span>
+          </a>
           <div className="feel-demo">
             <p className="feel-demo-q">How are you feeling?</p>
             <div className="feel-demo-row">

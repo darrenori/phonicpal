@@ -21,6 +21,11 @@ import './app.css';
 export type Tab = 'words' | 'scan' | 'maths' | 'sparky';
 const TABS: Tab[] = ['words', 'scan', 'maths', 'sparky'];
 
+/** A link to #helps (or #/app/helps in the artifact) opens the Sparky Helps panel. */
+function wantsHelps(): boolean {
+  return /^#\/?(app\/)?helps$/.test(window.location.hash);
+}
+
 function readRoute(): { tab: Tab; word?: string } {
   // Artifact builds route as #/app/words; the static site uses #words.
   const raw = window.location.hash.replace(/^#\/?(app\/?)?/, '');
@@ -57,12 +62,13 @@ export function App() {
   const [route, setRoute] = useState(readRoute);
   const [feelingsOpen, setFeelingsOpen] = useState(false);
   const [feelingsNudge, setFeelingsNudge] = useState(false);
-  const [helpsOpen, setHelpsOpen] = useState(false);
+  const [helpsOpen, setHelpsOpen] = useState(wantsHelps);
   const toolsRef = useRef<HTMLDialogElement>(null);
   const progress = useProgress();
 
   useEffect(() => {
     const onHash = () => {
+      if (wantsHelps()) setHelpsOpen(true);
       stopSpeaking();
       setRoute(readRoute());
       document.getElementById('main')?.focus({ preventScroll: true });
