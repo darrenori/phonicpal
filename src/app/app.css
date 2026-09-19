@@ -1395,3 +1395,318 @@ dialog::backdrop {
     display: none;
   }
 }
+
+/* Live camera: shared by the corner tile and the Sparky Helps panel */
+
+.live-view {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--r-control);
+  background: var(--deep);
+}
+.live-mirror {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(-1);
+}
+.live-mirror video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.live-frame {
+  --tone: var(--leaf);
+  position: absolute;
+  border: 3px solid var(--tone);
+  border-radius: 0.6rem;
+  box-shadow: 0 0 0 1px rgba(11, 15, 24, 0.35);
+  transition:
+    left 160ms linear,
+    top 160ms linear,
+    width 160ms linear,
+    height 160ms linear,
+    border-color var(--dur-2) linear;
+}
+.live-frame--watch {
+  --tone: var(--lemon);
+}
+.live-frame--upset {
+  --tone: var(--vermilion);
+}
+:root[data-motion='calm'] .live-frame {
+  transition: border-color var(--dur-2) linear;
+}
+.live-tag {
+  position: absolute;
+  left: 0.4rem;
+  top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0.45rem 0.1rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(11, 15, 24, 0.72);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.live-tag .helps-dot.is-on {
+  width: 0.45rem;
+  height: 0.45rem;
+  box-shadow: none;
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+:root[data-motion='calm'] .live-tag .helps-dot {
+  animation: none;
+}
+@keyframes live-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+.live-wait {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--s2);
+  color: #fff;
+  font-size: var(--t-xs);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* The corner tile: always on screen while the camera is on */
+
+.cam {
+  --tone: var(--leaf);
+  position: fixed;
+  z-index: 28;
+  right: var(--gutter);
+  bottom: calc(5.9rem + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, auto);
+  gap: var(--s3);
+  align-items: stretch;
+  padding: var(--s2);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  box-shadow:
+    0 0 0 1px var(--line),
+    inset 0 -4px 0 var(--tone),
+    var(--shadow-lift);
+  transition: box-shadow var(--dur-2) linear;
+}
+.cam--watch {
+  --tone: var(--lemon);
+}
+.cam--upset {
+  --tone: var(--vermilion);
+}
+.cam--small {
+  grid-template-columns: minmax(0, auto);
+}
+.cam-side {
+  display: grid;
+  align-content: space-between;
+  gap: var(--s2);
+  min-width: 8.5rem;
+  padding: 0.1rem 0.1rem 0.35rem;
+}
+.cam-top {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+.cam-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-right: auto;
+  padding-right: var(--s2);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.cam-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: var(--r-block);
+  background: transparent;
+  color: var(--ink-2);
+}
+.cam-btn:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.cam-mood {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.cam .meter span {
+  width: 1.2rem;
+  height: 0.55rem;
+  border-radius: 2px;
+}
+@media (min-width: 960px) {
+  .cam {
+    bottom: var(--gutter);
+  }
+}
+/* Leave room under the page so the last content can scroll clear of the camera tile. */
+.app:has(.cam) .app-main {
+  padding-bottom: calc(var(--s7) + 9rem);
+}
+.app:has(.cam--small) .app-main {
+  padding-bottom: calc(var(--s7) + 5rem);
+}
+/* Phones: a compact strip, so the word on screen stays in view. The LIVE tag on the picture names it. */
+@media (max-width: 640px) {
+  .cam {
+    right: var(--s3);
+    grid-template-columns: 5.25rem minmax(0, auto);
+    gap: var(--s2);
+    padding: 0.4rem;
+  }
+  .cam--small {
+    grid-template-columns: minmax(0, auto);
+  }
+  .cam-side {
+    grid-template-columns: auto auto;
+    grid-template-areas: 'mood top' 'meter meter';
+    align-items: center;
+    column-gap: var(--s2);
+    min-width: 0;
+    padding: 0 0.1rem 0.3rem;
+  }
+  .cam-top {
+    grid-area: top;
+    justify-content: end;
+  }
+  .cam-live {
+    padding-right: 0;
+  }
+  .cam-live-text {
+    display: none;
+  }
+  .cam-mood {
+    grid-area: mood;
+    font-size: var(--t-md);
+  }
+  .cam-side > .meter {
+    grid-area: meter;
+  }
+  .cam .meter span {
+    width: 0.95rem;
+  }
+  .app:has(.cam) .app-main {
+    padding-bottom: calc(var(--s7) + 5rem);
+  }
+}
+
+/* The panel's live section, for grown-ups */
+
+.dialog.helps {
+  width: min(46rem, calc(100vw - 2rem));
+}
+.helps-watch {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: var(--s5);
+  align-items: start;
+}
+.helps-cam {
+  display: grid;
+  gap: var(--s2);
+  margin: 0;
+}
+.helps-cam figcaption {
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.helps-cam figcaption strong {
+  color: var(--ink);
+  font-size: var(--t-lg);
+}
+.helps-readout {
+  display: grid;
+  gap: var(--s2);
+}
+.read-bars {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+}
+.read-bar {
+  display: grid;
+  grid-template-columns: 5.2rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-sm);
+}
+.read-bar dt {
+  color: var(--ink-2);
+}
+.read-bar.is-top dt {
+  color: var(--ink);
+  font-weight: 700;
+}
+.read-bar dd {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.2rem;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0;
+}
+.read-track {
+  height: 0.7rem;
+  border-radius: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.read-fill {
+  display: block;
+  height: 100%;
+  background: var(--leaf);
+  transition: width 160ms linear;
+}
+.read-bar--upset .read-fill {
+  background: var(--vermilion);
+}
+:root[data-motion='calm'] .read-fill {
+  transition: none;
+}
+.read-num {
+  text-align: right;
+  color: var(--ink-2);
+}
+.meter span.is-mark {
+  position: relative;
+}
+.meter span.is-mark::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -0.35rem;
+  bottom: -0.35rem;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--ink);
+}
+@media (max-width: 640px) {
+  .helps-watch {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -4,6 +4,7 @@ import { Sparky } from '../components/Sparky';
 import { Hear } from '../components/Controls';
 import { moodWatch, useMoodWatch, type WatchState } from '../ml/moodWatch';
 import { updateSettings, useSettings } from '../shared/settings';
+import { LiveView, ReadingBars, UpsetMeter, childWord } from './SparkyCam';
 
 const STATUS: Record<WatchState, string> = {
   off: 'Sparky Helps is off.',
@@ -11,28 +12,18 @@ const STATUS: Record<WatchState, string> = {
   watching: 'Sparky Helps is on.',
   blocked: 'The camera is blocked. A grown-up can allow it in this browser’s site settings, then try again.',
   unsupported: 'This device or browser can’t share its camera with Sparky Helps.',
-  preview: 'This preview can’t use the camera. Sparky Helps works in the full Upside app at upside-reads.vercel.app/app/.',
+  preview: 'Sparky Helps can’t use the camera inside this preview. Open the full Upside app at upside-reads.vercel.app/app/ to use it live.',
   error: 'Sparky Helps couldn’t start. Check the connection and try again.',
 };
 
 const ABOUT =
-  'When Sparky Helps is on, Sparky watches for signs that you feel upset or stuck, like a frown. Then Sparky offers a break, a breathing game or an easier word. You can always say no thanks.';
-
-/** A small mirrored preview of what the camera sees, so nothing is hidden from the child. */
-function Preview() {
-  const ref = useRef<HTMLVideoElement>(null);
-  useEffect(() => {
-    if (ref.current) ref.current.srcObject = moodWatch.mediaStream;
-  }, []);
-  return <video ref={ref} className="helps-preview" autoPlay muted playsInline aria-label="What the camera sees" />;
-}
+  'When Sparky Helps is on, Sparky watches the camera for signs that you feel upset or stuck, like a frown. Then Sparky offers a break, a breathing game or an easier word. You can always say no thanks.';
 
 export function SparkyHelpsPanel({ open, onClose, onPreview }: { open: boolean; onClose: () => void; onPreview: () => void }) {
   const ref = useRef<HTMLDialogElement>(null);
   const settings = useSettings();
   const watch = useMoodWatch();
   const [agreed, setAgreed] = useState(false);
-  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
     const d = ref.current;
@@ -45,14 +36,13 @@ export function SparkyHelpsPanel({ open, onClose, onPreview }: { open: boolean; 
 
   const on = settings.sparkyHelps;
   const failed = watch.state === 'blocked' || watch.state === 'unsupported' || watch.state === 'preview' || watch.state === 'error';
-  const units = Math.round(watch.upset * 10);
+  const live = on && (watch.state === 'starting' || watch.state === 'watching');
 
   const turnOn = () => {
     updateSettings({ sparkyHelps: true });
     moodWatch.start();
   };
   const turnOff = () => {
-    setPreview(false);
     updateSettings({ sparkyHelps: false });
     moodWatch.stop();
   };
@@ -69,35 +59,48 @@ export function SparkyHelpsPanel({ open, onClose, onPreview }: { open: boolean; 
           </button>
         </div>
 
-        <div className="helps-intro">
-          <Sparky mood={watch.state === 'watching' ? 'happy' : 'okay'} size="4.5rem" />
-          <p>{ABOUT}</p>
-        </div>
+        {!live && (
+          <div className="helps-intro">
+            <Sparky mood="okay" size="4.5rem" />
+            <p>{ABOUT}</p>
+          </div>
+        )}
 
-        {on && !failed ? (
-          <section className="helps-live" aria-label="Sparky Helps status">
+        {live ? (
+          <section className="helps-live" aria-label="Sparky Helps, live">
             <p className="helps-status" role="status">
               <span className={`helps-dot ${watch.state === 'watching' ? 'is-on' : ''}`} aria-hidden="true" />
-              {watch.state === 'watching' ? (watch.face ? 'Sparky Helps is on and can see you.' : 'Sparky Helps is on. Move into view of the camera.') : STATUS[watch.state]}
+              {watch.state === 'watching'
+                ? watch.face
+                  ? 'Sparky Helps is on and can see you.'
+                  : 'Sparky Helps is on. Move into view of the camera.'
+                : STATUS[watch.state]}
             </p>
+
+            <div className="helps-watch">
+              <figure className="helps-cam">
+                <LiveView />
+                <figcaption>
+                  Sparky sees: <strong>{childWord(watch)}</strong>
+                </figcaption>
+              </figure>
+              <div className="helps-readout">
+                <h3 className="field-label">What the model reads, live</h3>
+                <ReadingBars />
+              </div>
+            </div>
+
             {watch.state === 'watching' && (
               <div className="helps-meter-wrap">
                 <span className="field-label">How upset Sparky thinks you look</span>
-                <div className="meter meter--upset" role="meter" aria-valuemin={0} aria-valuemax={10} aria-valuenow={units} aria-label="How upset Sparky thinks you look">
-                  {Array.from({ length: 10 }, (_, i) => (
-                    <span key={i} className={i < units ? 'is-on' : ''} />
-                  ))}
-                </div>
-                <p className="step-note">Try it: make a grumpy face for a few seconds, and Sparky will come to check on you.</p>
+                <UpsetMeter upset={watch.upset} showMark />
+                <p className="step-note">
+                  When the red reaches the marked cell and stays there for 3 seconds, Sparky comes to check on you. Try it: make a grumpy face.
+                </p>
               </div>
             )}
-            {watch.state === 'watching' && preview && <Preview />}
+
             <div className="step-actions">
-              {watch.state === 'watching' && (
-                <button type="button" className="rod rod--surface rod--sm" aria-pressed={preview} onClick={() => setPreview((p) => !p)}>
-                  <span className="rod-label">{preview ? 'Hide the camera' : 'Show the camera'}</span>
-                </button>
-              )}
               <button type="button" className="rod rod--surface rod--sm" onClick={onPreview}>
                 <span className="rod-label">See what Sparky does</span>
               </button>
@@ -116,7 +119,8 @@ export function SparkyHelpsPanel({ open, onClose, onPreview }: { open: boolean; 
             <div className="helps-grownups">
               <h3>For grown-ups</h3>
               <ul className="brick-list">
-                <li>A small model checks the camera picture inside this browser, about once a second.</li>
+                <li>Sparky Helps uses this device’s camera, live. A small model reads the picture inside this browser several times a second.</li>
+                <li>The camera picture stays on screen in a corner while Sparky Helps is on, so the child always knows it’s on.</li>
                 <li>No pictures or video are saved or sent anywhere. Feelings aren’t recorded or shown to teachers.</li>
                 <li>Faces don’t always show how a child feels, so Sparky only offers help. The child decides.</li>
               </ul>
@@ -127,7 +131,7 @@ export function SparkyHelpsPanel({ open, onClose, onPreview }: { open: boolean; 
             </label>
             <div className="step-actions">
               <button type="button" className="rod rod--leaf" disabled={!agreed} onClick={turnOn}>
-                <span className="rod-label">{failed ? 'Try again' : 'Turn on Sparky Helps'}</span>
+                <span className="rod-label">{failed ? 'Try again' : 'Turn on the camera'}</span>
                 <span className="rod-unit">
                   <HeartHandshake size={20} aria-hidden="true" />
                 </span>

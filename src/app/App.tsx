@@ -11,6 +11,7 @@ import { stopSpeaking } from '../shared/speech';
 import { CoinToast } from './CoinToast';
 import { FeelingsDialog } from './Feelings';
 import { SparkyHelpsButton, SparkyHelpsPanel } from './SparkyHelps';
+import { SparkyCam } from './SparkyCam';
 import { WordsScreen } from './WordsScreen';
 import { ScanScreen } from './ScanScreen';
 import { MathsScreen } from './MathsScreen';
@@ -78,6 +79,7 @@ export function App() {
   // Sparky Helps: when the camera helper sees a child looking upset, Sparky offers the check-in.
   // Other parts of the site can react too, through moodWatch.onHelp or the upside:sparky-helps event.
   const offerHelp = useCallback(() => {
+    setHelpsOpen(false);
     setFeelingsNudge(true);
     setFeelingsOpen(true);
   }, []);
@@ -179,6 +181,7 @@ export function App() {
         </div>
       </dialog>
 
+      <SparkyCam onOpenSettings={() => setHelpsOpen(true)} />
       <ReadingLayer />
     </div>
   );

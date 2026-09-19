@@ -20,6 +20,8 @@ export interface ReadingSettings {
   speechRate: number;
   /** Sparky Helps: a grown-up turned on the camera helper. Off until they do. */
   sparkyHelps: boolean;
+  /** The live camera tile is folded down to a small label. */
+  sparkyCamSmall: boolean;
   /** Settings schema version; 2 made the bright day theme the default. */
   v: 2;
 }
@@ -37,6 +39,7 @@ export const DEFAULT_SETTINGS: ReadingSettings = {
   calmMotion: Boolean(prefersCalm),
   speechRate: 0.8,
   sparkyHelps: false,
+  sparkyCamSmall: false,
   v: 2,
 };
 
