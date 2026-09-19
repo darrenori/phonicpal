@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-19T09:21:17Z",
+  "title": "Design System: PhonicPal",
+  "extensions": {
+    "colorMeta": {
+      "cobalt": { "role": "primary", "displayName": "Rod Cobalt", "canonical": "#2449d8", "tonalRamp": ["#0d1a55", "#142a85", "#1a36a8", "#2449d8", "#4a69e6", "#7d93ee", "#b3c1f6", "#dce4fb"] },
+      "cobalt-edge": { "role": "primary", "displayName": "Rod Cobalt Edge", "canonical": "#1a36a8" },
+      "cobalt-hi": { "role": "primary", "displayName": "Rod Cobalt Light Half", "canonical": "#4a69e6" },
+      "cobalt-tint": { "role": "primary", "displayName": "Cobalt Focus Halo", "canonical": "#dce4fb" },
+      "lemon": { "role": "secondary", "displayName": "Unit Lemon", "canonical": "#f5c518", "tonalRamp": ["#4a3b00", "#7a6200", "#c29b00", "#f5c518", "#f9d85c", "#fbe38a", "#fbefc2", "#fdf8e4"] },
+      "lemon-edge": { "role": "secondary", "displayName": "Unit Lemon Edge", "canonical": "#c29b00" },
+      "lemon-hi": { "role": "secondary", "displayName": "Unit Lemon Light Half", "canonical": "#f9d85c" },
+      "lemon-tint": { "role": "secondary", "displayName": "Lemon Tint", "canonical": "#fbefc2" },
+      "vermilion": { "role": "tertiary", "displayName": "Drop Vermilion", "canonical": "#d43d27", "tonalRamp": ["#4a130a", "#7a1f12", "#a82c19", "#d43d27", "#e2644f", "#ec9383", "#f8dcd5", "#fcefeb"] },
+      "vermilion-edge": { "role": "tertiary", "displayName": "Drop Vermilion Edge", "canonical": "#a82c19" },
+      "vermilion-hi": { "role": "tertiary", "displayName": "Drop Vermilion Light Half", "canonical": "#e2644f" },
+      "vermilion-tint": { "role": "tertiary", "displayName": "Vermilion Tint", "canonical": "#f8dcd5" },
+      "leaf": { "role": "tertiary", "displayName": "Whole Leaf", "canonical": "#1f8250", "tonalRamp": ["#0a2e1c", "#10472b", "#16613b", "#1f8250", "#3aa56c", "#7cc69c", "#d5ecde", "#eef7f1"] },
+      "leaf-edge": { "role": "tertiary", "displayName": "Whole Leaf Edge", "canonical": "#16613b" },
+      "leaf-hi": { "role": "tertiary", "displayName": "Whole Leaf Light", "canonical": "#3aa56c" },
+      "leaf-tint": { "role": "tertiary", "displayName": "Leaf Tint", "canonical": "#d5ecde" },
+      "mat": { "role": "neutral", "displayName": "Cool Mat", "canonical": "#edf1ee", "tonalRamp": ["#9aa39d", "#b5beb8", "#cbd3ce", "#e1e7e3", "#edf1ee", "#f3f6f4", "#f9fbf9", "#ffffff"] },
+      "surface": { "role": "neutral", "displayName": "Tray White", "canonical": "#f9fbf9" },
+      "surface-2": { "role": "neutral", "displayName": "Recessed Tray", "canonical": "#e1e7e3" },
+      "ink": { "role": "neutral", "displayName": "Ink Navy", "canonical": "#17213a", "tonalRamp": ["#0b0f18", "#17213a", "#2e3852", "#46506a", "#6b7389", "#9aa1b3", "#c9cdd8", "#eef1f7"] },
+      "ink-2": { "role": "neutral", "displayName": "Ink Secondary", "canonical": "#46506a" },
+      "ink-3": { "role": "neutral", "displayName": "Ink Tertiary", "canonical": "#6b7389" },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "rgba(23, 33, 58, 0.12)" },
+      "line-strong": { "role": "neutral", "displayName": "Firm Line", "canonical": "rgba(23, 33, 58, 0.3)" },
+      "ghost": { "role": "neutral", "displayName": "Ghost Outline", "canonical": "rgba(23, 33, 58, 0.34)" },
+      "mat-grid": { "role": "neutral", "displayName": "Unit Grid Line", "canonical": "rgba(23, 33, 58, 0.055)" },
+      "focus": { "role": "neutral", "displayName": "Focus Ring", "canonical": "#2449d8" },
+      "mouth-lip": { "role": "neutral", "displayName": "Articulation Lip", "canonical": "#d9738a" },
+      "mouth-tongue": { "role": "neutral", "displayName": "Articulation Tongue", "canonical": "#f09aa7" },
+      "mouth-cavity": { "role": "neutral", "displayName": "Articulation Cavity", "canonical": "#5a1e2e" }
+    },
+    "themes": {
+      "night": {
+        "trigger": "prefers-color-scheme: dark (when data-pp-theme is auto or unset), data-theme='dark', or data-pp-theme='night'",
+        "values": { "mat": "#0f1420", "surface": "#171e2e", "surface-2": "#0b0f18", "deep": "#0b0f18", "ink": "#eef1f7", "ink-2": "#b8c0d2", "ink-3": "#8a93a8", "focus": "#f2c230", "cobalt": "#3d5fe8", "cobalt-edge": "#2a45b8", "cobalt-tint": "#1d2a55", "lemon": "#f2c230", "lemon-edge": "#b8900a", "lemon-tint": "#3a3217", "vermilion": "#e8553b", "vermilion-edge": "#a93a26", "vermilion-tint": "#45211b", "leaf": "#2a9a60", "leaf-edge": "#1c6f44", "leaf-tint": "#16342a", "on-leaf": "#06140c" }
+      },
+      "contrast": {
+        "trigger": "data-pp-theme='contrast'",
+        "values": { "mat": "#ffffff", "surface": "#ffffff", "ink": "#000000", "line": "#000000", "ghost": "#000000", "focus": "#0033cc", "cobalt": "#0033cc", "lemon": "#ffd400", "vermilion": "#b3200c", "leaf": "#006b35", "block-outline": "0 0 0 2px #000000" }
+      },
+      "deep-field": {
+        "trigger": ".on-deep scope inside a light page",
+        "values": { "background": "#17213a", "ink": "#eef1f7", "ink-2": "#b8c0d2", "surface": "#222c46", "focus": "#f2c230", "cobalt": "#3d5fe8", "leaf": "#43b477", "on-leaf": "#06140c" }
+      },
+      "reader-fonts": {
+        "lexend": { "glyphDrop": 0.125 },
+        "opendyslexic": { "fontFamily": "OpenDyslexic, Comic Sans MS, Segoe UI, sans-serif", "glyphDrop": 0.26 },
+        "atkinson": { "fontFamily": "Atkinson Hyperlegible, Verdana, Segoe UI, sans-serif", "glyphDrop": 0.13 }
+      },
+      "reader-size": { "s": "100%", "m": "106.25%", "l": "118.75%", "xl": "134.375%" },
+      "reader-spacing": {
+        "normal": { "track": "0.01em", "word": "0.06em", "leading": 1.55 },
+        "wide": { "track": "0.04em", "word": "0.16em", "leading": 1.65 },
+        "wider": { "track": "0.1em", "word": "0.32em", "leading": 1.85 }
+      },
+      "overlays": { "blue": "rgba(96, 156, 255, 0.2)", "yellow": "rgba(255, 214, 64, 0.22)", "rose": "rgba(255, 128, 156, 0.18)", "green": "rgba(96, 204, 128, 0.2)", "peach": "rgba(255, 160, 96, 0.2)" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The landing hero headline only, at 14ch max." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings on the landing page." },
+      "title": { "displayName": "Title", "purpose": "Screen headings in the app and the dashboard." },
+      "subtitle": { "displayName": "Subtitle", "purpose": "h3 and h4, card and step headings, in the body face." },
+      "lead": { "displayName": "Lead", "purpose": "Section introductions and screen descriptions, 50 to 62ch." },
+      "body": { "displayName": "Body", "purpose": "Running text, in the reader's chosen spacing preset (wide by default)." },
+      "label": { "displayName": "Label", "purpose": "Field labels, rod labels, legend and segment labels." },
+      "caption": { "displayName": "Caption", "purpose": "Nav item text, day labels, badges, and small notes." },
+      "glyph": { "displayName": "Glyph", "purpose": "Letters inside word-bar blocks, sized in the glyph unit --g with the baseline on the shelf." }
+    },
+    "shadows": [
+      { "name": "rest", "value": "0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1)", "purpose": "Every block, rod, cube and tile at rest." },
+      { "name": "lift", "value": "0 16px 22px -12px rgba(23,33,58,0.42), 0 5px 9px -5px rgba(23,33,58,0.22)", "purpose": "The held, hovered, selected or current piece, paired with a -2px to -4px move." },
+      { "name": "panel", "value": "0 1px 2px rgba(23,33,58,0.06), 0 12px 32px -20px rgba(23,33,58,0.3)", "purpose": "Panels and the hero stage." },
+      { "name": "block-outline", "value": "0 0 0 0 transparent (contrast theme: 0 0 0 2px #000000)", "purpose": "Prepended to every piece's shadow stack so high contrast outlines the kit." }
+    ],
+    "motion": [
+      { "name": "ease-settle", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The one easing for settle-and-lift: drops, lifts, splits." },
+      { "name": "dur-1", "value": "120ms", "purpose": "Colour and border changes." },
+      { "name": "dur-2", "value": "220ms", "purpose": "Lift and settle on hover and press." },
+      { "name": "dur-3", "value": "460ms", "purpose": "Block drops, word split and join, cell fills." },
+      { "name": "drop-stagger", "value": "45ms per block (30ms per bar cell)", "purpose": "Blocks drop onto the shelf one by one and stay visible throughout." },
+      { "name": "calm", "value": "0.01ms durations", "purpose": "data-motion='calm' or prefers-reduced-motion stops all animation and transition." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "520px" },
+      { "name": "small", "value": "640px" },
+      { "name": "landing-stack", "value": "760px" },
+      { "name": "tablet", "value": "900px" },
+      { "name": "app-rail", "value": "960px" },
+      { "name": "landing-fold", "value": "1000px" },
+      { "name": "dashboard-fold", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Action Rod",
+      "kind": "button",
+      "refersTo": "rod-action",
+      "description": "The primary action: a cobalt rod with a unit cube for the icon.",
+      "html": "<a class=\"ds-rod\" href=\"#\"><span class=\"ds-rod-label\">Try the learner app</span><span class=\"ds-rod-unit\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></a>",
+      "css": ".ds-rod { --rod: var(--cobalt, #2449d8); --rod-edge: var(--cobalt-edge, #1a36a8); --rod-on: var(--on-cobalt, #fff); display: inline-flex; align-items: stretch; min-height: 3.25rem; border-radius: 0.65rem; background: var(--rod); color: var(--rod-on); font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; font-weight: 600; font-size: 1rem; line-height: 1.2; letter-spacing: 0.01em; text-decoration: none; box-shadow: 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1); } .ds-rod-label { display: flex; align-items: center; padding: 0.5rem 1.2rem; } .ds-rod-unit { position: relative; display: grid; place-items: center; width: 3.25rem; } .ds-rod-unit::before { content: ''; position: absolute; top: 0.5rem; bottom: 0.5rem; left: 0; width: 2px; border-radius: 1px; background: var(--rod-edge); } .ds-rod:hover { transform: translateY(-2px); box-shadow: 0 16px 22px -12px rgba(23,33,58,0.42), 0 5px 9px -5px rgba(23,33,58,0.22); } .ds-rod:active { transform: none; } .ds-rod:focus-visible { outline: 3px solid var(--focus, #2449d8); outline-offset: 3px; }"
+    },
+    {
+      "name": "Leaf Rod",
+      "kind": "button",
+      "refersTo": "rod-leaf",
+      "description": "Confirm or whole-word action: the rod in leaf.",
+      "html": "<button class=\"ds-rod-leaf\"><span class=\"ds-rod-leaf-label\">Hear the whole word</span></button>",
+      "css": ".ds-rod-leaf { display: inline-flex; align-items: center; min-height: 3.25rem; padding: 0; border: 0; border-radius: 0.65rem; background: var(--leaf, #1f8250); color: var(--on-leaf, #fff); font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; font-weight: 600; font-size: 1rem; box-shadow: 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1); cursor: pointer; } .ds-rod-leaf-label { padding: 0.5rem 1.2rem; } .ds-rod-leaf:hover { transform: translateY(-2px); box-shadow: 0 16px 22px -12px rgba(23,33,58,0.42), 0 5px 9px -5px rgba(23,33,58,0.22); } .ds-rod-leaf:focus-visible { outline: 3px solid var(--focus, #2449d8); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Rod",
+      "kind": "button",
+      "refersTo": "rod-ghost",
+      "description": "Secondary action drawn as an empty slot: a dashed outline that turns solid on hover.",
+      "html": "<a class=\"ds-rod-ghost\" href=\"#\">See the educator view</a>",
+      "css": ".ds-rod-ghost { display: inline-flex; align-items: center; min-height: 3.25rem; padding: 0.5rem 1.2rem; border: 2px dashed var(--ghost, rgba(23,33,58,0.34)); border-radius: 0.65rem; background: transparent; color: var(--ink, #17213a); font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; font-weight: 600; font-size: 1rem; text-decoration: none; transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1); } .ds-rod-ghost:hover { border-style: solid; border-color: var(--ink, #17213a); background: var(--surface, #f9fbf9); transform: translateY(-2px); box-shadow: 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); } .ds-rod-ghost:focus-visible { outline: 3px solid var(--focus, #2449d8); outline-offset: 3px; }"
+    },
+    {
+      "name": "Hear Cube",
+      "kind": "button",
+      "refersTo": "cube-hear",
+      "description": "Icon-only unit cube; lemon is the hear-it control.",
+      "html": "<button class=\"ds-cube\" aria-label=\"Hear it\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 9v6h4l5 4V5L8 9z\"/><path d=\"M16.5 8.5a5 5 0 0 1 0 7\"/></svg></button>",
+      "css": ".ds-cube { display: inline-grid; place-items: center; width: 2.9rem; height: 2.9rem; padding: 0; border: 0; border-radius: 0.4rem; background: var(--lemon, #f5c518); color: var(--on-lemon, #17213a); box-shadow: 0 0 0 1px var(--line, rgba(23,33,58,0.12)), 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1); cursor: pointer; } .ds-cube:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px var(--line, rgba(23,33,58,0.12)), 0 16px 22px -12px rgba(23,33,58,0.42), 0 5px 9px -5px rgba(23,33,58,0.22); } .ds-cube:focus-visible { outline: 3px solid var(--focus, #2449d8); outline-offset: 3px; }"
+    },
+    {
+      "name": "Option Tile",
+      "kind": "chip",
+      "refersTo": "tile",
+      "description": "Choice chips; the chosen tile fills ink and lifts.",
+      "html": "<div class=\"ds-tiles\"><button class=\"ds-tile\" aria-pressed=\"true\">elephant</button><button class=\"ds-tile\" aria-pressed=\"false\">rabbit</button><button class=\"ds-tile\" aria-pressed=\"false\">jumping</button></div>",
+      "css": ".ds-tiles { display: flex; flex-wrap: wrap; gap: 0.5rem; } .ds-tile { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.35rem 1rem; border: 2px solid var(--line-strong, rgba(23,33,58,0.3)); border-radius: 0.4rem; background: var(--surface, #f9fbf9); color: var(--ink, #17213a); font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; font-weight: 500; line-height: 1.2; transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1), background-color 120ms linear; cursor: pointer; } .ds-tile:hover { border-color: var(--ink, #17213a); } .ds-tile[aria-pressed='true'] { background: var(--ink, #17213a); border-color: var(--ink, #17213a); color: var(--mat, #edf1ee); transform: translateY(-2px); box-shadow: 0 16px 22px -12px rgba(23,33,58,0.42), 0 5px 9px -5px rgba(23,33,58,0.22); } .ds-tile:focus-visible { outline: 3px solid var(--focus, #2449d8); outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labelled field; focus draws a cobalt border and cobalt-tint halo.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Type any word</span><input class=\"ds-input\" placeholder=\"like crocodile\"></label>",
+      "css": ".ds-field { display: grid; gap: 0.25rem; font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; } .ds-field-label { font-weight: 600; font-size: 0.9375rem; color: var(--ink-2, #46506a); } .ds-input { width: 100%; min-height: 3.1rem; padding: 0.5rem 1rem; border: 2px solid var(--line-strong, rgba(23,33,58,0.3)); border-radius: 0.65rem; background: var(--surface, #f9fbf9); color: var(--ink, #17213a); font: inherit; letter-spacing: 0.04em; transition: border-color 120ms linear, box-shadow 220ms cubic-bezier(0.16,1,0.3,1); } .ds-input::placeholder { color: var(--ink-3, #6b7389); } .ds-input:hover { border-color: var(--ink-3, #6b7389); } .ds-input:focus { outline: none; border-color: var(--cobalt, #2449d8); box-shadow: 0 0 0 4px var(--cobalt-tint, #dce4fb); }"
+    },
+    {
+      "name": "App Nav",
+      "kind": "nav",
+      "refersTo": "nav-item-current",
+      "description": "Icon-over-caption nav items; the current item fills ink and lifts.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item\" aria-current=\"page\" href=\"#\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"3\" y=\"8\" width=\"5\" height=\"10\" rx=\"1\"/><rect x=\"10\" y=\"11\" width=\"5\" height=\"7\" rx=\"1\"/><rect x=\"17\" y=\"4\" width=\"4\" height=\"14\" rx=\"1\"/></svg>Words</a><a class=\"ds-nav-item\" href=\"#\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M4 12h16M12 4v16\"/></svg>Maths</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 0.5rem; font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; } .ds-nav-item { display: grid; justify-items: center; align-content: center; gap: 0.2rem; min-width: 5rem; min-height: 3.9rem; padding: 0.3rem; border-radius: 0.4rem; color: var(--ink-2, #46506a); text-decoration: none; font-size: 0.8125rem; font-weight: 600; line-height: 1.15; transition: transform 220ms cubic-bezier(0.16,1,0.3,1), background-color 120ms linear, box-shadow 220ms cubic-bezier(0.16,1,0.3,1); } .ds-nav-item:hover { background: var(--surface, #f9fbf9); color: var(--ink, #17213a); } .ds-nav-item[aria-current='page'] { background: var(--ink, #17213a); color: var(--mat, #edf1ee); transform: translateY(-2px); box-shadow: 0 16px 22px -12px rgba(23,33,58,0.42), 0 5px 9px -5px rgba(23,33,58,0.22); } .ds-nav-item:focus-visible { outline: 3px solid var(--focus, #2449d8); outline-offset: 3px; }"
+    },
+    {
+      "name": "Word Bar",
+      "kind": "custom",
+      "refersTo": "block-tall",
+      "description": "Signature: a word built from blocks on one shelf, split into parts under a leaf whole-brace. Tall = cobalt, small = lemon, hanging = vermilion.",
+      "html": "<div class=\"ds-wb\"><div class=\"ds-wb-whole\">fly<span class=\"ds-brace\"></span></div><div class=\"ds-wb-row\"><span class=\"ds-blk ds-blk--tall\"><b>f</b></span><span class=\"ds-blk ds-blk--tall\"><b>l</b></span><span class=\"ds-blk ds-blk--hang\"><b>y</b></span><span class=\"ds-blk\"><b>o</b></span></div></div>",
+      "css": ".ds-wb { --g: 4rem; --up: calc(var(--g) * 0.96); --down: calc(var(--g) * 0.24); --cube-h: calc(var(--g) * 0.7); --pad: calc(var(--g) * 0.1); display: inline-grid; gap: calc(var(--g) * 0.16); font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; } .ds-wb-whole { display: grid; justify-items: center; gap: 0.3rem; color: var(--leaf, #1f8250); font-weight: 600; font-size: 1.3rem; line-height: 1; } .ds-brace { display: flex; width: 100%; height: 10px; } .ds-brace::before, .ds-brace::after { content: ''; flex: 1; border: 2px solid currentColor; border-bottom: 0; } .ds-brace::before { border-right: 0; border-top-left-radius: 8px; } .ds-brace::after { border-left: 0; border-top-right-radius: 8px; } .ds-wb-row { position: relative; display: flex; align-items: flex-end; gap: calc(var(--g) * 0.07); height: var(--up); margin-bottom: var(--down); } .ds-wb-row::after { content: ''; position: absolute; left: -0.5rem; right: -0.5rem; top: var(--up); height: 2px; background: var(--ink, #17213a); } .ds-blk { position: relative; display: flex; align-items: flex-end; justify-content: center; min-width: calc(var(--g) * 0.6); height: var(--cube-h); padding-inline: calc(var(--g) * 0.11); border-radius: calc(var(--g) * 0.09); background: var(--lemon, #f5c518); color: var(--on-lemon, #17213a); box-shadow: 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1); } .ds-blk b { font-size: var(--g); font-weight: 600; line-height: 1; margin-bottom: calc(var(--pad) - var(--g) * 0.125); } .ds-blk--tall { height: var(--up); background: var(--cobalt, #2449d8); color: #fff; } .ds-blk--hang { height: calc(var(--cube-h) + var(--down)); margin-bottom: calc(var(--down) * -1); background: var(--vermilion, #d43d27); color: #fff; } .ds-blk--hang b { margin-bottom: calc(var(--down) + var(--pad) - var(--g) * 0.125); } .ds-blk--tall::after, .ds-blk--hang::after { content: ''; position: absolute; left: 0; right: 0; height: 2px; opacity: 0.55; } .ds-blk--tall::after { bottom: var(--cube-h); background: var(--cobalt-edge, #1a36a8); } .ds-blk--hang::after { bottom: var(--down); background: var(--vermilion-edge, #a82c19); } .ds-blk:hover { transform: translateY(calc(var(--g) * -0.12)); box-shadow: 0 16px 22px -12px rgba(23,33,58,0.42), 0 5px 9px -5px rgba(23,33,58,0.22); }"
+    },
+    {
+      "name": "Number Sentence",
+      "kind": "custom",
+      "refersTo": "number-tile",
+      "description": "Lemon number tiles, ink operator tiles, a dashed ghost for the missing number, and a leaf answer tile.",
+      "html": "<div class=\"ds-ns\"><span class=\"ds-ns-tile ds-ns-num\">7</span><span class=\"ds-ns-tile ds-ns-op\">&minus;</span><span class=\"ds-ns-tile ds-ns-num\">3</span><span class=\"ds-ns-tile ds-ns-op\">=</span><span class=\"ds-ns-tile ds-ns-ghost\">?</span><span class=\"ds-ns-tile ds-ns-answer\">4</span></div>",
+      "css": ".ds-ns { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; } .ds-ns-tile { display: inline-grid; place-items: center; min-width: 3.2rem; height: 3.2rem; padding: 0 0.7rem; border-radius: 0.4rem; font-size: 1.6rem; font-weight: 700; line-height: 1; } .ds-ns-num { background: var(--lemon, #f5c518); color: var(--on-lemon, #17213a); box-shadow: 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); } .ds-ns-op { min-width: 2.8rem; padding: 0; background: var(--ink, #17213a); color: var(--mat, #edf1ee); box-shadow: 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); } .ds-ns-ghost { border: 2px dashed var(--ghost, rgba(23,33,58,0.34)); color: var(--ink-3, #6b7389); } .ds-ns-answer { background: var(--leaf, #1f8250); color: var(--on-leaf, #fff); box-shadow: 0 1px 1px rgba(23,33,58,0.1), 0 2px 5px -1px rgba(23,33,58,0.1); }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Tray-white container floating softly on the mat.",
+      "html": "<div class=\"ds-panel\"><h3 class=\"ds-panel-title\">Reading tools</h3><p class=\"ds-panel-body\">Pick a font, a size, and the spacing that feels easiest.</p></div>",
+      "css": ".ds-panel { max-width: 26rem; padding: 1.5rem; border-radius: 1.1rem; background: var(--surface, #f9fbf9); color: var(--ink, #17213a); font-family: 'Lexend', 'Segoe UI', system-ui, sans-serif; box-shadow: 0 1px 2px rgba(23,33,58,0.06), 0 12px 32px -20px rgba(23,33,58,0.3); } .ds-panel-title { margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 600; line-height: 1.14; } .ds-panel-body { margin: 0; color: var(--ink-2, #46506a); line-height: 1.65; letter-spacing: 0.04em; word-spacing: 0.16em; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Manipulatives Mat",
+    "overview": "PhonicPal is a working mat with a fixed kit on it. A word is a bar model: its letters are blocks that rest on one shelf line, and the bar splits into syllables and sounds the same way a Singapore Maths bar splits a whole into parts. Sums use the same kit, with bar cells, counters and number tiles. Every surface (the landing page, the learner app and the educator dashboard) is built from these pieces, not decorated with them. The pale cool mat carries a faint 24px unit grid, and the pieces sit on it in four saturated kit hues plus ink.\n\nThe kit is loud, so each hue means one thing and has a shape and a label as well. Tall letters are cobalt rods, small letters are lemon cubes, and hanging letters are vermilion drop blocks that fall below the shelf. Leaf braces the whole and shows answers. Ink draws structure. Pieces rest flat with a small contact shadow. Only the piece being held (hovered, pressed, current) lifts with a longer shadow. Empty places are drawn as dashed ghost outlines, so the child can always see where the next piece goes. Motion follows one grammar, settle-and-lift: blocks drop onto the shelf with a quick overshoot-free ease and lift when touched. Motion stops completely in calm mode.\n\nReading comfort outranks the visual system. The reader chooses the font (Lexend, OpenDyslexic, Atkinson Hyperlegible), text size, letter and word spacing, the theme (day, night, high contrast) and a coloured overlay. The geometry is written in these variables, so the kit stays correct under every choice.",
+    "keyCharacteristics": [
+      "Four kit hues and ink, each with one meaning, on a pale mat with a unit grid.",
+      "Every block kind is told apart by shape and label as well as colour: tall, cube, hanging.",
+      "One shelf line. Pieces rest on it, and descenders hang below it.",
+      "Dashed ghost outlines for every empty place.",
+      "Flat at rest. The held piece lifts.",
+      "Wide, calm Lexend type with generous default letter and word spacing, all under reader control."
+    ],
+    "rules": [
+      { "name": "The One Meaning Rule", "body": "Cobalt means tall, rod, or action. Lemon means small, unit, or quantity. Vermilion means hanging or taken away. Leaf means whole, answer, or Sparky. Ink means structure. Give a new element a kit hue only when it plays that role.", "section": "colors" },
+      { "name": "The Pieces Not Paint Rule", "body": "Cobalt and lemon appear only as pieces: blocks, rods, cubes, cells, discs, tiles, badges, and small marks. They never fill a section, band, or panel background. Only leaf and deep ink may paint a whole field.", "section": "colors" },
+      { "name": "The Shape Carries It Rule", "body": "Colour never works alone. Tall blocks are taller, hanging blocks drop below the shelf, cubes are x-height, and legend swatches repeat those shapes. The kit must still read in greyscale, under any overlay, and in the high-contrast theme.", "section": "colors" },
+      { "name": "The Reader Owns the Type Rule", "body": "All type goes through `--font-ui`, `--font-display`, `--track`, `--word` and `--leading`. The default is the \"wide\" spacing preset (0.04em tracking, 0.16em word spacing, 1.65 leading), and the reader can switch to normal or wider. Don't hard-code a family, tracking, or leading on reading text.", "section": "typography" },
+      { "name": "The Glyph on the Shelf Rule", "body": "A letter's baseline sits exactly on the shelf line. Each reader font sets its own `--glyph-drop` (Lexend 0.125, OpenDyslexic 0.26, Atkinson 0.13), so blocks stay aligned when the font changes.", "section": "typography" },
+      { "name": "The Sentence Case Rule", "body": "Headings, labels and captions are sentence case, set in weight rather than capitals. Numbers in tables and counts use tabular figures.", "section": "typography" },
+      { "name": "The Held Piece Lifts Rule", "body": "Only one kind of thing uses Lift: the piece the child is holding, hovering, has chosen, or is on now. Everything else rests. A lifted piece always moves up as well as gaining the shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do give every element a kit hue only when it plays that hue's role: cobalt for tall, rod or action; lemon for unit or quantity; vermilion for hanging or taken away; leaf for whole or answer; ink for structure.",
+      "Do pair every colour with a shape and a label, so the kit reads in greyscale, under overlays, and in high contrast.",
+      "Do rest every block on one 2px ink shelf line and hang descenders 0.24g below it.",
+      "Do draw every empty place as a 2px dashed ghost outline at the radius of the piece it stands in for.",
+      "Do use Rest for every piece and keep Lift for the one held, hovered, selected or current piece, together with a -2px to -4px move.",
+      "Do animate with `--ease-settle` (cubic-bezier(0.16, 1, 0.3, 1)) at 120, 220 or 460ms, and let calm mode or reduced motion stop all of it.",
+      "Do write sizes, spacing and font through the reader variables, so every font, size, spacing, theme and overlay choice keeps the kit aligned.",
+      "Do use `on-lemon` ink text on lemon and white on cobalt, vermilion and leaf (dark text on leaf at night)."
+    ],
+    "donts": [
+      "Don't fill a section, band, or panel background with cobalt or lemon. Only leaf and deep ink paint whole fields.",
+      "Don't use blended gradients. `linear-gradient` is only for hard-stop grid lines, split faces and grooves.",
+      "Don't lift pieces that are not being held or chosen, and don't add glows or coloured shadows.",
+      "Don't hard-code a font family, tracking or leading on reading text. The reader owns them.",
+      "Don't set labels or headings in tracked capitals. Use sentence case and weight."
+    ]
+  }
+}
