@@ -521,6 +521,20 @@
   }
 }
 @media (max-width: 640px) {
+  .ltable,
+  .ltable--mini {
+    min-width: 0;
+  }
+  .ltable .col-wide {
+    display: none;
+  }
+  .ltable th,
+  .ltable td {
+    padding: 0.65rem 0.6rem;
+  }
+  .secured-bar {
+    width: 3rem;
+  }
   .summary,
   .framework-grid {
     grid-template-columns: minmax(0, 1fr);

@@ -21,7 +21,7 @@ const EDU = href('educators', 'home');
 
 function heroSize(word: Word): string {
   const n = word.word.length * 0.72 + 1.2;
-  return `clamp(1.5rem, calc((min(100vw, 78rem) - 4.5rem) / ${n.toFixed(2)}), 6.6rem)`;
+  return `clamp(1.5rem, calc((min(100vw, 78rem) - 4.5rem) / ${n.toFixed(2)}), 6rem)`;
 }
 
 /* ---------- Hero ---------- */
@@ -86,6 +86,8 @@ function Hero() {
                 speak(word.syllables[i].say, { rate: 0.7 });
               }}
               onWhole={() => {
+                // Tapping the whole splits it into parts, or joins the parts back up.
+                setSplit((s) => !s);
                 setActive(null);
                 setMood('cheer');
                 window.setTimeout(() => setMood('happy'), 1400);
@@ -134,9 +136,6 @@ function Hero() {
                   {w}
                 </button>
               ))}
-              <button type="button" className="tile" onClick={() => setSplit((s) => !s)}>
-                {split ? 'Join the parts' : 'Split into parts'}
-              </button>
             </div>
             <ShapeLegend compact />
           </div>
@@ -152,7 +151,7 @@ function Gap() {
   const [filled, setFilled] = useState(true);
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   return (
-    <section className="band band--cobalt" aria-labelledby="gap-title">
+    <section className="surface-band" aria-labelledby="gap-title">
       <div className="wrap gap">
         <h2 id="gap-title" className="gap-title">
           Specialists give children high-impact care. Between sessions, practice goes quiet.
@@ -170,10 +169,14 @@ function Gap() {
         <figure className="week-model">
           <figcaption>
             <span>An example week with one specialist session</span>
-            <button type="button" className="tile tile--on-field" aria-pressed={filled} onClick={() => setFilled((f) => !f)}>
+            <button type="button" className="tile" aria-pressed={filled} onClick={() => setFilled((f) => !f)}>
               {filled ? 'Hide PhonicPal practice' : 'Add PhonicPal practice'}
             </button>
           </figcaption>
+          <div className="week-whole" aria-hidden="true">
+            <span>One week</span>
+            <span className="brace brace--top" />
+          </div>
           <div className="week-bar" role="img" aria-label={`Monday: specialist session. Tuesday to Sunday: ${filled ? 'short practice with PhonicPal' : 'no structured practice'}.`}>
             {days.map((d, i) => (
               <div key={d} className="week-cell-wrap">
@@ -380,7 +383,7 @@ function SparkySection() {
     ['tired', 'sleepy'],
   ];
   return (
-    <section className="band band--lemon" aria-labelledby="sparky-title">
+    <section className="surface-band" aria-labelledby="sparky-title">
       <div className="wrap sparky-section">
         <div className="sparky-figure">
           <Sparky mood={feel === 'stuck' ? 'calm' : feel === 'tired' ? 'sleepy' : 'cheer'} hat="crown" neck="scarf" size="clamp(11rem, 26vw, 17rem)" title="Sparky wearing a crown and scarf" />

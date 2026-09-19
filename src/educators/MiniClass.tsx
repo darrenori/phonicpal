@@ -17,7 +17,7 @@ export function MiniClass() {
           <thead>
             <tr>
               <th scope="col">Learner</th>
-              <th scope="col">Last 7 days</th>
+              <th scope="col" className="col-wide">Last 7 days</th>
               <th scope="col">Words secured</th>
               <th scope="col">Needs support</th>
             </tr>
@@ -26,7 +26,7 @@ export function MiniClass() {
             {rows.map((l) => (
               <tr key={l.id}>
                 <th scope="row">{l.name}</th>
-                <td>
+                <td className="col-wide">
                   <DayRods minutes={l.minutes.slice(-7)} max={max} label={`Minutes per day: ${l.minutes.slice(-7).join(', ')}`} />
                 </td>
                 <td>

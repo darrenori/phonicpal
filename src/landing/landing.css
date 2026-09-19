@@ -40,14 +40,14 @@
 /* ---------- Hero ---------- */
 
 .hero {
-  padding-block: clamp(2rem, 5vw, 4.25rem) clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(1.5rem, 2.5vw, 2rem) clamp(2.5rem, 5vw, 4rem);
 }
 .hero-top {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
   gap: var(--s5) var(--s7);
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
 }
 .hero-copy h1 {
   max-width: 14ch;
@@ -71,8 +71,8 @@
 }
 .hero-stage {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.25rem);
-  padding: clamp(1.75rem, 4vw, 3.5rem) clamp(1rem, 3vw, 3rem) clamp(1.25rem, 3vw, 2rem);
+  gap: clamp(1rem, 2vw, 1.25rem);
+  padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1rem, 3vw, 3rem) clamp(1.25rem, 3vw, 2rem);
   border-radius: var(--r-panel);
   box-shadow:
     inset 0 0 0 1px var(--line),
@@ -137,7 +137,6 @@
   --rod-edge: rgba(23, 33, 58, 0.25);
   --rod-on: #17213a;
 }
-.band--cobalt,
 .band--leaf {
   --ink: #ffffff;
   --ink-2: rgba(255, 255, 255, 0.88);
@@ -148,24 +147,16 @@
   --focus: #f5c518;
   color: var(--ink);
 }
-.band--cobalt {
-  background: #2449d8;
-}
 .band--leaf {
   background: #1f7a4b;
 }
-.band--lemon {
-  --ink: #17213a;
-  --ink-2: #3b4258;
-  --ink-3: #4f5670;
-  --ghost: rgba(23, 33, 58, 0.45);
-  --line: rgba(23, 33, 58, 0.18);
-  --line-strong: rgba(23, 33, 58, 0.4);
-  --surface: #fff7d6;
-  --mat: #fff7d6;
-  --focus: #17213a;
-  background: #f5c518;
-  color: var(--ink);
+/* A quiet band on the lighter tray surface, between mat sections. */
+.surface-band {
+  padding-block: clamp(3.5rem, 8vw, 6.5rem);
+  background: var(--surface);
+  box-shadow:
+    inset 0 1px 0 var(--line),
+    inset 0 -1px 0 var(--line);
 }
 .band--deep {
   --ink: #eef1f7;
@@ -228,18 +219,15 @@
   gap: var(--s3);
   font-weight: 600;
 }
-.tile--on-field {
-  border-color: rgba(255, 255, 255, 0.6);
-  background: transparent;
-  color: #ffffff;
+.week-whole {
+  display: grid;
+  justify-items: center;
+  gap: var(--s2);
+  color: var(--leaf);
+  font-weight: 600;
 }
-.tile--on-field:hover {
-  border-color: #ffffff;
-}
-.tile--on-field[aria-pressed='true'] {
-  background: #ffffff;
-  border-color: #ffffff;
-  color: #1a36a8;
+.week-whole .brace {
+  height: 12px;
 }
 .week-bar {
   display: grid;
@@ -260,8 +248,8 @@
   overflow: hidden;
 }
 .week-cell.is-session {
-  background: #ffffff;
-  color: #1a36a8;
+  background: var(--cobalt);
+  color: var(--on-cobalt);
   box-shadow: var(--shadow-lift);
 }
 .week-cell.is-practice {
@@ -271,7 +259,7 @@
   animation: cell-drop var(--dur-3) var(--ease-settle) backwards;
 }
 .week-cell.is-empty {
-  border: 2px dashed rgba(255, 255, 255, 0.62);
+  border: 2px dashed var(--ghost);
 }
 @keyframes cell-drop {
   from {
@@ -403,7 +391,8 @@
   margin-top: var(--s3);
   padding: var(--s4) var(--s5);
   border-radius: var(--r-panel);
-  background: var(--surface);
+  background: var(--mat);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 .feel-demo-q {
   font-weight: 700;
@@ -433,9 +422,9 @@
   border-color: var(--ink);
 }
 .feel-demo-btn[aria-pressed='true'] {
-  background: #17213a;
-  border-color: #17213a;
-  color: #ffffff;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--mat);
   transform: translateY(-3px);
   box-shadow: var(--shadow-lift);
 }
@@ -692,9 +681,21 @@
   .hero-sparky {
     display: none;
   }
+  /* On phones the week reads top to bottom: day on the left, block on the right. */
+  .week-bar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .week-cell-wrap {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    align-items: center;
+  }
+  .week-cell-day {
+    order: -1;
+    text-align: left;
+  }
   .week-cell {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
+    height: 2.5rem;
+    font-size: var(--t-sm);
   }
   .week-cell.is-practice {
     animation: none;

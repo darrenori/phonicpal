@@ -267,6 +267,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
   const progress = useProgress();
   const [word, setWord] = useState<Word>(() => (initialWord && buildWord(initialWord)) || WORD_BANK.find((w) => w.word === 'butterfly')!);
   const [step, setStep] = useState<Step>('see');
+  const [wholeSplit, setWholeSplit] = useState(false);
   const [heardParts, setHeardParts] = useState<Set<number>>(new Set());
   const [tapped, setTapped] = useState<Set<string>>(new Set());
   const [activePart, setActivePart] = useState<number | null>(null);
@@ -290,6 +291,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
     setWord(w);
     setStep('see');
     setHeardParts(new Set());
+    setWholeSplit(false);
     setTapped(new Set());
     setActivePart(null);
     setMood('happy');
@@ -325,10 +327,10 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
     if (i < STEPS.length - 1) setStep(STEPS[i + 1]);
   };
 
-  const split = step !== 'see';
-  // Size the blocks to the stage: longer words get smaller blocks, never smaller than 1.5rem.
+  const split = step !== 'see' || wholeSplit;
+  // Size the blocks to the stage (a size container): longer words get smaller blocks, never below 1.5rem.
   const n = (word.word.length * 0.72 + 1.2).toFixed(2);
-  const glyph = `clamp(1.5rem, min(calc((100vw - 3.5rem) / ${n}), calc((min(100vw, 82rem) - 33rem) / ${n})), 5.2rem)`;
+  const glyph = `clamp(1.5rem, calc((100cqi - clamp(2rem, 8vw, 7rem)) / ${n}), 5.2rem)`;
   const nextWord = useMemo(() => {
     const pool = WORD_BANK.filter((w) => w.level === word.level && !(progress.wordSteps[w.word] && STEPS.every((s) => progress.wordSteps[w.word]?.[s])) && w.word !== word.word);
     return pool[0] ?? WORD_BANK[(WORD_BANK.indexOf(word) + 1) % WORD_BANK.length];
@@ -355,6 +357,8 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
               activePart={activePart}
               onPart={split ? hearPart : undefined}
               onWhole={() => {
+                // Tapping the whole splits it into parts, or joins them back, while the child is looking.
+                if (step === 'see') setWholeSplit((s) => !s);
                 setActivePart(null);
                 say(word.word, 0.7);
                 if (step === 'see' && !done.see) award(word.word, 'see');

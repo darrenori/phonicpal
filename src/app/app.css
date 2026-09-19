@@ -475,6 +475,7 @@ h2 .cube {
 }
 
 .stage {
+  container-type: inline-size;
   position: relative;
   display: grid;
   place-items: center;

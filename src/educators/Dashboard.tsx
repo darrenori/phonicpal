@@ -317,17 +317,17 @@ export function Dashboard() {
               <thead>
                 <tr>
                   <th scope="col">{sortButton('name', 'Learner')}</th>
-                  <th scope="col">Last 14 days</th>
-                  <th scope="col" className="num-col">
+                  <th scope="col" className="col-wide">Last 14 days</th>
+                  <th scope="col" className="num-col col-wide">
                     {sortButton('minutes', 'Minutes')}
                   </th>
                   <th scope="col">{sortButton('words', 'Words secured')}</th>
                   <th scope="col">Needs support</th>
-                  <th scope="col">Check-ins</th>
-                  <th scope="col" className="num-col">
+                  <th scope="col" className="col-wide">Check-ins</th>
+                  <th scope="col" className="num-col col-wide">
                     {sortButton('streak', 'Streak')}
                   </th>
-                  <th scope="col">Last active</th>
+                  <th scope="col" className="col-wide">Last active</th>
                 </tr>
               </thead>
               <tbody>
@@ -339,21 +339,21 @@ export function Dashboard() {
                         <span className="learner-meta">{l.live ? 'Live on this device' : l.level}</span>
                       </button>
                     </th>
-                    <td>
+                    <td className="col-wide">
                       <DayRods minutes={l.minutes} max={maxRow} label={`Minutes per day, last 14 days: ${l.minutes.join(', ')}`} />
                     </td>
-                    <td className="num-col num">{total(l)}</td>
+                    <td className="num-col num col-wide">{total(l)}</td>
                     <td>
                       <WordsSecured l={l} />
                     </td>
                     <td>
                       <SupportChips items={l.support} />
                     </td>
-                    <td>
+                    <td className="col-wide">
                       <FeelingsBar feelings={l.feelings} />
                     </td>
-                    <td className="num-col num">{l.streak ? `${l.streak} d` : '—'}</td>
-                    <td className="muted">{l.lastActive}</td>
+                    <td className="num-col num col-wide">{l.streak ? `${l.streak} d` : '—'}</td>
+                    <td className="muted col-wide">{l.lastActive}</td>
                   </tr>
                 ))}
                 {!rows.length && (
