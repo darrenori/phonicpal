@@ -246,7 +246,8 @@ A fixed, saturated kit (cobalt, lemon, vermilion, leaf) on a cool pale mat. Ink 
 - **Mouth colours** (`mouth-lip`, `mouth-tongue`, `mouth-cavity`): used only in the articulation diagram.
 
 ### Themes
-- **Night** follows `prefers-color-scheme: dark` unless the reader picks a theme. It turns the mat to deep navy (#0f1420), lifts every kit hue one step for contrast, uses lemon (#f2c230) for focus, and deepens the shadows.
+- **Day is the default** on every surface, whatever the device's colour scheme. The page is bright unless the reader chooses otherwise in Reading tools.
+- **Night** applies only when the reader picks it, or picks Match device on a device (or host page) set to dark. It turns the mat to deep navy (#0f1420), lifts every kit hue one step for contrast, uses lemon (#f2c230) for focus, and deepens the shadows.
 - **High contrast** uses a white mat, black structure, deeper kit hues, and a 2px black outline on every block (`--block-outline`).
 - **The deep field** (`.on-deep`) applies the night palette inside a light page, for ink-filled sections.
 - **Reading overlays** (blue, yellow, rose, green, peach) are fixed translucent sheets over the whole viewport. They use a multiply blend by day and a screen blend at half strength by night.

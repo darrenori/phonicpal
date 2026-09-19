@@ -97,9 +97,12 @@
   --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
 }
 
-/* Night: a dark mat for evening practice. Follows the device unless the reader chose a theme. */
+/*
+ * Night: a dark mat for evening practice. The page is bright by default; night applies only when the
+ * reader picks it, or picks "Match device" on a device (or host page) set to dark.
+ */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']):is([data-pp-theme='auto'], :not([data-pp-theme])) {
+  :root:not([data-theme='light'])[data-pp-theme='auto'] {
     color-scheme: dark;
     --mat: #0f1420;
     --mat-grid: rgba(226, 232, 245, 0.045);
@@ -136,7 +139,7 @@
   }
 }
 
-:root[data-theme='dark']:is([data-pp-theme='auto'], :not([data-pp-theme])),
+:root[data-theme='dark'][data-pp-theme='auto'],
 :root[data-pp-theme='night'] {
   color-scheme: dark;
   --mat: #0f1420;

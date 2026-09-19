@@ -39,10 +39,10 @@ const OVERLAYS: Array<{ id: Overlay; name: string; color: string }> = [
   { id: 'peach', name: 'Peach', color: '#ffc49c' },
 ];
 const THEMES: Array<{ id: Theme; name: string }> = [
-  { id: 'auto', name: 'Match device' },
   { id: 'day', name: 'Day' },
   { id: 'night', name: 'Night' },
   { id: 'contrast', name: 'High contrast' },
+  { id: 'auto', name: 'Match device' },
 ];
 const RATES = [
   { rate: 0.65, name: 'Slow' },

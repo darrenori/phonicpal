@@ -37,7 +37,7 @@
     },
     "themes": {
       "night": {
-        "trigger": "prefers-color-scheme: dark (when data-pp-theme is auto or unset), data-theme='dark', or data-pp-theme='night'",
+        "trigger": "data-pp-theme='night', or data-pp-theme='auto' with prefers-color-scheme: dark or a host data-theme='dark'. The default theme is day, so an unset page stays bright.",
         "values": { "mat": "#0f1420", "surface": "#171e2e", "surface-2": "#0b0f18", "deep": "#0b0f18", "ink": "#eef1f7", "ink-2": "#b8c0d2", "ink-3": "#8a93a8", "focus": "#f2c230", "cobalt": "#3d5fe8", "cobalt-edge": "#2a45b8", "cobalt-tint": "#1d2a55", "lemon": "#f2c230", "lemon-edge": "#b8900a", "lemon-tint": "#3a3217", "vermilion": "#e8553b", "vermilion-edge": "#a93a26", "vermilion-tint": "#45211b", "leaf": "#2a9a60", "leaf-edge": "#1c6f44", "leaf-tint": "#16342a", "on-leaf": "#06140c" }
       },
       "contrast": {

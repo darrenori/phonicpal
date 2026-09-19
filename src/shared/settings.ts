@@ -5,7 +5,7 @@ export type ReadingFont = 'lexend' | 'opendyslexic' | 'atkinson';
 export type Overlay = 'none' | 'blue' | 'yellow' | 'rose' | 'green' | 'peach';
 export type TextSize = 's' | 'm' | 'l' | 'xl';
 export type Spacing = 'normal' | 'wide' | 'wider';
-/** "auto" follows the device (or the host page's theme stamp); the rest are the child's choice. */
+/** The page is bright by default. "auto" follows the device (or the host page's theme stamp) only when chosen. */
 export type Theme = 'auto' | 'day' | 'night' | 'contrast';
 
 export interface ReadingSettings {
@@ -18,6 +18,8 @@ export interface ReadingSettings {
   bdHelper: boolean;
   calmMotion: boolean;
   speechRate: number;
+  /** Settings schema version; 2 made the bright day theme the default. */
+  v: 2;
 }
 
 const prefersCalm = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -27,14 +29,25 @@ export const DEFAULT_SETTINGS: ReadingSettings = {
   size: 'm',
   spacing: 'wide',
   overlay: 'none',
-  theme: 'auto',
+  theme: 'day',
   ruler: false,
   bdHelper: true,
   calmMotion: Boolean(prefersCalm),
   speechRate: 0.8,
+  v: 2,
 };
 
-let current: ReadingSettings = typeof window !== 'undefined' ? load('settings', DEFAULT_SETTINGS) : DEFAULT_SETTINGS;
+/**
+ * Settings saved before v2 stored "auto" as the default theme. Move those readers onto the bright
+ * default once, but keep a theme they picked on purpose (night or high contrast).
+ */
+function loadSettings(): ReadingSettings {
+  const stored = load<Partial<Omit<ReadingSettings, 'v'>> & { v?: number }>('settings', {});
+  const theme = stored.v === 2 ? (stored.theme ?? 'day') : stored.theme && stored.theme !== 'auto' ? stored.theme : 'day';
+  return { ...DEFAULT_SETTINGS, ...stored, theme, v: 2 };
+}
+
+let current: ReadingSettings = typeof window !== 'undefined' ? loadSettings() : DEFAULT_SETTINGS;
 const listeners = new Set<() => void>();
 
 export function applySettings(s: ReadingSettings = current): void {
