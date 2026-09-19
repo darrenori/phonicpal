@@ -33,7 +33,7 @@ This repository holds three surfaces that share one design system:
   line spacing; coloured overlays; a reading ruler; day, night and high-contrast themes;
   voice speed; calm motion.
 
-- **Sparky Helps (optional).** A camera helper that a grown-up must switch on. A small face-expression model runs inside the browser (`@vladmandic/face-api`, with models bundled from `src/ml/models`). When a child looks upset for about three seconds, Sparky offers the feelings check-in, then stays quiet for four minutes.
+- **Sparky Helps (optional).** A live camera helper that a grown-up must switch on. A small face-expression model (`@vladmandic/face-api`, with models bundled from `src/ml/models`) reads the live camera picture inside the browser several times a second. While it is on, a corner tile shows the camera picture, a frame that follows the face, and what Sparky sees. The settings panel shows every expression reading live. When a child looks upset for about three seconds, Sparky offers the feelings check-in, then stays quiet for four minutes. Link to `app/#helps` to open the panel directly. The single-file artifact loads the same models from jsDelivr and falls back to a note when its host blocks the camera.
 
 Progress is stored on the device (`localStorage`). There is no backend yet. The camera
 mirror and microphone are opt-in and never record.

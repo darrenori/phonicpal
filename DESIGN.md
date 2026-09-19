@@ -359,6 +359,11 @@ A word built from letter blocks on one shelf. Tall letters are cobalt rods, x-he
 ### Sparky
 A friendly green dragon drawn in SVG with an ink outline. At idle it bobs 3px over 3.6s and blinks. To cheer, it hops twice. It stands at the end of the word bar as the whole.
 
+### Sparky Helps camera
+- **Live view:** the camera picture, mirrored, in a deep field with control radius. A small ink pill in the top-left corner reads LIVE, with a pulsing leaf dot. A 3px frame follows the face with a 160ms linear glide. It is leaf when calm, lemon when unsure, and vermilion once the upset score passes the threshold.
+- **Corner tile:** a fixed tray-white panel with Lift shadow and a 4px bottom stripe in the same tone. It holds the live view, Sparky's head mirroring the reading (calm and kind for upset faces), the child-friendly word, and a 5-cell upset meter. It sits above the bottom nav on phones and in the bottom-right corner from 960px. On phones it becomes a single strip. It can fold down to a label with a leaf dot, but it stays on screen while the camera is on.
+- **Live readout (panel):** 7 expression bars, leaf for calm expressions and vermilion for upset ones, with the strongest reading in bold. A 10-cell upset meter has an ink tick at the threshold.
+
 ## Do's and Don'ts
 
 ### Do:

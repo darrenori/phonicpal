@@ -12,7 +12,7 @@ React + Vite + TypeScript, built to static files (user-confirmed). Multi-page bu
 a marketing landing page, the learner app, and an educator dashboard. Deploy targets:
 Vercel, GitHub Pages, Render (static site) and a Claude artifact, from the public repo
 `darrenori/upside`. Hosts use the `upside-reads` slug, because `upside` was taken on Vercel and Render.
-Sparky Helps is left out of the artifact build, which has no camera access.
+The artifact build doesn't bundle the Sparky Helps model. It loads the model from jsDelivr, and shows a note pointing to the full app when the host blocks the camera.
 
 ## Users
 
