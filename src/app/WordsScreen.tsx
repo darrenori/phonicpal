@@ -365,7 +365,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
               }}
             />
           </div>
-          {word.guessed && <p className="stage-note">PhonicPal guessed these chunks. Check tricky words with your teacher.</p>}
+          {word.guessed && <p className="stage-note">Upside guessed these chunks. Check tricky words with your teacher.</p>}
           <Sparky className="stage-sparky" mood={allDone ? 'cheer' : mood} size="clamp(4.5rem, 10vw, 7rem)" hat={progress.wearing.hat} neck={progress.wearing.neck} face={progress.wearing.face} />
         </div>
 

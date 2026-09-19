@@ -1,18 +1,36 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.45rem;
   color: var(--ink);
   text-decoration: none;
   line-height: 1;
   border-radius: var(--r-block);
 }
+.logo-mark {
+  flex: none;
+}
+/* Hover turns the glyph upside down: the same shape, with the hanging p now standing as a d. */
+.logo-glyph {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-3) var(--ease-settle);
+}
+a.logo:hover .logo-glyph {
+  transform: rotate(180deg);
+}
 .logo-word {
   font-family: 'Lexend Exa', 'Lexend', sans-serif;
   font-weight: 700;
-  font-size: 1.12rem;
-  letter-spacing: -0.02em;
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
   word-spacing: 0;
+}
+.logo-p {
+  color: var(--vermilion);
+}
+.logo-d {
+  color: var(--cobalt);
 }
 .logo-suffix {
   padding: 0.28rem 0.5rem;

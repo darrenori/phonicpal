@@ -1,5 +1,5 @@
 ---
-name: PhonicPal
+name: Upside
 description: Every word and every sum, built from blocks a child can see, hear, tap and say.
 colors:
   mat: "#edf1ee"
@@ -204,13 +204,13 @@ components:
     rounded: "{rounded.block}"
 ---
 
-# Design System: PhonicPal
+# Design System: Upside
 
 ## Overview
 
 **Creative North Star: "The Manipulatives Mat"**
 
-PhonicPal is a working mat with a fixed kit on it. A word is a bar model: its letters are blocks that rest on one shelf line, and the bar splits into syllables and sounds the same way a Singapore Maths bar splits a whole into parts. Sums use the same kit, with bar cells, counters and number tiles. Every surface (the landing page, the learner app and the educator dashboard) is built from these pieces, not decorated with them. The pale cool mat carries a faint 24px unit grid, and the pieces sit on it in four saturated kit hues plus ink.
+Upside is a working mat with a fixed kit on it. A word is a bar model: its letters are blocks that rest on one shelf line, and the bar splits into syllables and sounds the same way a Singapore Maths bar splits a whole into parts. Sums use the same kit, with bar cells, counters and number tiles. Every surface (the landing page, the learner app and the educator dashboard) is built from these pieces, not decorated with them. The pale cool mat carries a faint 24px unit grid, and the pieces sit on it in four saturated kit hues plus ink.
 
 The kit is loud, so each hue means one thing and has a shape and a label as well. Tall letters are cobalt rods, small letters are lemon cubes, and hanging letters are vermilion drop blocks that fall below the shelf. Leaf braces the whole and shows answers. Ink draws structure. Pieces rest flat with a small contact shadow. Only the piece being held (hovered, pressed, current) lifts with a longer shadow. Empty places are drawn as dashed ghost outlines, so the child can always see where the next piece goes. Motion follows one grammar, settle-and-lift: blocks drop onto the shelf with a quick overshoot-free ease and lift when touched. Motion stops completely in calm mode.
 

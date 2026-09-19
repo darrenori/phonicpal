@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: phonicpal
+    name: upside
     runtime: static
     buildCommand: npm ci && npm run build
     staticPublishPath: dist

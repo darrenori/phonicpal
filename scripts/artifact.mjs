@@ -7,7 +7,7 @@ import { join } from 'node:path';
 const dir = join(import.meta.dirname, '..', 'dist-artifact');
 const html = readFileSync(join(dir, 'artifact.html'), 'utf8');
 
-const title = html.match(/<title>[\s\S]*?<\/title>/)?.[0] ?? '<title>PhonicPal</title>';
+const title = html.match(/<title>[\s\S]*?<\/title>/)?.[0] ?? '<title>Upside</title>';
 const styles = html.match(/<style[\s\S]*?<\/style>/g) ?? [];
 const scripts = html.match(/<script[\s\S]*?<\/script>/g) ?? [];
 const favicon = read(join(import.meta.dirname, '..', 'public', 'favicon.svg'), 'utf8').trim();
@@ -20,5 +20,5 @@ const page = [
   ...scripts,
 ].join('\n');
 
-writeFileSync(join(dir, 'phonicpal.html'), page);
-console.log(`artifact page: ${(page.length / 1024).toFixed(0)} KB -> dist-artifact/phonicpal.html`);
+writeFileSync(join(dir, 'upside.html'), page);
+console.log(`artifact page: ${(page.length / 1024).toFixed(0)} KB -> dist-artifact/upside.html`);

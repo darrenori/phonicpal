@@ -187,7 +187,7 @@ export function Dashboard() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `phonicpal-${SAMPLE_CLASS.name.toLowerCase().replace(/\s+/g, '-')}-${today()}.csv`;
+    a.download = `upside-${SAMPLE_CLASS.name.toLowerCase().replace(/\s+/g, '-')}-${today()}.csv`;
     document.body.appendChild(a);
     a.click();
     a.remove();

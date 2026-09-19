@@ -30,7 +30,7 @@
     }
   ],
   "services": {
-    "phonicpal": {
+    "upside": {
       "root": ".",
       "framework": "vite",
       "buildCommand": "npm ci && npm run build"
@@ -41,7 +41,7 @@
       "source": "/(.*)",
       "destination": {
         "type": "service",
-        "service": "phonicpal"
+        "service": "upside"
       }
     }
   ]

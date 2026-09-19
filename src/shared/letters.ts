@@ -1,5 +1,5 @@
 /**
- * Letter-shape classification: the heart of PhonicPal's "see the word" step.
+ * Letter-shape classification: the heart of Upside's "see the word" step.
  * Every lowercase letter is a block whose height tells its shape:
  * tall letters rise above the x-height, hanging letters drop below the line,
  * and cube letters sit exactly on it.

@@ -30,7 +30,7 @@ function Root() {
     return () => window.removeEventListener('hashchange', onHash);
   }, []);
   useEffect(() => {
-    document.title = current === 'app' ? 'PhonicPal Practice' : current === 'educators' ? 'PhonicPal for Educators' : 'PhonicPal';
+    document.title = current === 'app' ? 'Upside Practice' : current === 'educators' ? 'Upside for Educators' : 'Upside';
   }, [current]);
   if (current === 'app') return <App />;
   if (current === 'educators') return <Dashboard />;

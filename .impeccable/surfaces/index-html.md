@@ -22,7 +22,7 @@ educator dashboard with sample data (Operate).
 
 ## Direction contract
 
-THESIS: A word is a bar model. PhonicPal builds every word and every sum from manipulatives
+THESIS: A word is a bar model. Upside builds every word and every sum from manipulatives
 the child can see, hear, tap, and say. This refuses the pastel card grid and mascot hero,
 and it refuses clinical calm too.
 

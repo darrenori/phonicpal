@@ -5,9 +5,26 @@
  */
 
 const memory = new Map<string, string>();
-const PREFIX = 'phonicpal:';
+const PREFIX = 'upside:';
+// Before the rename to Upside, data lived under this prefix. Copy it across once so no child
+// loses their coins, words, or reading settings.
+const LEGACY_PREFIX = 'phonicpal:';
+
+function migrateLegacy(key: string): void {
+  try {
+    const store = window.localStorage;
+    if (store.getItem(PREFIX + key) !== null) return;
+    const legacy = store.getItem(LEGACY_PREFIX + key);
+    if (legacy === null) return;
+    store.setItem(PREFIX + key, legacy);
+    store.removeItem(LEGACY_PREFIX + key);
+  } catch {
+    // Storage is unavailable; the in-memory fallback takes over.
+  }
+}
 
 export function load<T>(key: string, fallback: T): T {
+  migrateLegacy(key);
   try {
     const raw = window.localStorage.getItem(PREFIX + key) ?? memory.get(key) ?? null;
     return raw ? { ...fallback, ...JSON.parse(raw) } : fallback;

@@ -157,7 +157,7 @@ export function ScanScreen() {
     if (!sample) celebrate(logScan(), 'for scanning');
   };
 
-  const intro = 'Take a photo of a word or a sum from your homework. PhonicPal will break it into blocks.';
+  const intro = 'Take a photo of a word or a sum from your homework. Upside will break it into blocks.';
   const reading = phase.kind === 'reading';
 
   return (
