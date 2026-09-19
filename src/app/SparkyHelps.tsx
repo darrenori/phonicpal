@@ -11,6 +11,7 @@ const STATUS: Record<WatchState, string> = {
   watching: 'Sparky Helps is on.',
   blocked: 'The camera is blocked. A grown-up can allow it in this browser’s site settings, then try again.',
   unsupported: 'This device or browser can’t share its camera with Sparky Helps.',
+  preview: 'This preview can’t use the camera. Sparky Helps works in the full Upside app at upside-reads.vercel.app/app/.',
   error: 'Sparky Helps couldn’t start. Check the connection and try again.',
 };
 
@@ -43,7 +44,7 @@ export function SparkyHelpsPanel({ open, onClose, onPreview }: { open: boolean; 
   }, [open]);
 
   const on = settings.sparkyHelps;
-  const failed = watch.state === 'blocked' || watch.state === 'unsupported' || watch.state === 'error';
+  const failed = watch.state === 'blocked' || watch.state === 'unsupported' || watch.state === 'preview' || watch.state === 'error';
   const units = Math.round(watch.upset * 10);
 
   const turnOn = () => {

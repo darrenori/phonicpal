@@ -11,12 +11,9 @@
  */
 
 import { useSyncExternalStore } from 'react';
-import detectorManifest from './models/tiny_face_detector_model-weights_manifest.json';
-import expressionManifest from './models/face_expression_model-weights_manifest.json';
-import detectorWeightsUrl from './models/tiny_face_detector_model.bin?url';
-import expressionWeightsUrl from './models/face_expression_model.bin?url';
+import type { FaceApi } from './faceModels';
 
-export type WatchState = 'off' | 'starting' | 'watching' | 'blocked' | 'unsupported' | 'error';
+export type WatchState = 'off' | 'starting' | 'watching' | 'blocked' | 'unsupported' | 'preview' | 'error';
 
 export interface MoodSnapshot {
   state: WatchState;
@@ -45,40 +42,13 @@ const INTERVAL_MS = 700;
 /** Weight of each new reading in the running average. */
 const SMOOTHING = 0.4;
 
-// face-api's surface is large; only the calls used here are typed.
-type FaceApi = typeof import('@vladmandic/face-api');
-
-async function readBinary(url: string): Promise<ArrayBuffer> {
-  // The single-file build inlines the weights as data URIs; decode them without fetch.
-  if (url.startsWith('data:')) {
-    const binary = atob(url.slice(url.indexOf(',') + 1));
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    return bytes.buffer;
-  }
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Could not load model weights (${response.status})`);
-  return response.arrayBuffer();
-}
+/** The single-file artifact preview has no camera access, so the model is left out of it. */
+const PREVIEW_ONLY = import.meta.env.VITE_TARGET === 'artifact';
 
 let faceApiPromise: Promise<FaceApi> | null = null;
 
 function loadModels(): Promise<FaceApi> {
-  faceApiPromise ??= (async () => {
-    const faceapi = await import('@vladmandic/face-api');
-    // face-api bundles all of TensorFlow.js but only declares part of its namespace.
-    const tf = faceapi.tf as unknown as { setBackend(name: string): Promise<boolean>; ready(): Promise<void> };
-    try {
-      if (!(await tf.setBackend('webgl'))) await tf.setBackend('cpu');
-    } catch {
-      await tf.setBackend('cpu');
-    }
-    await tf.ready();
-    const [detector, expression] = await Promise.all([readBinary(detectorWeightsUrl), readBinary(expressionWeightsUrl)]);
-    faceapi.nets.tinyFaceDetector.loadFromWeightMap(faceapi.tf.io.decodeWeights(detector, detectorManifest[0].weights as never));
-    faceapi.nets.faceExpressionNet.loadFromWeightMap(faceapi.tf.io.decodeWeights(expression, expressionManifest[0].weights as never));
-    return faceapi;
-  })();
+  faceApiPromise ??= import('./faceModels').then((m) => m.loadFaceApi());
   faceApiPromise.catch(() => {
     faceApiPromise = null;
   });
@@ -121,6 +91,10 @@ class MoodWatch {
 
   async start(): Promise<void> {
     if (this.snapshot.state === 'starting' || this.snapshot.state === 'watching') return;
+    if (PREVIEW_ONLY) {
+      this.set({ state: 'preview' });
+      return;
+    }
     if (!navigator.mediaDevices?.getUserMedia) {
       this.set({ state: 'unsupported' });
       return;
@@ -150,7 +124,8 @@ class MoodWatch {
       return;
     }
     try {
-      const faceapi = await loadModels();
+      const faceapi = PREVIEW_ONLY ? null : await loadModels();
+      if (!faceapi) return;
       if (run !== this.runId) return;
       this.aboveSince = null;
       this.set({ state: 'watching' });

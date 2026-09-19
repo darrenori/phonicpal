@@ -68,6 +68,8 @@ This writes one self-contained HTML page with hash routing to
 
 ## Deploy
 
+Live at https://upside-reads.vercel.app, https://darrenori.github.io/upside/ and https://upside-reads.onrender.com.
+
 - **Vercel:** `vercel.json` (framework: Vite, output: `dist`).
 - **GitHub Pages:** `.github/workflows/pages.yml` builds and deploys on every push to `main`.
 - **Render:** `render.yaml` (a static site that publishes `dist`).
