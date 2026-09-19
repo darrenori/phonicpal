@@ -1,0 +1,231 @@
+/*
+ * PhonicPal — Manipulatives Mat tokens.
+ * A fixed kit: each hue means one thing everywhere.
+ *   cobalt    = rods: tall letters, tens, action rods
+ *   lemon     = unit cubes: small letters, single quantities
+ *   vermilion = drop blocks: hanging letters, parts taken away
+ *   leaf      = the whole: whole words, answers, Sparky
+ *   ink       = structure: shelf lines, braces, operators
+ */
+
+:root {
+  color-scheme: light;
+
+  --mat: #edf1ee;
+  --mat-grid: rgba(23, 33, 58, 0.055);
+  --surface: #f9fbf9;
+  --surface-2: #e1e7e3;
+  --deep: #17213a;
+  --ink: #17213a;
+  --ink-2: #46506a;
+  --ink-3: #6b7389;
+  --line: rgba(23, 33, 58, 0.12);
+  --line-strong: rgba(23, 33, 58, 0.3);
+  --ghost: rgba(23, 33, 58, 0.34);
+  --focus: #2449d8;
+
+  --cobalt: #2449d8;
+  --cobalt-edge: #1a36a8;
+  --cobalt-hi: #4a69e6;
+  --cobalt-tint: #dce4fb;
+  --on-cobalt: #ffffff;
+
+  --lemon: #f5c518;
+  --lemon-edge: #c29b00;
+  --lemon-hi: #f9d85c;
+  --lemon-tint: #fbefc2;
+  --on-lemon: #17213a;
+
+  --vermilion: #d43d27;
+  --vermilion-edge: #a82c19;
+  --vermilion-hi: #e2644f;
+  --vermilion-tint: #f8dcd5;
+  --on-vermilion: #ffffff;
+
+  --leaf: #1f8250;
+  --leaf-edge: #16613b;
+  --leaf-hi: #3aa56c;
+  --leaf-tint: #d5ecde;
+  --on-leaf: #ffffff;
+
+  --lip: #d9738a;
+  --tongue: #f09aa7;
+  --mouth: #5a1e2e;
+
+  --block-outline: 0 0 0 0 transparent;
+  --shadow-rest: 0 1px 1px rgba(23, 33, 58, 0.1), 0 2px 5px -1px rgba(23, 33, 58, 0.1);
+  --shadow-lift: 0 16px 22px -12px rgba(23, 33, 58, 0.42), 0 5px 9px -5px rgba(23, 33, 58, 0.22);
+  --shadow-panel: 0 1px 2px rgba(23, 33, 58, 0.06), 0 12px 32px -20px rgba(23, 33, 58, 0.3);
+
+  --font-ui: 'Lexend', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display: 'Lexend Exa', 'Lexend', 'Segoe UI', system-ui, sans-serif;
+  --glyph-drop: 0.125; /* where the baseline sits in a line-height:1 box, per em */
+
+  --track: 0.04em;
+  --word: 0.16em;
+  --leading: 1.65;
+
+  --t-xs: 0.8125rem;
+  --t-sm: 0.9375rem;
+  --t-md: 1rem;
+  --t-lg: 1.25rem;
+  --t-xl: 1.6rem;
+  --t-2xl: clamp(1.7rem, 1.2rem + 1.8vw, 2.4rem);
+  --t-3xl: clamp(2rem, 1.2rem + 3vw, 3.3rem);
+  --t-display: clamp(2.3rem, 1rem + 4.8vw, 4.9rem);
+
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2rem;
+  --s7: 3rem;
+  --s8: 4.5rem;
+  --s9: 7rem;
+
+  --r-block: 0.4rem;
+  --r-control: 0.65rem;
+  --r-panel: 1.1rem;
+
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 460ms;
+
+  --grid: 24px;
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+}
+
+/* Night: a dark mat for evening practice. Follows the device unless the reader chose a theme. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):is([data-pp-theme='auto'], :not([data-pp-theme])) {
+    color-scheme: dark;
+    --mat: #0f1420;
+    --mat-grid: rgba(226, 232, 245, 0.045);
+    --surface: #171e2e;
+    --surface-2: #0b0f18;
+    --deep: #0b0f18;
+    --ink: #eef1f7;
+    --ink-2: #b8c0d2;
+    --ink-3: #8a93a8;
+    --line: rgba(238, 241, 247, 0.13);
+    --line-strong: rgba(238, 241, 247, 0.32);
+    --ghost: rgba(238, 241, 247, 0.4);
+    --focus: #f2c230;
+    --cobalt: #3d5fe8;
+    --cobalt-edge: #2a45b8;
+    --cobalt-hi: #5e7cf0;
+    --cobalt-tint: #1d2a55;
+    --lemon: #f2c230;
+    --lemon-edge: #b8900a;
+    --lemon-hi: #f6d466;
+    --lemon-tint: #3a3217;
+    --vermilion: #e8553b;
+    --vermilion-edge: #a93a26;
+    --vermilion-hi: #ef7862;
+    --vermilion-tint: #45211b;
+    --leaf: #2a9a60;
+    --leaf-edge: #1c6f44;
+    --leaf-hi: #43b477;
+    --leaf-tint: #16342a;
+    --on-leaf: #06140c;
+    --shadow-rest: 0 1px 1px rgba(0, 0, 0, 0.4), 0 2px 6px -1px rgba(0, 0, 0, 0.45);
+    --shadow-lift: 0 16px 24px -12px rgba(0, 0, 0, 0.75), 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+    --shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.3), 0 14px 34px -20px rgba(0, 0, 0, 0.8);
+  }
+}
+
+:root[data-theme='dark']:is([data-pp-theme='auto'], :not([data-pp-theme])),
+:root[data-pp-theme='night'] {
+  color-scheme: dark;
+  --mat: #0f1420;
+  --mat-grid: rgba(226, 232, 245, 0.045);
+  --surface: #171e2e;
+  --surface-2: #0b0f18;
+  --deep: #0b0f18;
+  --ink: #eef1f7;
+  --ink-2: #b8c0d2;
+  --ink-3: #8a93a8;
+  --line: rgba(238, 241, 247, 0.13);
+  --line-strong: rgba(238, 241, 247, 0.32);
+  --ghost: rgba(238, 241, 247, 0.4);
+  --focus: #f2c230;
+  --cobalt: #3d5fe8;
+  --cobalt-edge: #2a45b8;
+  --cobalt-hi: #5e7cf0;
+  --cobalt-tint: #1d2a55;
+  --lemon: #f2c230;
+  --lemon-edge: #b8900a;
+  --lemon-hi: #f6d466;
+  --lemon-tint: #3a3217;
+  --vermilion: #e8553b;
+  --vermilion-edge: #a93a26;
+  --vermilion-hi: #ef7862;
+  --vermilion-tint: #45211b;
+  --leaf: #2a9a60;
+  --leaf-edge: #1c6f44;
+  --leaf-hi: #43b477;
+  --leaf-tint: #16342a;
+  --on-leaf: #06140c;
+  --shadow-rest: 0 1px 1px rgba(0, 0, 0, 0.4), 0 2px 6px -1px rgba(0, 0, 0, 0.45);
+  --shadow-lift: 0 16px 24px -12px rgba(0, 0, 0, 0.75), 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+  --shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.3), 0 14px 34px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* High contrast: white mat, black structure, outlined blocks. */
+:root[data-pp-theme='contrast'] {
+  color-scheme: light;
+  --mat: #ffffff;
+  --mat-grid: rgba(0, 0, 0, 0.07);
+  --surface: #ffffff;
+  --surface-2: #efefef;
+  --deep: #000000;
+  --ink: #000000;
+  --ink-2: #1a1a1a;
+  --ink-3: #333333;
+  --line: #000000;
+  --line-strong: #000000;
+  --ghost: #000000;
+  --focus: #0033cc;
+  --cobalt: #0033cc;
+  --cobalt-edge: #001f80;
+  --cobalt-hi: #1a4be0;
+  --lemon: #ffd400;
+  --lemon-edge: #8a7300;
+  --vermilion: #b3200c;
+  --vermilion-edge: #6e1307;
+  --leaf: #006b35;
+  --leaf-edge: #003d1e;
+  --on-leaf: #ffffff;
+  --block-outline: 0 0 0 2px #000000;
+}
+
+/* Reader choices: font, size, spacing. */
+:root[data-font='opendyslexic'] {
+  --font-ui: 'OpenDyslexic', 'Comic Sans MS', 'Segoe UI', sans-serif;
+  --font-display: var(--font-ui);
+  --glyph-drop: 0.26;
+}
+:root[data-font='atkinson'] {
+  --font-ui: 'Atkinson Hyperlegible', Verdana, 'Segoe UI', sans-serif;
+  --font-display: var(--font-ui);
+  --glyph-drop: 0.13;
+}
+
+:root[data-size='s'] { font-size: 100%; }
+:root[data-size='m'] { font-size: 106.25%; }
+:root[data-size='l'] { font-size: 118.75%; }
+:root[data-size='xl'] { font-size: 134.375%; }
+
+:root[data-spacing='normal'] { --track: 0.01em; --word: 0.06em; --leading: 1.55; }
+:root[data-spacing='wide'] { --track: 0.04em; --word: 0.16em; --leading: 1.65; }
+:root[data-spacing='wider'] { --track: 0.1em; --word: 0.32em; --leading: 1.85; }
+
+/* Coloured overlays, the tinted acetate sheets many dyslexic readers use. */
+:root { --overlay: transparent; }
+:root[data-overlay='blue'] { --overlay: rgba(96, 156, 255, 0.2); }
+:root[data-overlay='yellow'] { --overlay: rgba(255, 214, 64, 0.22); }
+:root[data-overlay='rose'] { --overlay: rgba(255, 128, 156, 0.18); }
+:root[data-overlay='green'] { --overlay: rgba(96, 204, 128, 0.2); }
+:root[data-overlay='peach'] { --overlay: rgba(255, 160, 96, 0.2); }

@@ -1,0 +1,292 @@
+/*
+ * The word bar. Geometry is in units of --g, the glyph size.
+ * The shelf is the baseline: cubes and rods rest on it, drop blocks hang below it.
+ *   cube  = x-height envelope        (0.70g tall)
+ *   rod   = ascender envelope        (0.96g tall)
+ *   drop  = x-height + descender     (0.94g tall, 0.24g below the shelf)
+ */
+
+.wb {
+  --pad: calc(var(--g) * 0.1);
+  --up: calc(var(--g) * 0.96);
+  --down: calc(var(--g) * 0.24);
+  --cube-h: calc(var(--g) * 0.7);
+  display: inline-grid;
+  justify-items: stretch;
+  gap: calc(var(--g) * 0.16);
+  max-width: 100%;
+  font-family: var(--font-ui);
+  letter-spacing: 0;
+  word-spacing: 0;
+}
+
+/* The whole: a leaf brace spanning every part. */
+.wb-whole {
+  display: grid;
+  gap: calc(var(--g) * 0.08);
+  justify-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--leaf);
+  -webkit-tap-highlight-color: transparent;
+}
+button.wb-whole {
+  border-radius: var(--r-block);
+}
+.wb-whole-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: max(1rem, calc(var(--g) * 0.34));
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+button.wb-whole:hover .wb-whole-label {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+.brace {
+  display: flex;
+  width: 100%;
+  height: max(8px, calc(var(--g) * 0.16));
+}
+.brace::before,
+.brace::after {
+  content: '';
+  flex: 1;
+  border: 2px solid currentColor;
+}
+.brace--top::before {
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 8px;
+}
+.brace--top::after {
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: 8px;
+}
+.brace--bottom::before {
+  border-right: 0;
+  border-top: 0;
+  border-bottom-left-radius: 8px;
+}
+.brace--bottom::after {
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 8px;
+}
+
+/* The row of parts, resting on one shelf line. */
+.wb-row {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--g) * 0.07);
+  transition: gap var(--dur-3) var(--ease-settle);
+}
+.wb--split .wb-row {
+  gap: calc(var(--g) * 0.42);
+}
+.wb-row::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--g) * -0.12);
+  right: calc(var(--g) * -0.12);
+  top: var(--up);
+  height: 2px;
+  background: var(--ink);
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.wb-part {
+  display: grid;
+  justify-items: stretch;
+  gap: calc(var(--g) * 0.06);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  border-radius: var(--r-block);
+  -webkit-tap-highlight-color: transparent;
+}
+button.wb-part {
+  cursor: pointer;
+}
+.wb-blocks {
+  display: flex;
+  align-items: flex-end;
+  gap: calc(var(--g) * 0.07);
+  height: var(--up);
+  margin-bottom: var(--down);
+}
+
+/* Braces and labels under each part only appear once the word is split. */
+.wb-part > .brace,
+.wb-part-label {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--dur-2) linear,
+    transform var(--dur-3) var(--ease-settle);
+}
+.wb--split .wb-part > .brace,
+.wb--split .wb-part-label {
+  opacity: 1;
+  transform: none;
+}
+.wb-part-label {
+  justify-self: center;
+  font-size: max(0.95rem, calc(var(--g) * 0.3));
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink-2);
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Letter blocks ---------- */
+
+.blk {
+  --face: var(--lemon);
+  --edge: var(--lemon-edge);
+  --face-hi: var(--lemon-hi);
+  --on: var(--on-lemon);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: calc(var(--g) * 0.6);
+  height: var(--cube-h);
+  padding-inline: calc(var(--g) * 0.11);
+  border-radius: calc(var(--g) * 0.09);
+  background: var(--face);
+  color: var(--on);
+  box-shadow: var(--block-outline), var(--shadow-rest);
+  transition:
+    transform var(--dur-2) var(--ease-settle),
+    box-shadow var(--dur-2) var(--ease-settle);
+}
+.blk-glyph {
+  position: relative;
+  z-index: 1;
+  display: block;
+  font-size: var(--g);
+  font-weight: 600;
+  line-height: 1;
+  /* Put the glyph's baseline on the shelf, a pad above the block's foot. */
+  margin-bottom: calc(var(--pad) - var(--g) * var(--glyph-drop));
+}
+.blk--tall {
+  --face: var(--cobalt);
+  --edge: var(--cobalt-edge);
+  --face-hi: var(--cobalt-hi);
+  --on: var(--on-cobalt);
+  height: var(--up);
+}
+.blk--hang {
+  --face: var(--vermilion);
+  --edge: var(--vermilion-edge);
+  --face-hi: var(--vermilion-hi);
+  --on: var(--on-vermilion);
+  height: calc(var(--cube-h) + var(--down));
+  margin-bottom: calc(var(--down) * -1);
+}
+.blk--hang .blk-glyph {
+  margin-bottom: calc(var(--down) + var(--pad) - var(--g) * var(--glyph-drop));
+}
+.blk--gap {
+  min-width: calc(var(--g) * 0.35);
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+.blk--mark {
+  min-width: calc(var(--g) * 0.3);
+  padding: 0;
+  background: none;
+  color: var(--ink);
+  box-shadow: none;
+}
+
+/* Unit grooves line up across the bar: the x-height on rods, the shelf on drop blocks. */
+.blk--tall::after,
+.blk--hang::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--edge);
+  opacity: 0.55;
+}
+.blk--tall::after {
+  bottom: var(--cube-h);
+}
+.blk--hang::after {
+  bottom: var(--down);
+}
+
+/* b d p q helper: the round tummy side of the letter gets a lighter half. */
+:root[data-bd='on'] .blk[data-confusable='b'],
+:root[data-bd='on'] .blk[data-confusable='p'] {
+  background: linear-gradient(90deg, var(--face) 50%, var(--face-hi) 50%);
+}
+:root[data-bd='on'] .blk[data-confusable='d'],
+:root[data-bd='on'] .blk[data-confusable='q'] {
+  background: linear-gradient(90deg, var(--face-hi) 50%, var(--face) 50%);
+}
+
+/* Lift: the part you are holding floats off the mat. */
+button.wb-part:hover .blk,
+.wb-part[aria-pressed='true'] .blk,
+.wb-part[data-active] .blk {
+  transform: translateY(calc(var(--g) * -0.12));
+  box-shadow: var(--block-outline), var(--shadow-lift);
+}
+.wb-part[aria-pressed='true'],
+.wb-part[data-active] {
+  color: var(--ink);
+}
+.wb-part[aria-pressed='true'] .wb-part-label,
+.wb-part[data-active] .wb-part-label {
+  color: var(--ink);
+}
+
+/* Build: blocks drop onto the shelf one by one. They stay visible throughout. */
+.wb--build .blk {
+  animation: blk-drop var(--dur-3) var(--ease-settle) backwards;
+  animation-delay: calc(var(--i) * 45ms);
+}
+@keyframes blk-drop {
+  from {
+    transform: translateY(calc(var(--g) * -0.55));
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* ---------- Legend ---------- */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s5);
+  list-style: none;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+}
+.legend--compact {
+  font-size: var(--t-xs);
+  gap: var(--s1) var(--s4);
+}

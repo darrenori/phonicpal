@@ -1,0 +1,38 @@
+.mouth {
+  display: block;
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+}
+.mouth-skin {
+  fill: #f4d7c4;
+}
+.mouth-lip {
+  fill: var(--lip);
+}
+.mouth-inside {
+  fill: var(--mouth);
+}
+.mouth-teeth {
+  fill: #ffffff;
+}
+.mouth-tongue {
+  fill: var(--tongue);
+}
+.mouth-tongue--back {
+  opacity: 0.7;
+}
+.mouth path,
+.mouth rect,
+.mouth ellipse {
+  transition: all var(--dur-3) var(--ease-settle);
+}
+.mouth--speaking {
+  animation: mouth-say 0.5s var(--ease-settle) 2;
+  transform-origin: 50% 50%;
+}
+@keyframes mouth-say {
+  50% {
+    transform: scale(1.04, 0.94);
+  }
+}

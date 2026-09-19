@@ -1,0 +1,49 @@
+.sparky {
+  display: block;
+  overflow: visible;
+}
+.sp-line {
+  fill: none;
+  stroke: #17213a;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sparky--idle .sp-bob {
+  animation: sp-bob 3.6s ease-in-out infinite;
+  transform-origin: 100px 190px;
+}
+.sparky--idle .sp-eyes {
+  animation: sp-blink 5.5s infinite;
+  transform-origin: 100px 73px;
+}
+.sparky--cheer .sp-bob {
+  animation: sp-hop 0.7s var(--ease-settle) 2;
+}
+@keyframes sp-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes sp-blink {
+  0%,
+  94%,
+  100% {
+    transform: scaleY(1);
+  }
+  97% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes sp-hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-14px);
+  }
+}

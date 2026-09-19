@@ -1,0 +1,25 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1;
+  border-radius: var(--r-block);
+}
+.logo-word {
+  font-family: 'Lexend Exa', 'Lexend', sans-serif;
+  font-weight: 700;
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
+  word-spacing: 0;
+}
+.logo-suffix {
+  padding: 0.28rem 0.5rem;
+  border-radius: var(--r-block);
+  background: var(--ink);
+  color: var(--mat);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
