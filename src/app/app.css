@@ -1276,3 +1276,122 @@ dialog::backdrop {
     padding-bottom: 0;
   }
 }
+
+/* ---------- Sparky Helps ---------- */
+
+.app-helps-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+}
+.helps-dot {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--ghost);
+  flex: none;
+}
+.helps-dot.is-on {
+  background: var(--leaf);
+  box-shadow: 0 0 0 2px var(--surface);
+}
+.app-helps-icon .helps-dot {
+  position: absolute;
+  right: -1px;
+  top: 1px;
+}
+.helps-intro,
+.feel-nudge {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s4);
+}
+.helps-intro p,
+.feel-nudge p {
+  font-size: var(--t-lg);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.helps-live,
+.helps-consent {
+  display: grid;
+  gap: var(--s4);
+}
+.helps-status {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-weight: 600;
+}
+.helps-meter-wrap {
+  display: grid;
+  gap: var(--s2);
+}
+.meter--upset span.is-on {
+  background: var(--vermilion);
+}
+.helps-preview {
+  width: min(100%, 16rem);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--r-control);
+  transform: scaleX(-1);
+  background: var(--surface-2);
+}
+.helps-grownups {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s4);
+  border-radius: var(--r-control);
+  background: var(--mat);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.helps-grownups h3 {
+  font-size: var(--t-md);
+}
+.helps-grownups ul {
+  display: grid;
+  gap: var(--s2);
+  list-style: none;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.helps-grownups li {
+  display: grid;
+  grid-template-columns: 0.7rem minmax(0, 1fr);
+  gap: var(--s3);
+  align-items: baseline;
+}
+.helps-grownups li::before {
+  content: '';
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 2px;
+  background: var(--lemon);
+}
+.helps-agree {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s3);
+  align-items: start;
+  font-weight: 500;
+  cursor: pointer;
+}
+.helps-agree input {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: 0.1rem 0 0;
+  accent-color: var(--leaf);
+}
+.feel-dismiss {
+  justify-self: center;
+}
+@media (max-width: 420px) {
+  .app-bar .logo-word {
+    display: none;
+  }
+}

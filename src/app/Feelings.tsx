@@ -14,6 +14,8 @@ const FEELINGS: Array<{ id: Feeling; label: string; mood: SparkyMood }> = [
   { id: 'tired', label: 'Tired', mood: 'sleepy' },
 ];
 
+const NUDGE = 'Hi, it’s Sparky. You look like you might be having a hard time. How are you feeling?';
+
 const REPLY: Record<Feeling, string> = {
   happy: 'Yay! Sparky feels happy too. Let’s keep building.',
   okay: 'Okay is fine. We can take it one block at a time.',
@@ -52,7 +54,11 @@ function Breathing({ onDone }: { onDone: () => void }) {
   );
 }
 
-export function FeelingsDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+/**
+ * The feelings check-in. A child opens it from the header; Sparky Helps opens it with `nudge`
+ * when the camera helper notices an upset face, and then the child says how they feel.
+ */
+export function FeelingsDialog({ open, onClose, nudge = false }: { open: boolean; onClose: () => void; nudge?: boolean }) {
   const ref = useRef<HTMLDialogElement>(null);
   const [feeling, setFeeling] = useState<Feeling | null>(null);
   const [breathing, setBreathing] = useState<'no' | 'now' | 'done'>('no');
@@ -64,6 +70,7 @@ export function FeelingsDialog({ open, onClose }: { open: boolean; onClose: () =
       setFeeling(null);
       setBreathing('no');
       d.showModal();
+      if (nudge) speak(NUDGE);
     } else if (!open && d.open) d.close();
   }, [open]);
 
@@ -74,7 +81,7 @@ export function FeelingsDialog({ open, onClose }: { open: boolean; onClose: () =
     if (f === 'stuck') setBreathing('now');
   };
 
-  const title = 'How are you feeling?';
+  const title = nudge ? 'Sparky is here for you' : 'How are you feeling?';
   return (
     <dialog ref={ref} className="dialog feelings" aria-labelledby="feel-title" onClose={onClose} onClick={(e) => e.target === ref.current && onClose()}>
       <div className="dialog-inner">
@@ -87,6 +94,13 @@ export function FeelingsDialog({ open, onClose }: { open: boolean; onClose: () =
           </button>
         </div>
 
+        {!feeling && nudge && (
+          <div className="feel-nudge">
+            <Sparky mood="calm" size="4.5rem" />
+            <p>{NUDGE}</p>
+          </div>
+        )}
+
         {!feeling && (
           <div className="feel-grid">
             {FEELINGS.map((f) => (
@@ -96,6 +110,12 @@ export function FeelingsDialog({ open, onClose }: { open: boolean; onClose: () =
               </button>
             ))}
           </div>
+        )}
+
+        {!feeling && nudge && (
+          <button type="button" className="rod rod--ghost feel-dismiss" onClick={onClose}>
+            <span className="rod-label">I’m okay, thanks</span>
+          </button>
         )}
 
         {feeling && breathing === 'now' && <Breathing onDone={() => setBreathing('done')} />}

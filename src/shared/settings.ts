@@ -18,6 +18,8 @@ export interface ReadingSettings {
   bdHelper: boolean;
   calmMotion: boolean;
   speechRate: number;
+  /** Sparky Helps: a grown-up turned on the camera helper. Off until they do. */
+  sparkyHelps: boolean;
   /** Settings schema version; 2 made the bright day theme the default. */
   v: 2;
 }
@@ -34,6 +36,7 @@ export const DEFAULT_SETTINGS: ReadingSettings = {
   bdHelper: true,
   calmMotion: Boolean(prefersCalm),
   speechRate: 0.8,
+  sparkyHelps: false,
   v: 2,
 };
 

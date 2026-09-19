@@ -1,4 +1,4 @@
-# PhonicPal
+# Upside
 
 A dyslexia-first practice companion for children aged 5 to 12 (K2 to P6). Words become
 blocks that children can **see**, **hear**, **tap** and **say**, between specialist sessions,
@@ -33,6 +33,8 @@ This repository holds three surfaces that share one design system:
   line spacing; coloured overlays; a reading ruler; day, night and high-contrast themes;
   voice speed; calm motion.
 
+- **Sparky Helps (optional).** A camera helper that a grown-up must switch on. A small face-expression model runs inside the browser (`@vladmandic/face-api`, with models bundled from `src/ml/models`). When a child looks upset for about three seconds, Sparky offers the feelings check-in, then stays quiet for four minutes.
+
 Progress is stored on the device (`localStorage`). There is no backend yet. The camera
 mirror and microphone are opt-in and never record.
 
@@ -62,7 +64,7 @@ npm run build:artifact
 ```
 
 This writes one self-contained HTML page with hash routing to
-`dist-artifact/phonicpal.html`, for hosts that take a single file.
+`dist-artifact/upside.html`, for hosts that take a single file.
 
 ## Deploy
 
@@ -82,3 +84,22 @@ means one thing:
 - **leaf** is the whole: whole words, answers and Sparky
 
 Tokens live in `src/shared/tokens.css`, and product context is in `PRODUCT.md`.
+
+## Reacting to Sparky Helps
+
+Sparky Helps tells the rest of the site when a child looks upset. You can react in two ways:
+
+- **Inside the app**, register an action:
+
+  ```ts
+  import { moodWatch } from './src/ml/moodWatch';
+  const stop = moodWatch.onHelp(({ upset, at }) => { /* offer help */ });
+  ```  
+
+- **Anywhere on the page**, listen for the DOM event:
+
+  ```ts
+  window.addEventListener('upside:sparky-helps', (e) => console.log(e.detail.upset));
+  ```  
+
+Actions should offer help, never decide for the child. Faces don't always show how someone feels.

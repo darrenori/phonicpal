@@ -53,7 +53,7 @@ function Hero() {
         <div className="hero-copy">
           <h1 id="hero-title">Every word, built block by block.</h1>
           <p className="hero-lead">
-            PhonicPal is a practice companion for children aged 5 to 12 with dyslexia. Words become blocks they can see, hear, tap and say, between specialist
+            Upside is a practice companion for children aged 5 to 12 with dyslexia. Words become blocks they can see, hear, tap and say, between specialist
             sessions, at home or in school.
           </p>
         </div>
@@ -159,7 +159,7 @@ function Gap() {
         <div className="gap-body">
           <p>
             SpED teachers and therapists do essential work. But children lack continuous, tailored practice during free time, or whenever direct specialist
-            support isn’t available. PhonicPal bridges the gap between formal sessions and home practice.
+            support isn’t available. Upside bridges the gap between formal sessions and home practice.
           </p>
           <p>
             Our mission is a safe, relaxing space where children practise literacy on their own, without academic pressure, judgement or anxiety. Learning
@@ -170,14 +170,14 @@ function Gap() {
           <figcaption>
             <span>An example week with one specialist session</span>
             <button type="button" className="tile" aria-pressed={filled} onClick={() => setFilled((f) => !f)}>
-              {filled ? 'Hide PhonicPal practice' : 'Add PhonicPal practice'}
+              {filled ? 'Hide Upside practice' : 'Add Upside practice'}
             </button>
           </figcaption>
           <div className="week-whole" aria-hidden="true">
             <span>One week</span>
             <span className="brace brace--top" />
           </div>
-          <div className="week-bar" role="img" aria-label={`Monday: specialist session. Tuesday to Sunday: ${filled ? 'short practice with PhonicPal' : 'no structured practice'}.`}>
+          <div className="week-bar" role="img" aria-label={`Monday: specialist session. Tuesday to Sunday: ${filled ? 'short practice with Upside' : 'no structured practice'}.`}>
             {days.map((d, i) => (
               <div key={d} className="week-cell-wrap">
                 <span className={`week-cell ${i === 0 ? 'is-session' : filled ? 'is-practice' : 'is-empty'}`} style={{ animationDelay: `${i * 60}ms` }}>
@@ -315,7 +315,7 @@ function Maths() {
         <div className="section-intro">
           <h2 id="maths-title">Story sums, drawn as bar models.</h2>
           <p>
-            Word problems are hard when reading is hard. PhonicPal reads the story aloud, highlights the clue words, then shows the sum three ways: counters to
+            Word problems are hard when reading is hard. Upside reads the story aloud, highlights the clue words, then shows the sum three ways: counters to
             count, a Singapore-style bar model to draw, and the number sentence to write.
           </p>
         </div>
@@ -392,7 +392,7 @@ function SparkySection() {
           <h2 id="sparky-title">Tries earn coins. Mistakes never cost any.</h2>
           <p>
             Sparky is a friendly dragon who cheers for effort. Children earn coins for building words, trying out loud and checking in, then spend them on
-            curry puffs, kites and crowns. Nothing is ever taken away.
+            curry puffs, kites and crowns. Nothing is ever taken away. With Sparky Helps turned on, Sparky also notices when a child looks upset and offers a breathing game or an easier word.
           </p>
           <div className="feel-demo">
             <p className="feel-demo-q">How are you feeling?</p>
@@ -475,6 +475,7 @@ function Schools() {
               </h3>
               <ul className="brick-list">
                 <li>The camera mirror and microphone are opt-in and never record</li>
+                <li>Sparky Helps reads expressions inside the browser, and a grown-up must turn it on. Feelings are never saved or shown to teachers.</li>
                 <li>Homework photos are read inside the browser, never uploaded</li>
                 <li>No ads, no chat, and no public leaderboards</li>
               </ul>
@@ -536,7 +537,7 @@ function Close() {
       <div className="wrap close">
         <Sparky className="close-sparky" mood="cheer" hat="cap" size="clamp(9rem, 18vw, 14rem)" />
         <h2 id="close-title">Built with specialists, for the hours in between.</h2>
-        <p>PhonicPal is a Phase 1 prototype. We’re preparing structured pilots with dyslexia associations and specialised learning centres.</p>
+        <p>Upside is a Phase 1 prototype. We’re preparing structured pilots with dyslexia associations and specialised learning centres.</p>
         <div className="step-actions">
           <a className="rod rod--surface" href={APP}>
             <span className="rod-label">Try the learner app</span>
@@ -591,13 +592,14 @@ export function Landing() {
       <footer className="site-foot">
         <div className="wrap site-foot-inner">
           <Logo />
+          <p>Every letter has an upside. Turn a p upside down and it becomes a d.</p>
           <p>Supporting, not replacing, specialist educators.</p>
           <nav aria-label="Footer" className="site-foot-links">
             <a href={APP}>Learner app</a>
             <a href={EDU}>Educator demo</a>
             <a href="#tools">Reading tools</a>
           </nav>
-          <p className="site-foot-small">© 2026 PhonicPal · Phase 1 prototype for K2 to P6 learners</p>
+          <p className="site-foot-small">© 2026 Upside · Phase 1 prototype for K2 to P6 learners</p>
         </div>
       </footer>
       <ReadingLayer />

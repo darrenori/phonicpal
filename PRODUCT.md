@@ -27,7 +27,7 @@ Vercel, GitHub Pages, Render (static site) and a Claude artifact, from the publi
 ## Product Purpose
 
 The deck calls this the SpED care gap: specialists give high-impact care, but children
-have no continuous, tailored practice tool between sessions. PhonicPal fills that gap with
+have no continuous, tailored practice tool between sessions. Upside fills that gap with
 a safe, relaxing, enjoyable space where children practise literacy (and early numeracy)
 independently, without academic pressure, judgement, or anxiety.
 
@@ -58,7 +58,7 @@ Confirmed from the prototype (`../app.html`):
 - Snap & Scan: capture a word or a maths question from homework and see it visually.
 - Maths decoder: operators read aloud, and word problems turned into shape blocks.
 - Sparky the companion pet: coins earned by practising buy care items.
-- Emotion support: when a child is frustrated, Sparky steps in with encouragement.
+- Emotion support: the child checks in (happy, okay, stuck, tired), and \
 - Reading settings: dyslexia-friendly font and soft colour themes.
 
 Constraints:
@@ -69,7 +69,9 @@ Constraints:
 
 ## Brand Commitments
 
-- Product name: **PhonicPal**. Companion: **Sparky**, a friendly dragon.
+- Product name: **Upside** (renamed from PhonicPal on 2026-09-19). The name carries the b/d/p/q flip dyslexic readers know: turn a p upside down and it becomes a d. It also frames dyslexia by its strengths. The name was chosen to be memorable and decodable for young readers.
+- Logo: one bowl shared by a hanging p (vermilion) and a standing d (cobalt) on the shelf line. It reads the same upside down.
+- Companion: **Sparky**, a friendly dragon.
 - Voice: warm, calm, and encouraging. Never punitive. Mistakes are "tries", not
   failures.
 

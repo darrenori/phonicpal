@@ -5,9 +5,12 @@ import { ReadingLayer, ReadingTools } from '../components/ReadingTools';
 import { Sparky } from '../components/Sparky';
 import { href } from '../shared/routes';
 import { startPracticeClock, useProgress } from '../shared/progress';
+import { readSettings } from '../shared/settings';
+import { moodWatch } from '../ml/moodWatch';
 import { stopSpeaking } from '../shared/speech';
 import { CoinToast } from './CoinToast';
 import { FeelingsDialog } from './Feelings';
+import { SparkyHelpsButton, SparkyHelpsPanel } from './SparkyHelps';
 import { WordsScreen } from './WordsScreen';
 import { ScanScreen } from './ScanScreen';
 import { MathsScreen } from './MathsScreen';
@@ -52,6 +55,8 @@ const TAB_LABEL: Record<Tab, string> = {
 export function App() {
   const [route, setRoute] = useState(readRoute);
   const [feelingsOpen, setFeelingsOpen] = useState(false);
+  const [feelingsNudge, setFeelingsNudge] = useState(false);
+  const [helpsOpen, setHelpsOpen] = useState(false);
   const toolsRef = useRef<HTMLDialogElement>(null);
   const progress = useProgress();
 
@@ -70,6 +75,21 @@ export function App() {
     };
   }, []);
 
+  // Sparky Helps: when the camera helper sees a child looking upset, Sparky offers the check-in.
+  // Other parts of the site can react too, through moodWatch.onHelp or the upside:sparky-helps event.
+  const offerHelp = useCallback(() => {
+    setFeelingsNudge(true);
+    setFeelingsOpen(true);
+  }, []);
+  useEffect(() => {
+    const off = moodWatch.onHelp(offerHelp);
+    if (readSettings().sparkyHelps) moodWatch.start();
+    return () => {
+      off();
+      moodWatch.stop();
+    };
+  }, [offerHelp]);
+
   const openTools = useCallback(() => toolsRef.current?.showModal(), []);
   const closeTools = useCallback(() => toolsRef.current?.close(), []);
 
@@ -81,6 +101,7 @@ export function App() {
       <header className="app-bar">
         <Logo href={href('home', 'app')} />
         <div className="app-bar-actions">
+          <SparkyHelpsButton onOpen={() => setHelpsOpen(true)} />
           <button type="button" className="app-feel" onClick={() => setFeelingsOpen(true)}>
             <Sparky crop="head" size="2rem" idle={false} mood="okay" />
             <span>How I feel</span>
@@ -129,7 +150,22 @@ export function App() {
         {route.tab === 'sparky' && <SparkyScreen />}
       </main>
 
-      <FeelingsDialog open={feelingsOpen} onClose={() => setFeelingsOpen(false)} />
+      <FeelingsDialog
+        open={feelingsOpen}
+        nudge={feelingsNudge}
+        onClose={() => {
+          setFeelingsOpen(false);
+          setFeelingsNudge(false);
+        }}
+      />
+      <SparkyHelpsPanel
+        open={helpsOpen}
+        onClose={() => setHelpsOpen(false)}
+        onPreview={() => {
+          setHelpsOpen(false);
+          offerHelp();
+        }}
+      />
 
       <dialog ref={toolsRef} className="drawer" aria-labelledby="tools-title" onClick={(e) => e.target === toolsRef.current && closeTools()}>
         <div className="drawer-inner">
