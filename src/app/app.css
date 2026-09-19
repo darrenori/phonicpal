@@ -193,7 +193,7 @@
   }
 }
 @media (max-width: 520px) {
-  .app-feel span {
+  .app-feel > span:last-child {
     display: none;
   }
   .app-tools {
