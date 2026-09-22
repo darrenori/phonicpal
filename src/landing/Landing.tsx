@@ -12,6 +12,8 @@ import { buildWord, WORD_BANK, type Word } from '../shared/words';
 import { PROBLEMS } from '../shared/math';
 import { speak } from '../shared/speech';
 import { IS_ARTIFACT, href } from '../shared/routes';
+import theodoraPhoto from '../assets/theodora.jpg';
+import darrenPhoto from '../assets/darren.jpg';
 import type { Step } from '../shared/progress';
 import '../app/app.css';
 import './landing.css';
@@ -537,6 +539,72 @@ function Roadmap() {
   );
 }
 
+/* ---------- Founders ---------- */
+
+interface Founder {
+  name: string;
+  role: string;
+  photo: string;
+  quote: string;
+  bio: string;
+  why: string;
+  credits: string[];
+}
+
+const FOUNDERS: Founder[] = [
+  {
+    name: 'Theodora Lee',
+    role: 'Co-founder · learning design',
+    photo: theodoraPhoto,
+    quote: 'I believe in tech for good, and I enjoy building practical solutions that address real needs.',
+    bio: 'Theodora read Information Technology at Temasek Polytechnic before NUS, and she did not start out in love with tech. She chose it anyway, then spent her time holding the door open for the people behind her: president of the IT Student Interest Group, outreach lead for the Cross-Poly Girls in Tech committee running sessions in secondary schools, and a cybersecurity intern at DBS.',
+    why: 'She shapes how Upside teaches, so a child who is behind never feels caught out by it.',
+    credits: ['Lee Kuan Yew Award', 'Cisco Systems Course Gold Medal', 'IMDA Excellence Award', 'AWS Special Industry Prize', 'TP Scholarship, three years'],
+  },
+  {
+    name: 'Darren Ong Yan En',
+    role: 'Co-founder · product and engineering',
+    photo: darrenPhoto,
+    quote: 'Help should arrive at eight at night, at the kitchen table, not only in the specialist’s room.',
+    bio: 'Darren came through Temasek Polytechnic to NUS, and was named one of the Singapore Computer Society’s Future Leaders in Tech in 2023. He builds Upside itself: the letter blocks, the reading tools, the camera that reads a page of homework, and the parts that keep a child’s data on their own device.',
+    why: 'He works on the hours between specialist sessions, which is where most of a child’s week actually is.',
+    credits: ['SCS Future Leaders in Tech 2023'],
+  },
+];
+
+function Founders() {
+  return (
+    <section className="surface-band" id="founders" aria-labelledby="founders-title">
+      <div className="wrap founders">
+        <div className="section-intro">
+          <h2 id="founders-title">Two students who took the long way round.</h2>
+          <p>
+            Neither of us went straight from school to university, and both of us had people who made time for us on the way. Upside is us making time for
+            children who are still waiting for someone to work out how they learn.
+          </p>
+        </div>
+        <ul className="founder-grid">
+          {FOUNDERS.map((f) => (
+            <li key={f.name} className="founder">
+              <img className="founder-photo" src={f.photo} alt={f.name} width={512} height={512} loading="lazy" decoding="async" />
+              <h3>{f.name}</h3>
+              <p className="founder-role">{f.role}</p>
+              <blockquote className="founder-quote">{f.quote}</blockquote>
+              <p>{f.bio}</p>
+              <p className="founder-why">{f.why}</p>
+              <ul className="founder-credits">
+                {f.credits.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Close ---------- */
 
 function Close() {
@@ -577,6 +645,7 @@ export function Landing() {
             <a href="#tools">Reading tools</a>
             <a href="#schools">For schools</a>
             <a href="#roadmap">Roadmap</a>
+            <a href="#founders">Who we are</a>
           </nav>
           <a className="rod rod--sm" href={APP}>
             <span className="rod-label">Try the app</span>
@@ -595,6 +664,7 @@ export function Landing() {
         <Tools />
         <Schools />
         <Roadmap />
+        <Founders />
         <Close />
       </main>
       <footer className="site-foot">
