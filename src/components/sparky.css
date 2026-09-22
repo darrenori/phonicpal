@@ -47,3 +47,33 @@
     transform: translateY(-14px);
   }
 }
+.sparky--idle .sp-tail {
+  animation: sp-sway 4.2s ease-in-out infinite;
+  transform-origin: 136px 168px;
+}
+.sparky--idle .sp-wings {
+  animation: sp-flap 3.6s ease-in-out infinite;
+  transform-origin: 100px 110px;
+}
+.sparky--cheer .sp-wings {
+  animation: sp-flap 0.7s ease-in-out 3;
+  transform-origin: 100px 110px;
+}
+@keyframes sp-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+@keyframes sp-flap {
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.92);
+  }
+}

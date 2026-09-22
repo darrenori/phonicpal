@@ -84,7 +84,9 @@ export function Sparky({
   title,
   className = '',
 }: SparkyProps) {
-  const bellyId = `sp-belly-${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
+  const bellyId = `sp-belly-${uid}`;
+  const skinId = `sp-skin-${uid}`;
   const armsUp = mood === 'cheer';
   const viewBox = crop === 'head' ? '38 14 124 116' : '0 0 200 200';
   return (
@@ -97,39 +99,87 @@ export function Sparky({
       aria-label={title}
       aria-hidden={title ? undefined : true}
     >
+      <defs>
+        {/* Light falls from the top left, the same way across every drawing. */}
+        <radialGradient id={skinId} cx="34%" cy="26%" r="78%">
+          <stop offset="0%" stopColor="#52b77a" />
+          <stop offset="62%" stopColor="#2e9b5b" />
+          <stop offset="100%" stopColor="#23874c" />
+        </radialGradient>
+      </defs>
       <g className="sp-bob">
         {crop === 'full' && (
           <>
-            {/* tail */}
-            <path d="M136 168 C168 172 186 152 178 126" fill="none" stroke="#2e9b5b" strokeWidth="15" strokeLinecap="round" />
-            <path d="M170 128 L180 108 L190 128 L180 134 Z" fill="#f5c518" strokeLinejoin="round" />
-            {/* wings */}
-            <path d="M64 120 C40 110 28 90 36 74 C46 90 58 98 74 102 Z" fill="#1f7a45" />
-            <path d="M136 120 C160 110 172 90 164 74 C154 90 142 98 126 102 Z" fill="#1f7a45" />
-            {/* feet */}
+            {/* the ground under Sparky's feet */}
+            <ellipse cx="100" cy="192" rx="44" ry="6" fill="#17213a" opacity="0.1" />
+            {/* tail, with a ridge of spikes along the top */}
+            <path className="sp-tail" d="M136 168 C168 172 186 152 178 126" fill="none" stroke="#2e9b5b" strokeWidth="15" strokeLinecap="round" />
+            <g className="sp-tail" fill="#1f7a45">
+              <path d="M147 172 L152 157 L162 169 Z" />
+              <path d="M164 165 L169 149 L179 159 Z" />
+            </g>
+            <path className="sp-tail" d="M170 128 L180 108 L190 128 L180 134 Z" fill="#f5c518" stroke="#c29b00" strokeWidth="2" strokeLinejoin="round" />
+            {/* wings: a scalloped membrane on each side, with ribs */}
+            <g className="sp-wings">
+              <path
+                d="M70 104 C52 84 34 72 22 74 C28 86 26 96 30 106 C38 104 42 108 44 116 C52 112 58 114 62 122 C68 116 70 110 70 104 Z"
+                fill="#1f7a45"
+                stroke="#16613b"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M130 104 C148 84 166 72 178 74 C172 86 174 96 170 106 C162 104 158 108 156 116 C148 112 142 114 138 122 C132 116 130 110 130 104 Z"
+                fill="#1f7a45"
+                stroke="#16613b"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+              <g stroke="#3aa56c" strokeWidth="2.4" strokeLinecap="round" fill="none">
+                <path d="M68 106 L30 100" />
+                <path d="M68 106 L43 112" />
+                <path d="M132 106 L170 100" />
+                <path d="M132 106 L157 112" />
+              </g>
+            </g>
+            {/* a ridge of spikes down the back, between the wing and the tail */}
+            <g fill="#1f7a45" stroke="#16613b" strokeWidth="1.5" strokeLinejoin="round">
+              <path d="M138 126 L157 123 L141 140 Z" />
+              <path d="M141 143 L158 147 L139 158 Z" />
+            </g>
+            {/* feet, with toes */}
             <ellipse cx="80" cy="185" rx="15" ry="8.5" fill="#1f7a45" />
             <ellipse cx="120" cy="185" rx="15" ry="8.5" fill="#1f7a45" />
+            <g className="sp-line" strokeWidth="2.2" opacity="0.45">
+              <path d="M75 189 L75 182" />
+              <path d="M85 189 L85 182" />
+              <path d="M115 189 L115 182" />
+              <path d="M125 189 L125 182" />
+            </g>
             {/* body and segmented belly */}
-            <ellipse cx="100" cy="143" rx="46" ry="44" fill="#2e9b5b" />
+            <ellipse cx="100" cy="143" rx="46" ry="44" fill={`url(#${skinId})`} stroke="#1f7a45" strokeWidth="2.5" />
             <clipPath id={bellyId}>
               <ellipse cx="100" cy="151" rx="28" ry="30" />
             </clipPath>
             <ellipse cx="100" cy="151" rx="28" ry="30" fill="#f7e08a" />
-            <g clipPath={`url(#${bellyId})`} stroke="#dcbd4e" strokeWidth="2.5">
-              <path d="M70 138 H130" />
-              <path d="M70 151 H130" />
-              <path d="M70 164 H130" />
+            <g clipPath={`url(#${bellyId})`}>
+              <g stroke="#dcbd4e" strokeWidth="2.5">
+                <path d="M70 138 H130" />
+                <path d="M70 151 H130" />
+                <path d="M70 164 H130" />
+              </g>
+              <ellipse cx="88" cy="136" rx="11" ry="7" fill="#fff" opacity="0.3" />
             </g>
             {/* arms */}
             {armsUp ? (
               <>
-                <ellipse cx="56" cy="112" rx="9" ry="16" transform="rotate(-28 56 112)" fill="#2e9b5b" />
-                <ellipse cx="144" cy="112" rx="9" ry="16" transform="rotate(28 144 112)" fill="#2e9b5b" />
+                <ellipse cx="54" cy="112" rx="10" ry="16" transform="rotate(-28 54 112)" fill="#2e9b5b" stroke="#1f7a45" strokeWidth="2" />
+                <ellipse cx="146" cy="112" rx="10" ry="16" transform="rotate(28 146 112)" fill="#2e9b5b" stroke="#1f7a45" strokeWidth="2" />
               </>
             ) : (
               <>
-                <ellipse cx="60" cy="146" rx="9" ry="15" transform="rotate(18 60 146)" fill="#268a50" />
-                <ellipse cx="140" cy="146" rx="9" ry="15" transform="rotate(-18 140 146)" fill="#268a50" />
+                <ellipse cx="57" cy="148" rx="10" ry="16" transform="rotate(20 57 148)" fill="#2e9b5b" stroke="#1f7a45" strokeWidth="2" />
+                <ellipse cx="143" cy="148" rx="10" ry="16" transform="rotate(-20 143 148)" fill="#2e9b5b" stroke="#1f7a45" strokeWidth="2" />
               </>
             )}
             {/* neck items */}
@@ -150,10 +200,11 @@ export function Sparky({
           </>
         )}
         {/* horns */}
-        <path d="M66 50 L72 22 L88 42 Z" fill="#f5c518" stroke="#f5c518" strokeWidth="5" strokeLinejoin="round" />
-        <path d="M134 50 L128 22 L112 42 Z" fill="#f5c518" stroke="#f5c518" strokeWidth="5" strokeLinejoin="round" />
+        <path d="M66 50 L72 22 L88 42 Z" fill="#f5c518" stroke="#c29b00" strokeWidth="4" strokeLinejoin="round" />
+        <path d="M134 50 L128 22 L112 42 Z" fill="#f5c518" stroke="#c29b00" strokeWidth="4" strokeLinejoin="round" />
         {/* head */}
-        <circle cx="100" cy="78" r="43" fill="#2e9b5b" />
+        <circle cx="100" cy="78" r="43" fill={`url(#${skinId})`} stroke="#1f7a45" strokeWidth="2.5" />
+        <ellipse cx="82" cy="56" rx="15" ry="9" fill="#fff" opacity="0.16" transform="rotate(-20 82 56)" />
         <ellipse cx="100" cy="96" rx="25" ry="16" fill="#52b77a" />
         <ellipse cx="92" cy="91" rx="2.6" ry="2" fill="#17213a" />
         <ellipse cx="108" cy="91" rx="2.6" ry="2" fill="#17213a" />
