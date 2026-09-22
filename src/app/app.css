@@ -192,6 +192,12 @@
     font-size: var(--t-sm);
   }
 }
+/* The nav stays pinned to the bottom while the page scrolls, so leave room under the content. */
+@media (max-width: 959px) {
+  .app-main {
+    padding-bottom: calc(var(--s7) + 4.6rem);
+  }
+}
 @media (max-width: 520px) {
   .app-feel > span:last-child {
     display: none;
