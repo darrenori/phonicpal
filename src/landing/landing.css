@@ -794,3 +794,8 @@
     justify-content: center;
   }
 }
+
+/* Anchored sections stop below the sticky site bar, not underneath it. */
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
