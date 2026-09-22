@@ -5,7 +5,7 @@ import { ReadingLayer, ReadingTools } from '../components/ReadingTools';
 import { Sparky } from '../components/Sparky';
 import { href } from '../shared/routes';
 import { startPracticeClock, useProgress } from '../shared/progress';
-import { readSettings } from '../shared/settings';
+import { readSettings, updateSettings } from '../shared/settings';
 import { moodWatch } from '../ml/moodWatch';
 import { stopSpeaking } from '../shared/speech';
 import { CoinToast } from './CoinToast';
@@ -14,6 +14,7 @@ import { SparkyHelpsButton, SparkyHelpsPanel } from './SparkyHelps';
 import { SparkyCam } from './SparkyCam';
 import { WordsScreen } from './WordsScreen';
 import { CardsScreen } from './CardsScreen';
+import { Tour } from './Tour';
 import { ScanScreen } from './ScanScreen';
 import { MathsScreen } from './MathsScreen';
 import { SparkyScreen } from './SparkyScreen';
@@ -67,6 +68,7 @@ export function App() {
   const [feelingsOpen, setFeelingsOpen] = useState(false);
   const [feelingsNudge, setFeelingsNudge] = useState(false);
   const [helpsOpen, setHelpsOpen] = useState(wantsHelps);
+  const [tour, setTour] = useState(false);
   const toolsRef = useRef<HTMLDialogElement>(null);
   const progress = useProgress();
 
@@ -101,6 +103,17 @@ export function App() {
       moodWatch.stop();
     };
   }, [offerHelp]);
+
+  // First visit: Sparky shows the child around, once the page has settled.
+  useEffect(() => {
+    if (readSettings().tourDone || wantsHelps()) return;
+    const t = window.setTimeout(() => setTour(true), 700);
+    return () => window.clearTimeout(t);
+  }, []);
+  const endTour = useCallback(() => {
+    updateSettings({ tourDone: true });
+    setTour(false);
+  }, []);
 
   const openTools = useCallback(() => toolsRef.current?.showModal(), []);
   const closeTools = useCallback(() => toolsRef.current?.close(), []);
@@ -189,9 +202,20 @@ export function App() {
             </button>
           </div>
           <ReadingTools />
+          <button
+            type="button"
+            className="rod rod--surface rod--sm"
+            onClick={() => {
+              closeTools();
+              setTour(true);
+            }}
+          >
+            <span className="rod-label">Show me around again</span>
+          </button>
         </div>
       </dialog>
 
+      {tour && <Tour onClose={endTour} />}
       <SparkyCam onOpenSettings={() => setHelpsOpen(true)} />
       <ReadingLayer />
     </div>

@@ -20,6 +20,8 @@ export interface ReadingSettings {
   speechRate: number;
   /** Sparky Helps: a grown-up turned on the camera helper. Off until they do. */
   sparkyHelps: boolean;
+  /** The first-run tour has been seen. It can always be replayed from Reading tools. */
+  tourDone: boolean;
   /** The live camera tile is folded down to a small label. */
   sparkyCamSmall: boolean;
   /** Settings schema version; 2 made the bright day theme the default. */
@@ -40,6 +42,7 @@ export const DEFAULT_SETTINGS: ReadingSettings = {
   speechRate: 0.8,
   sparkyHelps: false,
   sparkyCamSmall: false,
+  tourDone: false,
   v: 2,
 };
 
