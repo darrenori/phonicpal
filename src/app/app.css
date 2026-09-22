@@ -1716,3 +1716,149 @@ dialog::backdrop {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------- Keeping words, and the card deck ---------- */
+
+.stage-keep {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: calc(var(--s3) * -1);
+}
+
+.cards {
+  display: grid;
+  gap: var(--s5);
+}
+.cards-empty {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s5);
+  align-items: center;
+}
+.cards-empty > div {
+  display: grid;
+  gap: var(--s3);
+  justify-items: start;
+}
+.cards-empty h2 {
+  font-size: var(--t-xl);
+}
+.cards-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  list-style: none;
+}
+.cards-stats li {
+  padding: var(--s2) var(--s4);
+  border-radius: var(--r-block);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line), var(--shadow-rest);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.cards-stats .num {
+  font-size: var(--t-lg);
+  color: var(--ink);
+  margin-right: 0.2rem;
+}
+
+.flash {
+  display: grid;
+  justify-items: center;
+  gap: var(--s4);
+  padding: var(--s5);
+  text-align: center;
+}
+.flash-count {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.flash-word {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 7rem;
+  container-type: inline-size;
+}
+.flash-ask {
+  font-size: var(--t-lg);
+  font-weight: 600;
+}
+.flash .wordcard {
+  width: min(100%, 34rem);
+  text-align: left;
+}
+.flash .step-note {
+  max-width: 46ch;
+}
+.flash--done h2 {
+  font-size: var(--t-xl);
+}
+.flash--done p {
+  max-width: 44ch;
+  color: var(--ink-2);
+}
+
+.deck-list ul {
+  display: grid;
+  gap: 0.4rem;
+  list-style: none;
+}
+.deck-row {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: var(--s3);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--r-block);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.deck-pic {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Segoe UI Symbol', sans-serif;
+  font-size: 1.4rem;
+  line-height: 1;
+  text-align: center;
+}
+.deck-word {
+  font-weight: 600;
+  letter-spacing: var(--track);
+}
+.box-dots {
+  display: inline-flex;
+  gap: 3px;
+}
+.box-dots span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1.5px var(--ghost);
+}
+.box-dots span.is-on {
+  background: var(--leaf);
+  box-shadow: none;
+}
+@media (max-width: 640px) {
+  .cards-empty {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+  .cards-empty > div {
+    justify-items: center;
+  }
+  .deck-row {
+    grid-template-columns: 1.8rem minmax(0, 1fr) auto;
+    row-gap: var(--s2);
+  }
+  .deck-row .rod {
+    grid-column: 2;
+  }
+  .deck-row .cube {
+    grid-column: 3;
+    grid-row: 2;
+  }
+}

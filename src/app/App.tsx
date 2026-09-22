@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BookOpen, Calculator, Camera, Type, X } from 'lucide-react';
+import { BookOpen, Calculator, Camera, Layers, Type, X } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { ReadingLayer, ReadingTools } from '../components/ReadingTools';
 import { Sparky } from '../components/Sparky';
@@ -13,13 +13,14 @@ import { FeelingsDialog } from './Feelings';
 import { SparkyHelpsButton, SparkyHelpsPanel } from './SparkyHelps';
 import { SparkyCam } from './SparkyCam';
 import { WordsScreen } from './WordsScreen';
+import { CardsScreen } from './CardsScreen';
 import { ScanScreen } from './ScanScreen';
 import { MathsScreen } from './MathsScreen';
 import { SparkyScreen } from './SparkyScreen';
 import './app.css';
 
-export type Tab = 'words' | 'scan' | 'maths' | 'sparky';
-const TABS: Tab[] = ['words', 'scan', 'maths', 'sparky'];
+export type Tab = 'words' | 'scan' | 'maths' | 'cards' | 'sparky';
+const TABS: Tab[] = ['words', 'scan', 'maths', 'cards', 'sparky'];
 
 /** A link to #helps (or #/app/helps in the artifact) opens the Sparky Helps panel. */
 function wantsHelps(): boolean {
@@ -46,6 +47,8 @@ function NavIcon({ tab, size = 26 }: { tab: Tab; size?: number }) {
       return <Camera size={size} strokeWidth={2.2} aria-hidden="true" />;
     case 'maths':
       return <Calculator size={size} strokeWidth={2.2} aria-hidden="true" />;
+    case 'cards':
+      return <Layers size={size} strokeWidth={2.2} aria-hidden="true" />;
     case 'sparky':
       return <Sparky crop="head" size={`${size + 6}px`} idle={false} />;
   }
@@ -55,6 +58,7 @@ const TAB_LABEL: Record<Tab, string> = {
   words: 'Words',
   scan: 'Snap & scan',
   maths: 'Maths',
+  cards: 'My words',
   sparky: 'Sparky',
 };
 
@@ -155,6 +159,7 @@ export function App() {
         {route.tab === 'words' && <WordsScreen initialWord={route.word} />}
         {route.tab === 'scan' && <ScanScreen />}
         {route.tab === 'maths' && <MathsScreen />}
+        {route.tab === 'cards' && <CardsScreen />}
         {route.tab === 'sparky' && <SparkyScreen />}
       </main>
 

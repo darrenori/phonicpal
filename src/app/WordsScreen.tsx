@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, Mic, MicOff, Search, Video, VideoOff, Volume2 } from 'lucide-react';
+import { ArrowRight, BookmarkCheck, BookmarkPlus, Mic, MicOff, Search, Video, VideoOff, Volume2 } from 'lucide-react';
 import { WordBar, ShapeLegend } from '../components/WordBar';
 import { WordCard } from '../components/WordCard';
 import { MouthShape } from '../components/Mouth';
@@ -10,6 +10,7 @@ import { VISEME_TIP, type Viseme } from '../shared/sounds';
 import { LEVELS, WORD_BANK, buildWord, type Level, type Word } from '../shared/words';
 import { canListen, heardTarget, listenOnce, speak } from '../shared/speech';
 import { completeStep, logTry, useProgress, STEPS, type Step } from '../shared/progress';
+import { keepWord, useDeck } from '../shared/deck';
 import { StepRail } from './StepRail';
 import { celebrate } from './CoinToast';
 import { go } from './App';
@@ -291,6 +292,11 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
 
   const done = progress.wordSteps[word.word] ?? {};
   const allDone = STEPS.every((s) => done[s]);
+  const kept = useDeck().some((c) => c.word === word.word);
+  // A finished word joins the deck on its own, so there is always something to review.
+  useEffect(() => {
+    if (allDone && !kept) keepWord(word.word);
+  }, [allDone, kept, word.word]);
 
   function pick(w: Word) {
     setWord(w);
@@ -372,6 +378,25 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
           </div>
           {word.guessed && <p className="stage-note">Upside guessed these chunks. Check tricky words with your teacher.</p>}
           <Sparky className="stage-sparky" mood={allDone ? 'cheer' : mood} size="clamp(4.5rem, 10vw, 7rem)" hat={progress.wearing.hat} neck={progress.wearing.neck} face={progress.wearing.face} />
+        </div>
+
+        <div className="stage-keep">
+          <button
+            type="button"
+            className={`rod rod--sm ${kept ? 'rod--ghost' : 'rod--surface'}`}
+            aria-pressed={kept}
+            onClick={() => {
+              if (!kept) keepWord(word.word);
+            }}
+          >
+            <span className="rod-label">{kept ? 'Kept in My words' : 'Keep this word'}</span>
+            <span className="rod-unit">{kept ? <BookmarkCheck size={16} aria-hidden="true" /> : <BookmarkPlus size={16} aria-hidden="true" />}</span>
+          </button>
+          {kept && (
+            <button type="button" className="rod rod--sm rod--ghost" onClick={() => go('cards')}>
+              <span className="rod-label">Review my words</span>
+            </button>
+          )}
         </div>
 
         <div className="step-panel">
@@ -463,7 +488,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
               {done.say ? (
                 <div className="built">
                   <h2>You built “{word.word}”!</h2>
-                  <p>All four steps are done, Sparky is proud of you.</p>
+                  <p>All four steps are done, and this word is now in My words. Sparky will bring it back to you later.</p>
                   <div className="step-actions">
                     <button type="button" className="rod" onClick={() => go('words', nextWord.word)}>
                       <span className="rod-label">Build “{nextWord.word}” next</span>
