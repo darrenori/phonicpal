@@ -357,7 +357,22 @@ A word built from letter blocks on one shelf. Tall letters are cobalt rods, x-he
 - **Operator key:** tray-white chips that pair an ink operator tile with its spoken meaning.
 
 ### Sparky
-A friendly green dragon drawn in SVG with an ink outline. At idle it bobs 3px over 3.6s and blinks. To cheer, it hops twice. It stands at the end of the word bar as the whole.
+A friendly green dragon drawn in SVG with an ink outline. One light source falls from the top left: a radial skin gradient from `#52b77a` to `#23874c`, a soft highlight on the head and belly, and a 10% ink shadow on the ground. Scalloped wing membranes carry three ribs each, a ridge of spikes runs down the back and tail, and the horns take a `#c29b00` edge. At rest the wings settle 8% and the tail sways 5 degrees. At idle it bobs 3px over 3.6s and blinks. To cheer, it hops twice. It stands at the end of the word bar as the whole.
+
+### Meaning card
+A picture cube on `lemon-tint` with a 3px lemon under-edge, 5rem square (3.4rem small), beside the meaning at `t-lg` and the example sentence in `ink-2`. The picture is a text character in the device's emoji font, never an image file. The same pictures ride at 1.1rem in the word list.
+
+### Word deck (My words)
+A flashcard on the mat: the word bar, then the meaning card on the back. Progress shows as three cubes, filled leaf as a word moves up its box. The deck list is a tray-white row per word: picture, word, box cubes, practise, remove.
+
+### Tour
+One real element is lifted out of a 55% ink scrim by a 3px lemon ring, with the card placed under it, over it, or beside it when the target is a tall column. The card carries Sparky's head, the stop count, the text at `t-md`, and cobalt step dots. Each stop is read aloud.
+
+### Stickers and goal
+Stickers are 3.2rem circles: `surface-2` with `ink-3` when locked, leaf on `leaf-tint` when earned. The daily goal is three 2.6rem lemon cubes; the streak is a vermilion flame with the count in `t-lg`.
+
+### Founders
+A tray-white card with a 7.5rem circular photo ringed in `leaf-tint` then leaf, the name at `t-xl`, the role in leaf `t-sm`, a quote with a 4px lemon rule, and awards as `lemon-tint` chips.
 
 ### Sparky Helps camera
 - **Live view:** the camera picture, mirrored, in a deep field with control radius. A small ink pill in the top-left corner reads LIVE, with a pulsing leaf dot. A 3px frame follows the face with a 160ms linear glide. It is leaf when calm, lemon when unsure, and vermilion once the upset score passes the threshold.

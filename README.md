@@ -9,7 +9,7 @@ This repository holds three surfaces that share one design system:
 | Surface | Path | What it is |
 | --- | --- | --- |
 | Landing | `/` | The B2B page for schools and SpED providers, with a live word-building demo |
-| Learner app | `/app/` | Words, Snap & scan, Maths, Sparky's den, feelings check-in, reading tools |
+| Learner app | `/app/` | Words, Snap & scan, Maths, My words, Sparky's den, feelings check-in, reading tools |
 | Educator view | `/educators/` | Class overview, learner detail and CSV export. **The class data is sample data.** |
 
 ## What the learner app does
@@ -20,13 +20,23 @@ This repository holds three surfaces that share one design system:
   3. Tap the sound boxes to get the sound, its keyword and the mouth shape.
   4. Say the word, using browser speech recognition where it's available and an optional camera mirror.
 
-  Children can also type any word, and it gets a best-guess breakdown.
+  Children can also type any word, and it gets a best-guess breakdown. Every word in the bank
+  carries a picture and a meaning in plain words, shown on a card during See it, so decoding and
+  understanding arrive together.
+- **First-run tour.** On a first visit Sparky lifts one real part of the screen out of the dimmed
+  page at a time and reads each stop aloud. It can be skipped, and replayed from Reading tools.
 - **Snap & scan.** Photograph homework. The picture is read inside the browser with
-  Tesseract.js and turned into word bars or a number sentence.
+  Tesseract.js and turned into word bars or a number sentence. Every word the reader is sure of
+  is outlined on the photo itself; tapping an outline says that word and offers to practise it.
+- **My words.** The child's own deck. A word joins it when they keep it, and finished words are
+  kept for them. Review shows the word, then the picture and meaning on the back of the card.
+  Three Leitner boxes bring a word back in one, three or seven days; "not yet" returns it today.
 - **Maths.** Singapore-style story sums shown three ways: counters (concrete), a bar model
   (pictorial) and the number sentence (abstract). Operators are read aloud when tapped.
-- **Sparky.** A companion dragon. Coins are earned for effort (once per activity per day),
-  never taken away, and spent on snacks, toys and outfits.
+- **Sparky.** A companion dragon, drawn by hand in SVG. Coins are earned for effort (once per
+  activity per day), never taken away, and spent on snacks, toys and outfits. A daily goal of
+  three words pays a bonus, a streak counts days in a row, and eight stickers mark the habits
+  that matter. Stickers are never taken away either.
 - **Feelings check-in.** Happy, okay, stuck or tired. "Stuck" leads into a breathing
   exercise with Sparky.
 - **Reading tools.** Lexend, OpenDyslexic or Atkinson Hyperlegible; text size; letter and

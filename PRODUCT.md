@@ -62,6 +62,15 @@ Confirmed from the prototype (`../app.html`):
 - Emotion support: the child checks in (happy, okay, stuck, tired), and \
 - Reading settings: dyslexia-friendly font and soft colour themes.
 
+Added since, and confirmed by the founders:
+- Meaning with every word: a picture and a plain-words definition, so decoding and
+  understanding are taught together.
+- A first-run tour, read aloud, because the children Upside is for are the least likely
+  to read written instructions.
+- Word outlines on a scanned photo, so a child can tap the word on the page in front of them.
+- My words: the child's own deck, reviewed on a three-box schedule, kept on the device.
+- A daily goal, a practice streak and stickers. Nothing earned is ever taken away.
+
 Constraints:
 - No backend yet. Progress is stored on the device, and the educator view uses sample
   data.
@@ -72,7 +81,10 @@ Constraints:
 
 - Product name: **Upside** (renamed from PhonicPal on 2026-09-19). The name carries the b/d/p/q flip dyslexic readers know: turn a p upside down and it becomes a d. It also frames dyslexia by its strengths. The name was chosen to be memorable and decodable for young readers.
 - Logo: one bowl shared by a hanging p (vermilion) and a standing d (cobalt) on the shelf line. It reads the same upside down.
-- Companion: **Sparky**, a friendly dragon.
+- Companion: **Sparky**, a friendly dragon, drawn by hand in SVG. No generated artwork is used
+  anywhere in the product.
+- Founders: Theodora Lee (learning design) and Darren Ong Yan En (product and engineering), both
+  Temasek Polytechnic to NUS. Named on the landing page, so every claim there stays checkable.
 - Voice: warm, calm, and encouraging. Never punitive. Mistakes are "tries", not
   failures.
 
