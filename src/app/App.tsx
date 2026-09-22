@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BookOpen, Calculator, Camera, Layers, Type, X } from 'lucide-react';
+import { BookOpen, Calculator, Camera, Flame, Layers, Type, X } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { ReadingLayer, ReadingTools } from '../components/ReadingTools';
 import { Sparky } from '../components/Sparky';
 import { href } from '../shared/routes';
-import { startPracticeClock, useProgress } from '../shared/progress';
+import { claimBadges, startPracticeClock, streak, useProgress } from '../shared/progress';
 import { readSettings, updateSettings } from '../shared/settings';
 import { moodWatch } from '../ml/moodWatch';
 import { stopSpeaking } from '../shared/speech';
-import { CoinToast } from './CoinToast';
+import { CoinToast, celebrate } from './CoinToast';
 import { FeelingsDialog } from './Feelings';
 import { SparkyHelpsButton, SparkyHelpsPanel } from './SparkyHelps';
 import { SparkyCam } from './SparkyCam';
@@ -71,6 +71,12 @@ export function App() {
   const [tour, setTour] = useState(false);
   const toolsRef = useRef<HTMLDialogElement>(null);
   const progress = useProgress();
+  const days = streak(progress);
+
+  // A sticker is earned by practising, so the check runs whenever progress moves.
+  useEffect(() => {
+    claimBadges().forEach((badge) => celebrate(5, `for the ${badge.name} sticker`));
+  }, [progress]);
 
   useEffect(() => {
     const onHash = () => {
@@ -131,6 +137,17 @@ export function App() {
             <Sparky crop="head" size="2rem" idle={false} mood="okay" />
             <span>How I feel</span>
           </button>
+          {days > 0 && (
+            <button
+              type="button"
+              className="coin-count streak-chip"
+              onClick={() => go('sparky')}
+              aria-label={`${days} ${days === 1 ? 'day' : 'days'} of practice in a row. Open Sparky's den.`}
+            >
+              <Flame size={20} strokeWidth={2.2} aria-hidden="true" />
+              <strong className="num">{days}</strong>
+            </button>
+          )}
           <button
             type="button"
             className="coin-count"

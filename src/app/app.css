@@ -2002,3 +2002,101 @@ dialog::backdrop {
   font-weight: 700;
   letter-spacing: var(--track);
 }
+
+/* ---------- Daily goal, streak and stickers ---------- */
+
+.streak-chip {
+  color: var(--vermilion);
+}
+.streak-chip .num {
+  color: var(--ink);
+}
+.quest {
+  display: grid;
+  gap: var(--s3);
+}
+.quest-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s4);
+}
+.quest-cubes {
+  display: flex;
+  gap: 0.35rem;
+}
+.quest-cubes span {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: var(--r-block);
+  box-shadow: inset 0 0 0 2px var(--ghost);
+}
+.quest-cubes span.is-on {
+  background: var(--lemon);
+  box-shadow:
+    inset 0 -4px 0 var(--lemon-edge),
+    0 0 0 1px var(--lemon-edge);
+}
+.quest-text {
+  font-size: var(--t-lg);
+  max-width: 34ch;
+}
+.quest-streak {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+.quest-streak svg {
+  color: var(--vermilion);
+}
+.quest-streak .num {
+  font-size: var(--t-lg);
+  color: var(--ink);
+}
+
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+  gap: var(--s3);
+  list-style: none;
+}
+.sticker {
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+  padding: var(--s3);
+  border-radius: var(--r-control);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  text-align: center;
+}
+.sticker-face {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--ink-3);
+}
+.sticker.is-on {
+  background: var(--leaf-tint);
+  box-shadow: inset 0 0 0 1px var(--leaf);
+}
+.sticker.is-on .sticker-face {
+  background: var(--leaf);
+  color: var(--on-leaf);
+}
+.sticker strong {
+  font-size: var(--t-md);
+}
+.sticker-blurb {
+  font-size: var(--t-xs);
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+.sticker.ghost {
+  background: transparent;
+}

@@ -47,6 +47,8 @@ export interface Progress {
   days: Record<string, DayLog>;
   wordSteps: Record<string, Partial<Record<Step, string>>>;
   feelings: Array<{ at: string; feeling: Feeling }>;
+  /** Stickers earned, by id. Once earned, a sticker is never lost. */
+  badges: string[];
   rewarded: { day: string; keys: string[] };
 }
 
@@ -59,6 +61,7 @@ const DEFAULT: Progress = {
   days: {},
   wordSteps: {},
   feelings: [],
+  badges: [],
   rewarded: { day: '', keys: [] },
 };
 
@@ -95,6 +98,64 @@ export function reward(key: string, coins: number): number {
   return coins;
 }
 
+/** Words to build in a day. Small enough to finish on a school night. */
+export const DAILY_GOAL = 3;
+
+function busy(day?: DayLog): boolean {
+  return Boolean(day && (day.steps > 0 || day.scans > 0 || day.sums > 0 || day.tries > 0 || day.words.length > 0));
+}
+
+/** Days of practice in a row. Today doesn't break the streak until it ends. */
+export function streak(p: Progress = state): number {
+  const day = new Date();
+  if (!busy(p.days[today(day)])) day.setDate(day.getDate() - 1);
+  let count = 0;
+  while (busy(p.days[today(day)])) {
+    count++;
+    day.setDate(day.getDate() - 1);
+  }
+  return count;
+}
+
+export function wordsToday(p: Progress = state): number {
+  return p.days[today()]?.words.length ?? 0;
+}
+
+function finishedWords(p: Progress): number {
+  return Object.values(p.wordSteps).filter((steps) => STEPS.every((s) => steps[s])).length;
+}
+
+function totalOf(p: Progress, key: 'tries' | 'scans' | 'sums'): number {
+  return Object.values(p.days).reduce((n, d) => n + d[key], 0);
+}
+
+export interface Badge {
+  id: string;
+  name: string;
+  blurb: string;
+  earned: (p: Progress) => boolean;
+}
+
+/** Stickers for the things Upside wants children to keep doing: turning up, and trying out loud. */
+export const BADGES: Badge[] = [
+  { id: 'first-word', name: 'First word', blurb: 'Finish all four steps for a word.', earned: (p) => finishedWords(p) >= 1 },
+  { id: 'five-words', name: 'Five words', blurb: 'Finish five words.', earned: (p) => finishedWords(p) >= 5 },
+  { id: 'twenty-words', name: 'Twenty words', blurb: 'Finish twenty words.', earned: (p) => finishedWords(p) >= 20 },
+  { id: 'brave-voice', name: 'Brave voice', blurb: 'Say ten words out loud.', earned: (p) => totalOf(p, 'tries') >= 10 },
+  { id: 'homework-helper', name: 'Homework helper', blurb: 'Scan five pages.', earned: (p) => totalOf(p, 'scans') >= 5 },
+  { id: 'sum-solver', name: 'Sum solver', blurb: 'Work out ten sums.', earned: (p) => totalOf(p, 'sums') >= 10 },
+  { id: 'three-days', name: 'Three days', blurb: 'Practise three days in a row.', earned: (p) => streak(p) >= 3 },
+  { id: 'whole-week', name: 'A whole week', blurb: 'Practise seven days in a row.', earned: (p) => streak(p) >= 7 },
+];
+
+/** Hands over any newly earned stickers, with five coins each, so the caller can cheer. */
+export function claimBadges(): Badge[] {
+  const fresh = BADGES.filter((b) => !state.badges.includes(b.id) && b.earned(state));
+  if (!fresh.length) return [];
+  commit({ ...state, coins: state.coins + fresh.length * 5, badges: [...state.badges, ...fresh.map((b) => b.id)] });
+  return fresh;
+}
+
 export function completeStep(word: string, step: Step): number {
   const steps = { ...state.wordSteps[word], [step]: today() };
   let next = { ...state, wordSteps: { ...state.wordSteps, [word]: steps } };
@@ -105,7 +166,10 @@ export function completeStep(word: string, step: Step): number {
   }));
   commit(next);
   const all = STEPS.every((s) => steps[s]);
-  return reward(`${word}:${step}`, step === 'say' ? 3 : 1) + (all ? reward(`${word}:all`, 5) : 0);
+  const coins = reward(`${word}:${step}`, step === 'say' ? 3 : 1) + (all ? reward(`${word}:all`, 5) : 0);
+  // Reaching the day's goal pays a bonus, once a day.
+  const goal = wordsToday() >= DAILY_GOAL ? reward(`goal:${today()}`, 5) : 0;
+  return coins + goal;
 }
 
 export function logTry(): void {

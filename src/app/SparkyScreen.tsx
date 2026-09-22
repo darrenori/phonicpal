@@ -1,8 +1,22 @@
 import { useMemo, useState } from 'react';
-import { Hand } from 'lucide-react';
+import { CalendarCheck, Calculator, Camera, Flame, Hand, Mic, Sparkles, Star, Trophy } from 'lucide-react';
 import { Sparky, type SparkyMood } from '../components/Sparky';
 import { Hear } from '../components/Controls';
-import { buy, pet, resetProgress, setName, SHOP, today, toggleWear, useProgress, type ShopItem } from '../shared/progress';
+import {
+  BADGES,
+  DAILY_GOAL,
+  buy,
+  pet,
+  resetProgress,
+  setName,
+  SHOP,
+  streak,
+  today,
+  toggleWear,
+  useProgress,
+  wordsToday,
+  type ShopItem,
+} from '../shared/progress';
 import { speak } from '../shared/speech';
 import { ItemIcon } from './ItemIcon';
 
@@ -16,12 +30,23 @@ function week(): Array<{ key: string; label: string }> {
   return out;
 }
 
+const STICKER_ICON: Record<string, typeof Star> = {
+  'first-word': Star,
+  'five-words': Sparkles,
+  'twenty-words': Trophy,
+  'brave-voice': Mic,
+  'homework-helper': Camera,
+  'sum-solver': Calculator,
+  'three-days': Flame,
+  'whole-week': CalendarCheck,
+};
+
 export function SparkyScreen() {
   const p = useProgress();
   const [mood, setMood] = useState<SparkyMood>('happy');
   const [message, setMessage] = useState('');
   const [nameDraft, setNameDraft] = useState(p.name);
-  const days = useMemo(week, []);
+  const week7 = useMemo(week, []);
   const units = Math.round(p.happiness / 10);
   const toys = SHOP.filter((i) => i.kind === 'toy' && p.owned.includes(i.id));
 
@@ -39,10 +64,12 @@ export function SparkyScreen() {
     else if (result === 'short') setMessage(`Save up ${item.cost - p.coins} more coins for the ${item.name.toLowerCase()}. Building words earns coins.`);
   };
 
-  const weekMinutes = days.reduce((n, d) => n + (p.days[d.key]?.minutes ?? 0), 0);
-  const weekWords = new Set(days.flatMap((d) => p.days[d.key]?.words ?? [])).size;
-  const weekTries = days.reduce((n, d) => n + (p.days[d.key]?.tries ?? 0), 0);
-  const maxMinutes = Math.max(15, ...days.map((d) => p.days[d.key]?.minutes ?? 0));
+  const built = wordsToday(p);
+  const days = streak(p);
+  const weekMinutes = week7.reduce((n, d) => n + (p.days[d.key]?.minutes ?? 0), 0);
+  const weekWords = new Set(week7.flatMap((d) => p.days[d.key]?.words ?? [])).size;
+  const weekTries = week7.reduce((n, d) => n + (p.days[d.key]?.tries ?? 0), 0);
+  const maxMinutes = Math.max(15, ...week7.map((d) => p.days[d.key]?.minutes ?? 0));
 
   return (
     <div className="den">
@@ -152,6 +179,65 @@ export function SparkyScreen() {
         </ul>
       </section>
 
+      <section className="quest panel" aria-labelledby="quest-title">
+        <h2 id="quest-title" className="section-title">
+          Today
+        </h2>
+        <div className="quest-row">
+          <div className="quest-cubes" role="meter" aria-valuemin={0} aria-valuemax={DAILY_GOAL} aria-valuenow={Math.min(built, DAILY_GOAL)} aria-label={`${built} of ${DAILY_GOAL} words built today`}>
+            {Array.from({ length: DAILY_GOAL }, (_, i) => (
+              <span key={i} className={i < built ? 'is-on' : ''} />
+            ))}
+          </div>
+          <p className="quest-text">
+            {built >= DAILY_GOAL ? (
+              <>
+                <strong>Goal done!</strong> {built} {built === 1 ? 'word' : 'words'} built today. Five bonus coins are yours.
+              </>
+            ) : (
+              <>
+                <strong>
+                  {built} of {DAILY_GOAL}
+                </strong>{' '}
+                words built today. Finish {DAILY_GOAL - built} more for five bonus coins.
+              </>
+            )}
+          </p>
+        </div>
+        <p className="quest-streak">
+          <Flame size={20} aria-hidden="true" />
+          {days > 0 ? (
+            <>
+              <strong className="num">{days}</strong> {days === 1 ? 'day' : 'days'} of practice in a row
+            </>
+          ) : (
+            <>Practise today to start a streak</>
+          )}
+        </p>
+      </section>
+
+      <section className="stickers panel" aria-labelledby="stickers-title">
+        <h2 id="stickers-title" className="section-title">
+          Stickers
+        </h2>
+        <ul className="sticker-grid">
+          {BADGES.map((badge) => {
+            const Icon = STICKER_ICON[badge.id] ?? Star;
+            const earned = p.badges.includes(badge.id);
+            return (
+              <li key={badge.id} className={`sticker ${earned ? 'is-on' : 'ghost'}`}>
+                <span className="sticker-face" aria-hidden="true">
+                  <Icon size={24} strokeWidth={2.2} />
+                </span>
+                <strong>{badge.name}</strong>
+                <span className="sticker-blurb">{earned ? badge.blurb : `Not yet: ${badge.blurb.toLowerCase()}`}</span>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="step-note">Every sticker is worth five coins. Stickers are never taken away.</p>
+      </section>
+
       <section className="my-week panel" aria-labelledby="week-title">
         <h2 id="week-title" className="section-title">
           My week
@@ -167,8 +253,8 @@ export function SparkyScreen() {
             <strong className="num">{weekTries}</strong> brave {weekTries === 1 ? 'try' : 'tries'} out loud
           </p>
         </div>
-        <div className="week-rods" role="img" aria-label={`Practice minutes: ${days.map((d) => `${d.label} ${Math.round(p.days[d.key]?.minutes ?? 0)}`).join(', ')}`}>
-          {days.map((d) => {
+        <div className="week-rods" role="img" aria-label={`Practice minutes: ${week7.map((d) => `${d.label} ${Math.round(p.days[d.key]?.minutes ?? 0)}`).join(', ')}`}>
+          {week7.map((d) => {
             const m = p.days[d.key]?.minutes ?? 0;
             const cubes = Math.ceil(m / 5);
             const slots = Math.ceil(maxMinutes / 5);
