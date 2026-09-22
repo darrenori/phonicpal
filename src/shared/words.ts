@@ -20,6 +20,10 @@ export interface Word {
   topic: string;
   syllables: Syllable[];
   sentence?: string;
+  /** A picture for the word, so meaning comes with the sounds. */
+  picture?: string;
+  /** What the word means, in words a young reader already knows. */
+  meaning?: string;
   /** True when the breakdown came from the heuristic splitter, not the checked bank. */
   guessed?: boolean;
 }
@@ -95,15 +99,62 @@ const ROWS: Row[] = [
   ['environment', 'P5–P6', 'Science', 'en|vi|ron|ment', 'en|vie|run|ment', 'e n|v i~eye~ice~open|r o~uh n|m e~uh n t', 'We keep our environment clean.'],
 ];
 
+/**
+ * A picture and a plain-words meaning for every word in the bank. Children with dyslexia often
+ * decode a word correctly and still miss what it means, so meaning travels with the sounds.
+ * The pictures are plain text characters, drawn by the device's own emoji font.
+ */
+const MEANINGS: Record<string, [picture: string, meaning: string]> = {
+  cat: ['🐱', 'A furry pet that says meow.'],
+  sun: ['☀️', 'The big star that gives us light and heat.'],
+  fish: ['🐟', 'An animal that lives in water and swims.'],
+  frog: ['🐸', 'A green animal that hops and says ribbit.'],
+  duck: ['🦆', 'A bird that swims and says quack.'],
+  ship: ['🚢', 'A very big boat that carries people over the sea.'],
+  bed: ['🛏️', 'Where you sleep at night.'],
+  jam: ['🍓', 'Sweet fruit spread you put on bread.'],
+  rabbit: ['🐰', 'A soft animal with long ears that hops.'],
+  pencil: ['✏️', 'You hold it to write and draw.'],
+  garden: ['🌻', 'A place outside where plants grow.'],
+  rocket: ['🚀', 'It flies up into space.'],
+  dragon: ['🐉', 'A make-believe animal that flies and breathes fire.'],
+  happy: ['😄', 'The good feeling when something nice happens.'],
+  window: ['🪟', 'The glass in a wall that you see through.'],
+  basket: ['🧺', 'You carry things in it.'],
+  sandwich: ['🥪', 'Food tucked between two slices of bread.'],
+  jumping: ['🤸', 'Pushing off the ground with both feet.'],
+  butterfly: ['🦋', 'An insect with big colourful wings.'],
+  elephant: ['🐘', 'A huge grey animal with a long trunk.'],
+  dinosaur: ['🦕', 'A giant animal that lived long, long ago.'],
+  together: ['🤝', 'With other people, not alone.'],
+  umbrella: ['☂️', 'You hold it over your head to stay dry.'],
+  computer: ['💻', 'A machine for typing, drawing and playing.'],
+  yesterday: ['📅', 'The day before today.'],
+  beautiful: ['🌈', 'So lovely that you want to keep looking.'],
+  important: ['⭐', 'Something that matters a lot.'],
+  library: ['📚', 'A quiet place full of books you can borrow.'],
+  adventure: ['🗺️', 'An exciting trip where something new happens.'],
+  experiment: ['🧪', 'A test you do to find out what happens.'],
+  photograph: ['📷', 'A picture taken with a camera.'],
+  temperature: ['🌡️', 'How hot or cold something is.'],
+  disappear: ['🎩', 'To go away, so nobody can see it any more.'],
+  imagination: ['💭', 'The pictures you make up inside your head.'],
+  responsible: ['🐠', 'Looking after something, and doing what you promised.'],
+  environment: ['🌍', 'The world around us: air, water, plants and animals.'],
+};
+
 export const WORD_BANK: Word[] = ROWS.map(([word, level, topic, syl, say, sounds, sentence]) => {
   const texts = syl.split('|');
   const says = say.split('|');
   const soundSpecs = sounds.split('|');
+  const [picture, meaning] = MEANINGS[word] ?? [];
   return {
     word,
     level,
     topic,
     sentence,
+    picture,
+    meaning,
     syllables: texts.map((text, i) => ({
       text,
       say: says[i] ?? text,

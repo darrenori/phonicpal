@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, Mic, MicOff, Search, Video, VideoOff, Volume2 } from 'lucide-react';
 import { WordBar, ShapeLegend } from '../components/WordBar';
+import { WordCard } from '../components/WordCard';
 import { MouthShape } from '../components/Mouth';
 import { Sparky, type SparkyMood } from '../components/Sparky';
 import { Hear } from '../components/Controls';
@@ -48,6 +49,9 @@ function WordPicker({ current, onPick }: { current: Word; onPick: (w: Word) => v
           return (
             <li key={w.word}>
               <button type="button" className="picker-word" aria-pressed={current.word === w.word} onClick={() => onPick(w)}>
+                <span className="picker-pic" aria-hidden="true">
+                  {w.picture}
+                </span>
                 <span>{w.word}</span>
                 <span className="picker-dots" aria-label={`${STEPS.filter((s) => steps[s]).length} of 4 steps done`}>
                   {STEPS.map((s) => (
@@ -170,6 +174,7 @@ function SeeStep({ word, onDone }: { word: Word; onDone: () => void }) {
         {prompt} <Hear text={prompt} />
       </p>
       <ShapeLegend />
+      <WordCard word={word} />
       {tricky.length > 0 && (
         <div className="tricky">
           <strong>Tricky {tricky.length === 1 ? 'letter' : 'letters'}</strong>
@@ -458,7 +463,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
               {done.say ? (
                 <div className="built">
                   <h2>You built “{word.word}”!</h2>
-                  <p>All four steps are done. Sparky is proud of you.</p>
+                  <p>All four steps are done, Sparky is proud of you.</p>
                   <div className="step-actions">
                     <button type="button" className="rod" onClick={() => go('words', nextWord.word)}>
                       <span className="rod-label">Build “{nextWord.word}” next</span>

@@ -1,0 +1,74 @@
+/* Meaning card: a picture cube next to plain-words meaning, plus the pictures in the word list. */
+
+.picker-pic {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Segoe UI Symbol', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1;
+  margin-right: 0.15rem;
+}
+.picker-word > span:nth-child(2) {
+  margin-right: auto;
+}
+
+.wordcard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--s4);
+  align-items: center;
+  margin: 0;
+  padding: var(--s3);
+  border-radius: var(--r-control);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.wordcard figcaption {
+  display: grid;
+  gap: var(--s1);
+}
+.wordcard-pic {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: var(--r-block);
+  background: var(--lemon-tint);
+  box-shadow: inset 0 -3px 0 var(--lemon-edge);
+  font-size: 2.9rem;
+  line-height: 1;
+  /* Emoji fonts first: the reading fonts have no colour glyphs. */
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Segoe UI Symbol', sans-serif;
+}
+.wordcard-word {
+  font-size: var(--t-lg);
+  letter-spacing: var(--track);
+}
+.wordcard-meaning {
+  font-size: var(--t-lg);
+  font-weight: 500;
+  line-height: 1.45;
+}
+.wordcard-sentence {
+  color: var(--ink-2);
+}
+.wordcard--sm {
+  gap: var(--s3);
+  padding: var(--s2);
+}
+.wordcard--sm .wordcard-pic {
+  width: 3.4rem;
+  height: 3.4rem;
+  font-size: 1.9rem;
+}
+.wordcard--sm .wordcard-meaning {
+  font-size: var(--t-md);
+}
+@media (max-width: 520px) {
+  .wordcard-pic {
+    width: 4rem;
+    height: 4rem;
+    font-size: 2.3rem;
+  }
+  .wordcard-meaning {
+    font-size: var(--t-md);
+  }
+}
