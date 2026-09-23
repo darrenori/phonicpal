@@ -714,13 +714,18 @@
 .founder-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  /* photo, name, role, quote, bio, why, credits: shared rows, so both cards line up */
+  grid-template-rows: auto auto auto auto 1fr auto auto;
   gap: var(--s5);
   list-style: none;
 }
 .founder {
   display: grid;
+  grid-row: span 7;
+  grid-template-rows: subgrid;
+  row-gap: var(--s2);
   justify-items: start;
-  gap: var(--s2);
+  align-content: start;
   padding: var(--s5);
   border-radius: var(--r-panel);
   background: var(--surface);
@@ -769,6 +774,8 @@
 .founder-credits {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
   gap: var(--s2);
   margin-top: var(--s2);
   list-style: none;
