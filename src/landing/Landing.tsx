@@ -557,18 +557,18 @@ const FOUNDERS: Founder[] = [
     role: 'Co-founder · learning design',
     photo: theodoraPhoto,
     quote: 'I believe in tech for good, and I enjoy building practical solutions that address real needs.',
-    bio: 'Theodora read Information Technology at Temasek Polytechnic before NUS, and she did not start out in love with tech. She chose it anyway, then spent her time holding the door open for the people behind her: president of the IT Student Interest Group, outreach lead for the Cross-Poly Girls in Tech committee running sessions in secondary schools, and a cybersecurity intern at DBS.',
+    bio: 'Theodora was diagnosed with dyslexia at a young age, and grew up facing early challenges in a world centred on words. She reframed that invisible learning difference from a hurdle into a superpower: it lets her solve complex problems from angles other people miss, and it shapes how she leads. She read Information Technology at Temasek Polytechnic before NUS, led the IT Student Interest Group as president, ran Girls in Tech outreach in secondary schools, and interned with DBS’ cybersecurity team.',
     why: 'She shapes how Upside teaches, so a child who is behind never feels caught out by it.',
-    credits: ['Lee Kuan Yew Award', 'Cisco Systems Course Gold Medal', 'IMDA Excellence Award', 'AWS Special Industry Prize', 'TP Scholarship, three years'],
+    credits: ['Singapore 100 Women in Tech — Girls in Tech', 'The Lee Kuan Yew Award'],
   },
   {
     name: 'Darren Ong Yan En',
     role: 'Co-founder · product and engineering',
     photo: darrenPhoto,
-    quote: 'Help should arrive at eight at night, at the kitchen table, not only in the specialist’s room.',
-    bio: 'Darren came through Temasek Polytechnic to NUS, and was named one of the Singapore Computer Society’s Future Leaders in Tech in 2023. He builds Upside itself: the letter blocks, the reading tools, the camera that reads a page of homework, and the parts that keep a child’s data on their own device.',
+    quote: 'I didn’t have an easy path growing up. Teachers made time for me, and that is what changed it.',
+    bio: 'Darren did not have an easy path growing up. He struggled to cope at school and did badly in the PSLE, and it was teachers who kept making time for him that turned it around. He came through Temasek Polytechnic to NUS, and was named one of the Singapore Computer Society’s Future Leaders in Tech. He builds Upside itself: the letter blocks, the reading tools, the camera that reads a page of homework, and the parts that keep a child’s data on their own device.',
     why: 'He works on the hours between specialist sessions, which is where most of a child’s week actually is.',
-    credits: ['SCS Future Leaders in Tech 2023'],
+    credits: ['SCS Future Leaders in Tech', 'The Lee Kuan Yew Award'],
   },
 ];
 
@@ -577,10 +577,11 @@ function Founders() {
     <section className="surface-band" id="founders" aria-labelledby="founders-title">
       <div className="wrap founders">
         <div className="section-intro">
-          <h2 id="founders-title">Two students who took the long way round.</h2>
+          <h2 id="founders-title">We were the children Upside is built for.</h2>
           <p>
-            Neither of us went straight from school to university, and both of us had people who made time for us on the way. Upside is us making time for
-            children who are still waiting for someone to work out how they learn.
+            One of us is dyslexic. The other struggled to cope at school and did badly in the PSLE. Both of us got through because teachers made time and found
+            another way in, and both of us came to NUS the long way round, through polytechnic. Upside is that time and that other way, for the children still
+            waiting for it.
           </p>
         </div>
         <ul className="founder-grid">
