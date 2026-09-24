@@ -806,3 +806,55 @@
 section[id] {
   scroll-margin-top: 5.5rem;
 }
+
+/* ---------- How it teaches ---------- */
+
+.teaching {
+  display: grid;
+  gap: var(--s6);
+}
+.teach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: var(--s4);
+  list-style: none;
+}
+.teach {
+  display: grid;
+  align-content: start;
+  gap: var(--s2);
+  padding: var(--s5);
+  border-radius: var(--r-panel);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line), var(--shadow-rest);
+}
+.teach-icon {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: var(--r-block);
+  background: var(--cobalt-tint);
+  color: var(--cobalt);
+}
+.teach h3 {
+  font-size: var(--t-lg);
+}
+.teach p {
+  color: var(--ink-2);
+  line-height: var(--leading);
+}
+.teach-evidence {
+  max-width: 88ch;
+  padding: var(--s4);
+  border-radius: var(--r-control);
+  background: var(--mat);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+.schools-stack {
+  color: var(--ink-2);
+  line-height: var(--leading);
+}

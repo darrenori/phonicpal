@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowRight, Blocks, Camera, LayoutDashboard, Mic, ShieldCheck, Volume2 } from 'lucide-react';
+import { ArrowRight, Blocks, Camera, Cpu, LayoutDashboard, Mic, Network, Puzzle, ShieldCheck, SlidersHorizontal, Volume2 } from 'lucide-react';
 import { Logo } from '../components/Logo';
 import { WordBar, ShapeLegend } from '../components/WordBar';
 import { Sparky, type SparkyMood } from '../components/Sparky';
@@ -446,6 +446,66 @@ function Tools() {
   );
 }
 
+/* ---------- How it teaches ---------- */
+
+const WAYS = [
+  {
+    icon: Network,
+    title: 'A graph, not a queue',
+    body: 'Every word is joined to its letter-sounds, its rhyming family, its word parts and its meaning. A child can travel along any of those links, and the word map draws them, coloured by what the model thinks they know.',
+  },
+  {
+    icon: SlidersHorizontal,
+    title: 'Six ways into one word',
+    body: 'Sounds, chunks, word parts, shape, picture, family. The child picks. Upside records which view their successes follow and suggests it, and never locks them in: matching teaching to a stated "learning style" has no evidence behind it, so we only report what a child\u2019s own results show.',
+  },
+  {
+    icon: Puzzle,
+    title: 'Flex it, when a word does not land',
+    body: 'English letters keep more than one job. When a try misses, Upside names the move: try the letter\u2019s other sound, then ask whether that is a word you know. This flexibility predicts word reading, and struggling readers are the least likely to try it unprompted.',
+  },
+  {
+    icon: Cpu,
+    title: 'A model a teacher can argue with',
+    body: 'One number per letter-sound, moved by real tries, shown in full in the educator view with the reason for the next word. It starts at 20% and is slow to claim a child knows anything.',
+  },
+];
+
+function Teaching() {
+  return (
+    <section className="surface-band" id="model" aria-labelledby="model-title">
+      <div className="wrap teaching">
+        <div className="section-intro">
+          <h2 id="model-title">The way in matters more than the order.</h2>
+          <p>
+            Reading programmes tend to run one line through English, in one order. Upside holds the same content as a graph and lets a child come at a word
+            from whichever side is open to them today, while the model underneath keeps track of what is actually sticking.
+          </p>
+        </div>
+        <ul className="teach-grid">
+          {WAYS.map((way) => (
+            <li key={way.title} className="teach">
+              <span className="teach-icon" aria-hidden="true">
+                <way.icon size={22} strokeWidth={2.2} />
+              </span>
+              <h3>{way.title}</h3>
+              <p>{way.body}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="teach-evidence">
+          Built on the published evidence, including where it is inconvenient: word-part teaching helps children with literacy difficulties (Goodwin &amp;
+          Ahn, 2010), spaced retrieval beats re-reading (Hattie &amp; Donoghue, 2021), flexibility with vowel sounds predicts word reading (Steacy et al.,
+          2023), maps of how ideas connect help readers who struggle (Dexter &amp; Hughes, 2011), dyslexic readers do not reach for rhyme analogies unaided
+          (Hanley et al., 1997), learning styles do not survive testing (Pashler et al., 2008), and branded Orton-Gillingham programmes have not shown a
+          significant effect (Stevens et al., 2021).{' '}
+          <a href="https://github.com/darrenori/upside/blob/main/LEARNING-MODEL.md">Read the whole model</a>.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Schools ---------- */
 
 function Schools() {
@@ -490,6 +550,17 @@ function Schools() {
                 <li>No ads, no chat, and no public leaderboards</li>
               </ul>
             </div>
+            <div>
+              <h3>
+                <Cpu size={20} aria-hidden="true" /> What it runs on
+              </h3>
+              <p className="schools-stack">
+                A static site: React, TypeScript and Vite, with no backend and no accounts. Reading homework photos (Tesseract.js), watching for an upset
+                face (TensorFlow.js) and speech all run inside the browser, and progress is stored on the device. The only thing that ever leaves it is a
+                single word, when a grown-up asks the word helper to look one up. No generative AI is used anywhere a child can see: the dragon, the blocks
+                and every icon are drawn by hand.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -500,8 +571,14 @@ function Schools() {
 /* ---------- Roadmap ---------- */
 
 const PHASES = [
-  { name: 'Phase 1', when: 'Now', title: 'Prototype', body: 'Prototype refinement, accessibility tuning and ongoing consultations with experts.', now: true },
-  { name: 'Phase 2', when: 'Next', title: 'Pilots', body: 'Structured pilots with dyslexia associations and specialised learning centres.' },
+  {
+    name: 'Phase 1',
+    when: 'Now',
+    title: 'Beta in private K2 classrooms',
+    body: 'Private preschools can say yes on their own, and K2 is where early literacy screening already happens, a year before any formal diagnosis. Eight weeks, one class at a time, measured on letter-sounds and words read.',
+    now: true,
+  },
+  { name: 'Phase 2', when: 'Next', title: 'Primary pilots', body: 'Structured pilots with dyslexia associations and specialised learning centres, alongside the support children already receive in Primary 1 and 2.' },
   { name: 'Phase 3', when: 'Later', title: 'Adoption', body: 'Institutional licences for schools, supported by education grant frameworks.' },
 ];
 
@@ -643,6 +720,7 @@ export function Landing() {
           <nav aria-label="Sections" className="site-nav">
             <a href="#how">How it works</a>
             <a href="#maths">Maths</a>
+            <a href="#model">How it teaches</a>
             <a href="#tools">Reading tools</a>
             <a href="#schools">For schools</a>
             <a href="#roadmap">Roadmap</a>
@@ -661,6 +739,7 @@ export function Landing() {
         <Gap />
         <Steps />
         <Maths />
+        <Teaching />
         <SparkySection />
         <Tools />
         <Schools />
