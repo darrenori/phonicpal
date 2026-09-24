@@ -546,3 +546,49 @@
     width: 100%;
   }
 }
+
+/* What the model believes, for the learner on this device. */
+
+.model-rows {
+  display: grid;
+  gap: 0.3rem;
+  list-style: none;
+  margin: var(--s2) 0;
+}
+.model-row {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) 3rem auto;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--t-sm);
+}
+.model-sound {
+  display: grid;
+  place-items: center;
+  height: 1.8rem;
+  border-radius: var(--r-block);
+  background: var(--lemon);
+  color: var(--on-lemon);
+  font-weight: 700;
+}
+.model-bar {
+  height: 0.8rem;
+  border-radius: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.model-fill {
+  display: block;
+  height: 100%;
+  background: var(--cobalt);
+}
+.model-fill.is-shaky {
+  background: var(--vermilion);
+}
+.model-fill.is-known {
+  background: var(--leaf);
+}
+.model-num {
+  text-align: right;
+  font-weight: 700;
+}

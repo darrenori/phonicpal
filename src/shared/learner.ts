@@ -158,7 +158,8 @@ export function skillRows(): SkillRow[] {
     .filter(([id]) => id.startsWith('s:'))
     .map(([id, skill]) => {
       const n = GRAPH.nodes.get(id);
-      return { id, label: n?.label ?? id.slice(2), hint: n?.hint, p: skill.p, seen: skill.seen };
+      // The id is `s:<spelling>~<sound>`; show the spelling when the node is not in the graph.
+      return { id, label: n?.label ?? id.slice(2).split('~')[0], hint: n?.hint, p: skill.p, seen: skill.seen };
     })
     .sort((a, b) => a.p - b.p || b.seen - a.seen);
 }

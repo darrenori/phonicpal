@@ -5,6 +5,7 @@ import { ReadingLayer } from '../components/ReadingTools';
 import { href } from '../shared/routes';
 import { readProgress, STEPS, today, type Feeling } from '../shared/progress';
 import { buildWord } from '../shared/words';
+import { LENS_LABEL, SHAKY, bestLens, skillRows, suggest } from '../shared/learner';
 import { dayDates, PHONOGRAMS, SAMPLE_CLASS, SAMPLE_LEARNERS, type Learner, type Mastery } from './sampleData';
 import { DayRods, FeelingsBar, SupportChips, WordsSecured, FEELING_LABEL } from './parts';
 import './dashboard.css';
@@ -59,6 +60,54 @@ function toCsv(rows: Learner[]): string {
       .join(','),
   );
   return [head.map(esc).join(','), ...lines].join('\r\n');
+}
+
+/**
+ * What the model believes, for the grown-up who has to answer for it.
+ *
+ * Everything Upside decides about a child comes from three things: a probability per
+ * letter-sound, a record of which lens their successes followed, and the word it would
+ * pick next. All three are shown here in full, with the reason attached, so a teacher can
+ * disagree with it. This section only appears for the learner on this device, because
+ * that is the only real model: the rest of the class is sample data.
+ */
+function ModelPanel() {
+  const rows = skillRows();
+  const lens = bestLens();
+  const next = suggest();
+  if (!rows.length) return null;
+  return (
+    <section aria-labelledby="d-model">
+      <h3 id="d-model">What the model believes</h3>
+      <ul className="model-rows">
+        {rows.slice(0, 8).map((row) => (
+          <li key={row.id} className="model-row">
+            <span className="model-sound">{row.label}</span>
+            <span className="model-bar">
+              <span className={`model-fill ${row.p < SHAKY ? 'is-shaky' : row.p >= 0.8 ? 'is-known' : ''}`} style={{ width: `${Math.round(row.p * 100)}%` }} />
+            </span>
+            <span className="model-num num">{Math.round(row.p * 100)}%</span>
+            <span className="muted">{row.seen} {row.seen === 1 ? 'try' : 'tries'}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="muted">
+        Each number is the model's confidence that this child knows that letter-sound, updated from tries out loud and card reviews. It starts at 20% and
+        is deliberately slow to claim knowledge.
+      </p>
+      {lens && (
+        <p className="detail-focus">
+          <strong>Most of their successes follow the {LENS_LABEL[lens.lens].toLowerCase()} view.</strong> Upside suggests it and nothing more: a child is
+          not a learning style, and this is only a record of what has worked so far.
+        </p>
+      )}
+      {next && (
+        <p className="detail-focus">
+          <strong>Next word Upside would pick:</strong> “{next.word}”, because {next.why}
+        </p>
+      )}
+    </section>
+  );
 }
 
 function LearnerDetail({ learner, onClose }: { learner: Learner; onClose: () => void }) {
@@ -126,6 +175,8 @@ function LearnerDetail({ learner, onClose }: { learner: Learner; onClose: () => 
           </p>
         )}
       </section>
+
+      {learner.live && <ModelPanel />}
 
       <section aria-labelledby="d-feel">
         <h3 id="d-feel">How they said they felt</h3>
