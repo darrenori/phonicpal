@@ -70,12 +70,27 @@ Added since, and confirmed by the founders:
 - Word outlines on a scanned photo, so a child can tap the word on the page in front of them.
 - My words: the child's own deck, reviewed on a three-box schedule, kept on the device.
 - A daily goal, a practice streak and stickers. Nothing earned is ever taken away.
+- The word graph, six lenses onto one word, the word map, and "flex it" for when a
+  decoded word is not a real one. See `LEARNING-MODEL.md`.
+- A learner model on the device: one probability per letter-sound, the lens a child's
+  successes follow, and the next word with its reason. Shown in full to educators.
+- An optional word helper (`helper/`) that looks up one word at a time. It never sees a
+  child, and the app works without it.
 
 Constraints:
 - No backend yet. Progress is stored on the device, and the educator view uses sample
   data.
 - Webcam and microphone features must be opt-in and stay on the device.
 - Undecided: pricing, licensing terms, contact channel, real pilot partners.
+
+## Go to market
+
+Phase 1 is a beta in **private K2 preschools**. A private preschool can say yes on its own,
+which avoids a ministry process for a prototype, and K2 is where early literacy screening
+already happens — DAS screens K1 and K2 children a year or more before any formal diagnosis
+is possible, and MOE screens at Primary 1 through the Early Literacy Indicator. Eight weeks,
+one class at a time, measured on letter-sounds known and words read. Phase 2 moves to
+dyslexia associations and specialised learning centres alongside Primary 1–2 support.
 
 ## Brand Commitments
 

@@ -374,6 +374,15 @@ Stickers are 3.2rem circles: `surface-2` with `ink-3` when locked, leaf on `leaf
 ### Founders
 A tray-white card with a 7.5rem circular photo ringed in `leaf-tint` then leaf, the name at `t-xl`, the role in leaf `t-sm`, a quote with a 4px lemon rule, and awards as `lemon-tint` chips.
 
+### Ways in (lens bar)
+A row of tray-white chips above the mat, each an icon and a word, with the current one filled ink and lifted. The map chip is cobalt-tinted with a cobalt hairline and sits at the end of the row. Under the word bar, the chosen lens draws its own panel: lemon sound cubes with their keyword, cobalt chunk blocks, leaf-tint word parts with meanings, the shape legend, the meaning card, or the rhyming family with a vermilion rime chip.
+
+### Word map
+A 600-unit square SVG. The word sits at the centre as a filled ink block; its links ring it at radius 132 (lemon sound cubes, a vermilion rime pill, leaf word parts, a cobalt-tint topic circle); the words those lead to sit at radius 238, staggered 30 units apart so labels never touch. Links are hairlines, dashed out to the leaves. Sounds and words are filled by the model: dashed ghost when unmet, vermilion-tint when shaky, lemon-tint when getting there, leaf-tint when known. Every node in the drawing is repeated as a real button underneath it.
+
+### Model rows (educator)
+One row per letter-sound: a lemon cube for the spelling, a 0.8rem track filled to the model's confidence — vermilion below 60%, cobalt between, leaf at 80% and above — then the percentage and the number of tries it rests on.
+
 ### Sparky Helps camera
 - **Live view:** the camera picture, mirrored, in a deep field with control radius. A small ink pill in the top-left corner reads LIVE, with a pulsing leaf dot. A 3px frame follows the face with a 160ms linear glide. It is leaf when calm, lemon when unsure, and vermilion once the upset score passes the threshold.
 - **Corner tile:** a fixed tray-white panel with Lift shadow and a 4px bottom stripe in the same tone. It holds the live view, Sparky's head mirroring the reading (calm and kind for upset faces), the child-friendly word, and a 5-cell upset meter. It sits above the bottom nav on phones and in the bottom-right corner from 960px. On phones it becomes a single strip. It can fold down to a label with a leaf dot, but it stays on screen while the camera is on.
