@@ -38,9 +38,14 @@ quality of life.
 ## Positioning
 
 "Supporting, not replacing, specialist educators." A dyslexia-first companion built
-around multi-sensory, structured-language practice (Orton-Gillingham-aligned), with
-low-stress gamification: immediate positive feedback, failure-free exploration, and a
-companion pet the child cares for.
+around explicit, systematic work on sounds, spellings and word parts, with low-stress
+gamification: immediate positive feedback, failure-free exploration, and a companion pet
+the child cares for.
+
+Say structured literacy, not Orton-Gillingham. A meta-analysis of OG interventions for
+students with or at risk of word-level reading disabilities found no statistically
+significant effect (Stevens et al., 2021), so the claim to make is about the content —
+letter-sounds, spelling patterns, word parts, spaced retrieval — not the brand.
 
 ## Operating Context
 
@@ -108,8 +113,8 @@ dyslexia associations and specialised learning centres alongside Primary 1–2 s
 - Pitch deck: `../Empowering Young Learners with Dyslexia.pdf` (7 slides: SpED care gap,
   mission, learner profile, B2B depth-first strategy, three-phase roadmap, advisory
   questions).
-- Roadmap: Phase 1 now (prototype refinement, accessibility tuning, expert
-  consultation). Phase 2 is pilots with dyslexia associations and learning centres.
+- Roadmap: Phase 1 now (prototype refinement, expert consultation, and a beta in private
+  K2 preschools). Phase 2 is pilots with dyslexia associations and learning centres.
   Phase 3 is B2B adoption through school licences and education grants.
 - Not on hand, so never fabricate: customers, testimonials, efficacy statistics, pricing,
   partner logos, or pilot results.
