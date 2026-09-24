@@ -11,6 +11,10 @@ import { LEVELS, WORD_BANK, buildWord, type Level, type Word } from '../shared/w
 import { canListen, heardTarget, listenOnce, speak } from '../shared/speech';
 import { completeStep, logTry, useProgress, STEPS, type Step } from '../shared/progress';
 import { keepWord, useDeck } from '../shared/deck';
+import { GRAPH, addWord } from '../shared/graph';
+import { recordWord, suggest, useLens, type Lens } from '../shared/learner';
+import { LensBar, LensPanel } from './Lenses';
+import { WordMap } from './WordMap';
 import { StepRail } from './StepRail';
 import { celebrate } from './CoinToast';
 import { go } from './App';
@@ -203,6 +207,7 @@ function SayStep({ word, onDone, setMood }: { word: Word; onDone: () => void; se
 
   const finish = (heard: boolean) => {
     logTry();
+    recordWord(word, heard);
     setMood(heard ? 'cheer' : 'happy');
     onDone();
   };
@@ -277,6 +282,8 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
   const [heardParts, setHeardParts] = useState<Set<number>>(new Set());
   const [tapped, setTapped] = useState<Set<string>>(new Set());
   const [activePart, setActivePart] = useState<number | null>(null);
+  const [lens, setLensState] = useState<Lens>('shape');
+  const [mapOpen, setMapOpen] = useState(false);
   const [mouth, setMouth] = useState<{ viseme: Viseme; grapheme?: string }>({ viseme: 'smile' });
   const [speaking, setSpeaking] = useState(false);
   const [mood, setMood] = useState<SparkyMood>('happy');
@@ -299,6 +306,8 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
   }, [allDone, kept, word.word]);
 
   function pick(w: Word) {
+    // A word the child typed is not in the bank, so it joins the graph now.
+    if (w.guessed) addWord(GRAPH, w);
     setWord(w);
     setStep('see');
     setHeardParts(new Set());
@@ -338,14 +347,20 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
     if (i < STEPS.length - 1) setStep(STEPS[i + 1]);
   };
 
-  const split = step !== 'see' || wholeSplit;
+  const chooseLens = (next: Lens) => {
+    setLensState(next);
+    useLens(next);
+  };
+  const split = step !== 'see' || wholeSplit || lens === 'chunks';
   // Size the blocks to the stage (a size container): longer words get smaller blocks, never below 1.5rem.
   const n = (word.word.length * 0.72 + 1.2).toFixed(2);
   const glyph = `clamp(1.5rem, calc((100cqi - clamp(2rem, 8vw, 7rem)) / ${n}), 5.2rem)`;
-  const nextWord = useMemo(() => {
-    const pool = WORD_BANK.filter((w) => w.level === word.level && !(progress.wordSteps[w.word] && STEPS.every((s) => progress.wordSteps[w.word]?.[s])) && w.word !== word.word);
-    return pool[0] ?? WORD_BANK[(WORD_BANK.indexOf(word) + 1) % WORD_BANK.length];
-  }, [word, progress.wordSteps]);
+  // What to practise next, and why: the model picks a word that stretches by one link.
+  const nextUp = useMemo(() => suggest(word.word, word.level), [word, progress.wordSteps]);
+  const nextWord = useMemo(
+    () => (nextUp && buildWord(nextUp.word)) || WORD_BANK[(WORD_BANK.indexOf(word) + 1) % WORD_BANK.length],
+    [nextUp, word],
+  );
 
   return (
     <div className="words">
@@ -356,6 +371,8 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
           Build the word {word.word}
         </h1>
         <StepRail steps={RAIL} current={step} done={done} onSelect={setStep} label="Steps for this word" />
+
+        <LensBar lens={lens} onLens={chooseLens} onMap={() => setMapOpen(true)} />
 
         <div className="stage mat">
           <div className="stage-bar">
@@ -376,6 +393,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
               }}
             />
           </div>
+          <LensPanel lens={lens} word={word} onWord={(w) => go('words', w)} />
           {word.guessed && <p className="stage-note">Upside guessed these chunks. Check tricky words with your teacher.</p>}
           <Sparky className="stage-sparky" mood={allDone ? 'cheer' : mood} size="clamp(4.5rem, 10vw, 7rem)" hat={progress.wearing.hat} neck={progress.wearing.neck} face={progress.wearing.face} />
         </div>
@@ -489,6 +507,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
                 <div className="built">
                   <h2>You built “{word.word}”!</h2>
                   <p>All four steps are done, and this word is now in My words. Sparky will bring it back to you later.</p>
+                  {nextUp && <p className="step-note why-next">Sparky suggests “{nextUp.word}” next, because {nextUp.why}</p>}
                   <div className="step-actions">
                     <button type="button" className="rod" onClick={() => go('words', nextWord.word)}>
                       <span className="rod-label">Build “{nextWord.word}” next</span>
@@ -509,6 +528,7 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
           )}
         </div>
       </section>
+      <WordMap open={mapOpen} word={word} onClose={() => setMapOpen(false)} onWord={(w) => go('words', w)} />
     </div>
   );
 }
