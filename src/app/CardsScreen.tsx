@@ -8,6 +8,7 @@ import { buildWord } from '../shared/words';
 import { speak } from '../shared/speech';
 import { dropWord, dueCards, gradeCard, useDeck, type Box, type Card } from '../shared/deck';
 import { reward } from '../shared/progress';
+import { recordWord } from '../shared/learner';
 import { celebrate } from './CoinToast';
 import { go } from './App';
 
@@ -104,6 +105,9 @@ export function CardsScreen() {
 
   const onGrade = (word: string, remembered: boolean) => {
     gradeCard(word, remembered);
+    // A review is a real attempt, so it is evidence for the model as well as the deck.
+    const built = buildWord(word);
+    if (built) recordWord(built, remembered);
     setReviewed((n) => n + 1);
     // Remembered words rest until their next turn; the others go to the back of today's pile.
     setQueue((q) => (remembered ? q.slice(1) : [...q.slice(1), word]));
