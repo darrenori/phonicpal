@@ -235,6 +235,25 @@ export const GRAPH: Graph = (() => {
   return g;
 })();
 
+/**
+ * Joins words the word helper offered as rhymes to this word's family. They are marked
+ * so the app can say where they came from: a machine suggested them, nobody checked them.
+ */
+export function addRhymes(word: string, rhymes: string[]): void {
+  const last = word.split(/\s+/).pop() ?? word;
+  const rime = rimeOf(last);
+  if (!rime) return;
+  const rid = rimeId(rime);
+  addNode(GRAPH, { id: rid, kind: 'rime', label: `-${rime}`, hint: `words that end with “${rime}” and rhyme` });
+  addEdge(GRAPH, wordId(word), rid, 'rime');
+  for (const rhyme of rhymes) {
+    const clean = rhyme.toLowerCase().replace(/[^a-z]/g, '');
+    if (!clean || clean === word) continue;
+    addNode(GRAPH, { id: wordId(clean), kind: 'word', label: clean });
+    addEdge(GRAPH, wordId(clean), rid, 'rime');
+  }
+}
+
 export function node(id: string): GraphNode | undefined {
   return GRAPH.nodes.get(id);
 }

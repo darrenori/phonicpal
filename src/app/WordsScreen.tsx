@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowRight, BookmarkCheck, BookmarkPlus, Mic, MicOff, Search, Video, VideoOff, Volume2 } from 'lucide-react';
+import { ArrowRight, BookmarkCheck, BookmarkPlus, Mic, MicOff, Search, Sparkles, Video, VideoOff, Volume2 } from 'lucide-react';
 import { WordBar, ShapeLegend } from '../components/WordBar';
 import { WordCard } from '../components/WordCard';
 import { MouthShape } from '../components/Mouth';
@@ -13,6 +13,7 @@ import { completeStep, logTry, useProgress, STEPS, type Step } from '../shared/p
 import { keepWord, useDeck } from '../shared/deck';
 import { GRAPH, addWord } from '../shared/graph';
 import { flexesFor } from '../shared/flex';
+import { applyHelp, askAboutWord, cachedHelp, helperOffered, type WordHelp } from '../shared/ai';
 import { recordWord, suggest, useLens, type Lens } from '../shared/learner';
 import { LensBar, LensPanel } from './Lenses';
 import { WordMap } from './WordMap';
@@ -318,6 +319,8 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
   const [tapped, setTapped] = useState<Set<string>>(new Set());
   const [activePart, setActivePart] = useState<number | null>(null);
   const [lens, setLensState] = useState<Lens>('shape');
+  const [help, setHelp] = useState<WordHelp | null>(null);
+  const [asking, setAsking] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
   const [mouth, setMouth] = useState<{ viseme: Viseme; grapheme?: string }>({ viseme: 'smile' });
   const [speaking, setSpeaking] = useState(false);
@@ -382,6 +385,20 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
     if (i < STEPS.length - 1) setStep(STEPS[i + 1]);
   };
 
+  // A word the child typed has no checked entry; the helper can fill one in on request.
+  useEffect(() => {
+    setHelp(word.guessed ? cachedHelp(word.word) : null);
+  }, [word.word, word.guessed]);
+
+  const lookUp = async () => {
+    setAsking(true);
+    const found = await askAboutWord(word.word);
+    setAsking(false);
+    if (!found) return;
+    setHelp(found);
+    setWord((w) => (w.word === found.word ? applyHelp(w, found) : w));
+  };
+
   const chooseLens = (next: Lens) => {
     setLensState(next);
     useLens(next);
@@ -429,7 +446,30 @@ export function WordsScreen({ initialWord }: { initialWord?: string }) {
             />
           </div>
           <LensPanel lens={lens} word={word} onWord={(w) => go('words', w)} />
-          {word.guessed && <p className="stage-note">Upside guessed these chunks. Check tricky words with your teacher.</p>}
+          {word.guessed && (
+            <div className="guessed">
+              <p className="stage-note">Upside guessed these chunks. Check tricky words with your teacher.</p>
+              {help ? (
+                <div className="guessed-help">
+                  <p>
+                    <strong>{word.word}</strong>
+                    {help.meaning ? `: ${help.meaning}` : ''} <Hear text={`${word.word}. ${help.meaning}`} label="Hear this" />
+                  </p>
+                  {help.hook && <p className="guessed-hook">Memory hook: {help.hook}</p>}
+                  <p className="guessed-source">A machine helper wrote this, and nobody has checked it. Ask your teacher if it looks wrong.</p>
+                </div>
+              ) : (
+                helperOffered() && (
+                  <button type="button" className="rod rod--sm rod--surface" disabled={asking} onClick={lookUp}>
+                    <span className="rod-label">{asking ? 'Looking it up…' : `Look up “${word.word}”`}</span>
+                    <span className="rod-unit">
+                      <Sparkles size={16} aria-hidden="true" />
+                    </span>
+                  </button>
+                )
+              )}
+            </div>
+          )}
           <Sparky className="stage-sparky" mood={allDone ? 'cheer' : mood} size="clamp(4.5rem, 10vw, 7rem)" hat={progress.wearing.hat} neck={progress.wearing.neck} face={progress.wearing.face} />
         </div>
 

@@ -2444,3 +2444,28 @@ dialog::backdrop {
   box-shadow: 0 0 0 1px var(--line), var(--shadow-rest);
 }
 
+/* ---------- A word the child typed, and the word helper ---------- */
+
+.guessed {
+  display: grid;
+  justify-items: center;
+  gap: var(--s2);
+}
+.guessed-help {
+  display: grid;
+  gap: 0.15rem;
+  max-width: 54ch;
+  padding: var(--s3) var(--s4);
+  border-radius: var(--r-control);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  text-align: center;
+}
+.guessed-hook {
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.guessed-source {
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+}

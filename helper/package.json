@@ -1,0 +1,7 @@
+{
+  "name": "upside-helper",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Upside word helper: one endpoint that breaks a single English word down.",
+  "type": "module"
+}
