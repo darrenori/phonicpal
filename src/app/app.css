@@ -2391,3 +2391,56 @@ dialog::backdrop {
     margin-left: 0;
   }
 }
+
+/* ---------- Flex it: a letter's other sound ---------- */
+
+.flex-it {
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s4);
+  border-radius: var(--r-control);
+  background: var(--cobalt-tint);
+}
+.flex-lead {
+  max-width: 60ch;
+  font-weight: 500;
+}
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+}
+.flex-letter {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: var(--r-block);
+  background: var(--cobalt);
+  color: var(--on-cobalt);
+  font-size: var(--t-lg);
+  font-weight: 700;
+}
+.flex-option {
+  display: grid;
+  gap: 0;
+  padding: 0.3rem 0.75rem;
+  border: 0;
+  border-radius: var(--r-block);
+  background: var(--surface);
+  box-shadow: 0 0 0 1px var(--line);
+  text-align: left;
+}
+.flex-option strong {
+  font-size: var(--t-md);
+}
+.flex-option span {
+  font-size: var(--t-xs);
+  color: var(--ink-2);
+}
+.flex-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px var(--line), var(--shadow-rest);
+}
+

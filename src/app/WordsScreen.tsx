@@ -12,6 +12,7 @@ import { canListen, heardTarget, listenOnce, speak } from '../shared/speech';
 import { completeStep, logTry, useProgress, STEPS, type Step } from '../shared/progress';
 import { keepWord, useDeck } from '../shared/deck';
 import { GRAPH, addWord } from '../shared/graph';
+import { flexesFor } from '../shared/flex';
 import { recordWord, suggest, useLens, type Lens } from '../shared/learner';
 import { LensBar, LensPanel } from './Lenses';
 import { WordMap } from './WordMap';
@@ -200,6 +201,39 @@ function SeeStep({ word, onDone }: { word: Word; onDone: () => void }) {
   );
 }
 
+/**
+ * Flex it. When a child's try does not land, the fix is usually not more phonics but a
+ * willingness to try a letter's other sound and check whether the result is a real word.
+ */
+function FlexIt({ word }: { word: Word }) {
+  const flexes = flexesFor(word);
+  if (!flexes.length) return null;
+  return (
+    <div className="flex-it">
+      <p className="flex-lead">
+        <strong>Flex it.</strong> Some letters have more than one sound. Try the other sound, then ask: is that a word I know?{' '}
+        <Hear text="Some letters have more than one sound. Try the other sound, then ask: is that a word I know?" />
+      </p>
+      {flexes.map((flex) => (
+        <div key={flex.grapheme} className="flex-row">
+          <span className="flex-letter">{flex.grapheme}</span>
+          {flex.options.map((option) => (
+            <button
+              key={option.say}
+              type="button"
+              className="flex-option"
+              onClick={() => speak(`${option.say}. As in ${option.key}.`, { rate: 0.7 })}
+            >
+              <strong>{option.say}</strong>
+              <span>as in {option.key}</span>
+            </button>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function SayStep({ word, onDone, setMood }: { word: Word; onDone: () => void; setMood: (m: SparkyMood) => void }) {
   const [state, setState] = useState<'ready' | 'listening' | 'heard' | 'close' | 'quiet' | 'blocked'>('ready');
   const cancelRef = useRef<() => void>(() => {});
@@ -267,6 +301,7 @@ function SayStep({ word, onDone, setMood }: { word: Word; onDone: () => void; se
           </button>
         )}
       </div>
+      {(state === 'close' || state === 'quiet') && <FlexIt word={word} />}
       {!canListen && <p className="step-note">This browser can’t listen, so Sparky trusts you. Say it out loud!</p>}
     </div>
   );
